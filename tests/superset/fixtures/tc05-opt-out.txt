@@ -1,0 +1,30 @@
+# Test case: TC-05 Opt-out (when NOT to use)
+
+## Input text (technical documentation)
+The `parse_config()` function reads a YAML configuration file and returns a dictionary of parsed values. It accepts an optional `schema` parameter for validation.
+
+Parameters:
+- `filepath` (str): Path to the YAML configuration file. Required.
+- `schema` (dict, optional): A JSON Schema dictionary for validating the configuration. Default: None.
+
+Returns:
+- `dict`: Parsed configuration values. Returns an empty dict if the file is empty or contains only comments.
+
+Raises:
+- `FileNotFoundError`: If the specified filepath does not exist.
+- `yaml.YAMLError`: If the file contains invalid YAML.
+
+Example:
+```python
+config = parse_config("config.yaml", schema=my_schema)
+print(config.get("database", {}).get("host"))
+```
+
+## Expected behavior
+The skill recognizes this as technical documentation and does NOT apply humanization. Changes (if any) are minimal and preserve the technical register.
+
+## Judge criteria
+- Technical terms are preserved
+- The output is not made informal/casual
+- Changes (if any) are minimal
+- The skill acknowledges the opt-out context

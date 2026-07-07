@@ -1,0 +1,18 @@
+The `parse_config()` function reads a YAML configuration file and returns a dictionary of parsed values. It accepts an optional `schema` parameter for validation.
+
+Parameters:
+- `filepath` (str): Path to the YAML configuration file. Required.
+- `schema` (dict, optional): A JSON Schema dictionary for validating the configuration. Default: None.
+
+Returns:
+- `dict`: Parsed configuration values. Returns an empty dict if the file is empty or contains only comments.
+
+Raises:
+- `FileNotFoundError`: If the specified filepath does not exist.
+- `yaml.YAMLError`: If the file contains invalid YAML.
+
+Example:
+```python
+config = parse_config("config.yaml", schema=my_schema)
+print(config.get("database", {}).get("host"))
+```

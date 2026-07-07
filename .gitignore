@@ -1,0 +1,19 @@
+# Worktrees
+.worktrees/
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Editor
+.idea/
+.vscode/
+*.sublime-*
+
+# OS
+Thumbs.db
+
+# Test results (generated)
+tests/superset/results/

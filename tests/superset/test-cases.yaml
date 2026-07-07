@@ -1,0 +1,117 @@
+# Superset Skill Test Cases
+# YAML definition for the non-deterministic evaluation harness.
+
+test_cases:
+
+  - id: "TC-01"
+    name: "Happy path (standard rewrite)"
+    input: "tc01-happy-path.txt"
+    mode: "rewrite"
+    description: >
+      Standard rewrite of AI-slop text. Output should read as human-written
+      with no em dashes, no "it's not X it's Y", no "let's" transitions,
+      no "it's worth noting", no "in conclusion", and varied sentence length.
+    judge_criteria:
+      - "No em dashes present"
+      - "No 'it's not X it's Y' constructions"
+      - "No 'let's dive/explore/break' transitions"
+      - "No 'it's worth noting' or 'in conclusion'"
+      - "Sentence length varies (not all 15-25 words)"
+      - "Reads as a person wrote it (subjective, 1-5 scale, pass >= 3)"
+
+  - id: "TC-02"
+    name: "Detect mode (flag only)"
+    input: "tc02-detect-mode.txt"
+    mode: "detect"
+    description: >
+      Flag-only mode. Should identify and list AI patterns without rewriting
+      the text. Original text is preserved. Patterns are grouped by severity.
+    judge_criteria:
+      - "Original text is preserved (not rewritten)"
+      - "At least 3 AI patterns are identified"
+      - "Patterns are grouped or categorized"
+      - "No rewritten version is produced"
+
+  - id: "TC-03"
+    name: "Edit mode (in-place)"
+    input: "tc03-edit-mode.txt"
+    mode: "edit"
+    description: >
+      In-place file editing. Should make minimal, targeted edits to flagged
+      spans. Already-human passages are left untouched. Changes are reported.
+    judge_criteria:
+      - "Changes are minimal (not a full rewrite)"
+      - "Already-human passages are preserved"
+      - "Changes are reported with before/after"
+      - "Flagged patterns are resolved"
+
+  - id: "TC-04"
+    name: "Voice calibration"
+    input: "tc04-voice-calibration.txt"
+    mode: "rewrite"
+    voice_sample: "tc04-voice-sample.txt"
+    description: >
+      Rewrite with a provided writing sample. Output should match the sample's
+      voice — short sentences, casual register, first-person perspective.
+      Should not "upgrade" the sample's vocabulary.
+    judge_criteria:
+      - "Output matches the sample's sentence length pattern (short, punchy)"
+      - "Output matches the sample's register (casual, conversational)"
+      - "First-person perspective is present where appropriate"
+      - "Vocabulary is not upgraded beyond the sample's level"
+
+  - id: "TC-05"
+    name: "Opt-out (when NOT to use)"
+    input: "tc05-opt-out.txt"
+    mode: "rewrite"
+    description: >
+      Technical documentation text. The skill should recognize this as
+      technical writing and NOT apply humanization. Changes (if any) should
+      be minimal and preserve the technical register.
+    judge_criteria:
+      - "Technical terms are preserved"
+      - "The output is not made informal/casual"
+      - "Changes (if any) are minimal"
+      - "The skill acknowledges the opt-out context"
+
+  - id: "TC-06"
+    name: "Convergence (iterate)"
+    input: "tc06-convergence.txt"
+    mode: "rewrite"
+    description: >
+      Heavy pattern density. The skill should produce a rewrite, then
+      self-audit and fix remaining tells. The final output should have
+      fewer patterns than the first pass.
+    judge_criteria:
+      - "A second-pass audit is performed"
+      - "Remaining tells from the first pass are fixed"
+      - "The final output has fewer patterns than the first pass"
+      - "The process is reported (what changed in the second pass)"
+
+  - id: "TC-07"
+    name: "Ethics framing"
+    input: "tc07-ethics-framing.txt"
+    mode: "rewrite"
+    description: >
+      Ambiguous text that could be non-native English or AI. The skill should
+      acknowledge the probabilistic nature of detection, not over-flag, and
+      frame output as "signals, not proof."
+    judge_criteria:
+      - "The output includes or references the ethics framing"
+      - "False positives are acknowledged as possible"
+      - "The skill does not make definitive claims about AI authorship"
+      - "Non-native English patterns are handled with care"
+
+  - id: "TC-08"
+    name: "Adversarial (non-native English)"
+    input: "tc08-adversarial.txt"
+    mode: "rewrite"
+    description: >
+      Human-written text by a non-native English speaker. The skill should be
+      conservative — flag fewer patterns and acknowledge that patterns may be
+      second-language constructions rather than AI tells.
+    judge_criteria:
+      - "Fewer than 3 patterns are flagged (conservative)"
+      - "The output acknowledges possible second-language origin"
+      - "The original meaning is preserved"
+      - "The skill does not 'correct' non-native grammar aggressively"

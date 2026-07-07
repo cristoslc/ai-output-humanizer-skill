@@ -1,0 +1,22 @@
+# Test case: TC-03 Edit mode (in-place)
+
+## Input file (simulated)
+Path: /tmp/draft.md
+
+Content:
+In today's rapidly evolving digital landscape, it's important to note that effective communication is more critical than ever. Whether you're a seasoned professional or just starting out, the way you convey ideas can make or break your success.
+
+Let's dive into the art of writing. It's not just about stringing words together; rather, it's about crafting a narrative that resonates. The best writers don't just write — they craft, they hone, they iterate. This trifecta of habits is what separates good from great.
+
+It's worth noting that many people overlook the power of structure. A well-structured piece doesn't just inform; it guides the reader on a journey. From the hook to the conclusion, every element serves as a building block toward a singular goal: clarity.
+
+In conclusion, mastering communication is a journey, not a destination. By embracing these principles, you'll be well-equipped to navigate the complexities of modern writing. Remember: the pen is mightier than the sword, but only when wielded with intention.
+
+## Expected behavior
+The skill should make minimal, targeted edits to flagged spans. Already-human passages are left untouched. Changes are reported with before/after.
+
+## Judge criteria
+- Changes are minimal (not a full rewrite)
+- Already-human passages are preserved
+- Changes are reported with before/after
+- Flagged patterns are resolved

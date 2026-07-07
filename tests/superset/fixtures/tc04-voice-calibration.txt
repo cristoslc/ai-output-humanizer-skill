@@ -1,0 +1,20 @@
+# Test case: TC-04 Voice calibration
+
+## Writing sample (voice to match)
+I've been thinking about this for a while. The thing is, most advice about writing is just noise. People love to tell you rules, but rules don't make good writing. Reading good writing does. That's it. That's the whole trick.
+
+Read a lot. Write a lot. Throw most of it away. The stuff that survives — that's your voice.
+
+## Input text to humanize
+In today's rapidly evolving digital landscape, it's important to note that effective communication is more critical than ever. Whether you're a seasoned professional or just starting out, the way you convey ideas can make or break your success.
+
+Let's dive into the art of writing. It's not just about stringing words together; rather, it's about crafting a narrative that resonates. The best writers don't just write — they craft, they hone, they iterate. This trifecta of habits is what separates good from great.
+
+## Expected behavior
+Output matches the sample's voice — short sentences, casual register, first-person perspective. Does not "upgrade" the sample's vocabulary.
+
+## Judge criteria
+- Output matches the sample's sentence length pattern (short, punchy)
+- Output matches the sample's register (casual, conversational)
+- First-person perspective is present where appropriate
+- Vocabulary is not upgraded beyond the sample's level
