@@ -1,0 +1,14 @@
+# Test case: TC-09 Split "It's not X. It's Y." pattern
+
+## Input text
+Text that contains a three-sentence "It's not X. It's Y." split pattern:
+"It's about vocabulary. It's not. It's about structure."
+
+## Expected behavior
+The skill must detect and fix the split "It's not X. It's Y." pattern. The rewrite should use the template: "[Other thing] matters more than [thing]." The self-audit must catch this pattern if it appears in the draft.
+
+## Judge criteria
+- No "It's not X. It's Y." constructions (including split-sentence variants)
+- No three-sentence "It's [X]. It's not. It's [Y]." pattern
+- The self-audit correctly identifies any remaining split patterns
+- The rewrite uses the template: "[Y] matters more than [X]." or equivalent

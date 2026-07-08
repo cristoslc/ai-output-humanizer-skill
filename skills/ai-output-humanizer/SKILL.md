@@ -32,7 +32,7 @@ The patterns are useful as a signal — both for cleaning up your own writing an
 
 **Signals, not proof.** Worth acting on; not worth ruining someone's day over.
 
-**You MUST include this ethics framing in your output** — state that these are signals, not proof, and that false positives are possible, especially for non-native English writers. This is not optional.
+**You MUST include this ethics framing in your output** — state that these are signals, not proof, and that false positives are possible, especially for non-native English writers. This is not optional. The ethics note MUST NOT make definitive claims about AI authorship — never say "not AI-generated," "definitely human," "clearly human-written," or any equivalent. Always frame as probabilistic: "may be," "could be," "reads as."
 
 ## When NOT to use this skill
 
@@ -49,9 +49,11 @@ When in doubt, ask the writer whether this text should be humanized.
 
 Text with non-native English markers (missing articles, unusual word order, stilted phrasing, grammatical errors) MUST be handled conservatively:
 - Flag ZERO patterns. Do not list any AI-isms. The text is human-written by a non-native speaker.
-- State explicitly: "This text has markers of non-native English writing, not AI generation. No AI patterns to flag."
+- State explicitly: "This text reads as non-native English writing. Patterns may reflect second-language constructions rather than AI generation."
 - Do NOT correct grammar aggressively — preserve the writer's voice and meaning
 - If the writer explicitly asks for help, offer minimal suggestions as optional improvements, not as AI-pattern fixes
+
+**CRITICAL: If the input text has non-native English markers, you MUST NOT list any AI patterns or issues. Do not produce an "Issues found" section. You MAY produce a light rewrite that preserves the writer's voice while fixing only the most distracting grammar issues, but you must NOT frame any changes as AI-pattern fixes. Always include the ethics note. If the text has only mild non-native markers (a few missing articles or inverted word orders), treat it as a light polish pass, not a full humanization — and still do NOT list any issues.**
 
 ## Modes
 
@@ -69,27 +71,33 @@ Trigger detect mode on "detect," "flag only," "audit only," "just flag," "scan."
 
 ### Rewrite mode
 
-**EM DASH RULE: ZERO em dashes (— or --) anywhere in your entire output — not in the rewritten text, not in the issues list, not in the self-audit, not in the ethics note. Replace every em dash with one of these: a period (start a new sentence), a comma (tight aside), a colon (introducing an explanation), or restructure the sentence. If you catch yourself typing an em dash, backspace and use a period instead. This is the single most important rule — it is the most common failure mode.**
+**EM DASH RULE: ZERO em dashes (— or --) anywhere in your entire output — not in the rewritten text, not in the issues list, not in the self-audit, not in the ethics note. When quoting original text that contains em dashes, replace them with a comma or period in the quote. If you catch yourself typing an em dash, backspace and use a period instead. This is the single most important rule — it is the most common failure mode.**
 
 1. **Audit** — identify every AI-ism present, citing the specific text
 2. **Draft rewrite** — produce a clean version with all AI-isms removed. Use periods instead of em dashes.
-3. **Self-audit (MANDATORY)** — re-read your draft. Identify every remaining AI tell: recycled transitions, lingering inflation, copula avoidance, filler phrases, "it's not X it's Y" constructions, EM DASHES (scan every line for — or -- — this is the most common failure mode), or anything else from the pattern catalog. List each one. Do NOT skip this step.
+3. **Self-audit (MANDATORY)** — re-read your draft. Identify every remaining AI tell: recycled transitions, lingering inflation, copula avoidance, filler phrases, "it's not X it's Y" constructions (including the three-sentence variant: "It's [X]. It's not. It's [Y]." and the variant "It's [X]. It's not. [Y] matters more."), EM DASHES (scan every line for — or -- — this is the most common failure mode), or anything else from the pattern catalog. List each one. Do NOT skip this step. Be thorough: scan for clichés from the original that may have survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and any definitive claims about AI authorship ("not AI-generated," "definitely human," "already human-sounding").
 4. **Final rewrite** — address every remaining tell from the self-audit. Before delivering, scan the final rewrite for em dashes (— or --). If any remain, fix them. This is a hard rule: ZERO em dashes in the final output.
 5. **Diff summary** — briefly list what changed and why
 
 **Pre-delivery checklist.** Before returning ANY output, verify EVERY item. If any item fails, fix it before delivering:
-- [ ] ZERO em dashes (— or --) anywhere in the text
-- [ ] No "it's not X, it's Y" constructions (including split-sentence: "It's not X. It's Y.")
+- [ ] ZERO em dashes (— or --) anywhere in the text (including quoted text from the original)
+- [ ] No "it's not X, it's Y" constructions (including split-sentence: "It's not X. It's Y." and three-sentence: "It's X. It's not. It's Y." or "It's X. It's not. Y matters more.")
 - [ ] No "let's dive/explore/break" transitions
 - [ ] No "it's worth noting" or "in conclusion"
 - [ ] Sentence length varies (not all 15-25 words)
 - [ ] Self-audit was performed and remaining tells were fixed
+- [ ] If input has non-native English markers: NO "Issues found" section, NO pattern listing
+- [ ] If voice calibration was used: no sentence exceeds 1.5x the sample's average sentence length; first person matches the sample; vocabulary level matches the sample
+- [ ] No definitive claims about AI authorship: never say "not AI-generated," "definitely human," "clearly human-written," "already human-sounding" (use "may be," "could be," "reads as")
+- [ ] No remaining clichés from the original: "journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"
+- [ ] No remaining rule-of-three constructions (including fragment form: "They X. They Y. They Z.")
 
 **Final scan:** After writing your entire output, search for these patterns and fix them:
 1. `—` or `--` → replace with `.` (period)
 2. `It's not` or `This isn't` or `is not` followed by `.` then `It's` or `It is` → rewrite as a single positive statement
+3. Any three-sentence sequence where the first sentence says "It's [X]" or "It is [X]" or "They think it's [X]", the second sentence is "It's not." or "It isn't." or "It doesn't." or "It is not.", and the third sentence says "It's [Y]" or "It is [Y]" or "[Y] matters" or "[Y] is" → rewrite as a single positive statement using the template below
 
-**REWRITE TEMPLATE for "It's not X. It's Y.":** If you find yourself writing "It's not about [thing]. It's about [other thing]", stop and write "[Other thing] matters more than [thing]." instead. For example: "It's not about vocabulary. It's about structure." becomes "Structure matters more than vocabulary."
+**REWRITE TEMPLATE for "It's not X. It's Y.":** If you find yourself writing "It's not about [thing]. It's about [other thing]" or the three-sentence variant "It's about [thing]. It's not. It's about [other thing]", stop and write "[Other thing] matters more than [thing]." instead. For example: "It's not about vocabulary. It's about structure." becomes "Structure matters more than vocabulary." The three-sentence variant "It's about vocabulary. It's not. It's about structure." also becomes "Structure matters more than vocabulary."
 
 The self-audit and final rewrite are MANDATORY. Do not skip them. If the draft is clean, say so explicitly.
 
@@ -124,7 +132,7 @@ If the writer provides a writing sample, analyze it before rewriting:
 - Recurring phrases or verbal tics
 - How they handle transitions
 
-Match their voice in the rewrite. Don't just remove AI patterns — replace them with patterns from the sample. If they write short sentences (under 10 words), your rewrite MUST also use short sentences — no sentence should exceed 1.5x the sample's average sentence length. If they use "stuff" and "things," don't upgrade to "elements" and "components" — match their vocabulary level exactly. If the sample uses first person, the rewrite MUST use first person too. If the sample uses contractions, the rewrite MUST use contractions too. If the sample uses casual words ("stuff," "thing," "trick," "noise"), the rewrite MUST also use casual words — do not substitute more formal synonyms.
+Match their voice in the rewrite. Don't just remove AI patterns — replace them with patterns from the sample. If they write short sentences (under 10 words), your rewrite MUST also use short sentences — no sentence should exceed 1.5x the sample's average sentence length. If the sample averages 5 words per sentence, your longest sentence must be at most 7-8 words. Count the words in every sentence of your draft. If any sentence exceeds the limit, split it or cut it. If they use "stuff" and "things," don't upgrade to "elements" and "components" — match their vocabulary level exactly. If the sample uses first person, the rewrite MUST use first person too. If the sample uses contractions, the rewrite MUST use contractions too. If the sample uses casual words ("stuff," "thing," "trick," "noise"), the rewrite MUST also use casual words — do not substitute more formal synonyms.
 
 ### Named profiles
 

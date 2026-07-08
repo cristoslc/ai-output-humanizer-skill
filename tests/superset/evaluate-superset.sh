@@ -86,9 +86,12 @@ register_tc "TC-07" "Ethics framing" "tc07-ethics-framing.txt" "rewrite" "" \
 register_tc "TC-08" "Adversarial (non-native)" "tc08-adversarial.txt" "rewrite" "" \
   "Zero patterns flagged|Second-language origin acknowledged|Original meaning preserved|Grammar not aggressively corrected"
 
+register_tc "TC-09" "Split It's not X It's Y pattern" "tc09-split-its-not.txt" "rewrite" "" \
+  "No split It is not X It is Y constructions|No three-sentence It is X It is not It is Y pattern|Self-audit identifies split patterns|Rewrite uses template Y matters more than X"
+
 # Determine which test cases to run
 ALL_TCS=()
-for id in "TC-01" "TC-02" "TC-04" "TC-05" "TC-06" "TC-07" "TC-08"; do
+for id in "TC-01" "TC-02" "TC-04" "TC-05" "TC-06" "TC-07" "TC-08" "TC-09"; do
   ALL_TCS+=("$id")
 done
 
@@ -202,14 +205,21 @@ judge_output() {
   local tmp
   tmp=$(mktemp -d)
 
+  # Write data to temp files to avoid shell quoting issues
+  echo "$input_text" > "${tmp}/input.txt"
+  echo "$output_text" > "${tmp}/output.txt"
+  echo "$criteria" > "${tmp}/criteria.txt"
+  echo "${TC_NAME[$tc_id]}" > "${tmp}/tc_name.txt"
+  echo "${TC_MODE[$tc_id]}" > "${tmp}/tc_mode.txt"
+
   python3 -c "
-import sys
+import json, os
 skill = open('${SKILL_MD}').read()
-inp = '''${input_text}'''
-out = '''${output_text}'''
-criteria = '''${criteria}'''
-tc_name = '''${TC_NAME[$tc_id]}'''
-tc_mode = '''${TC_MODE[$tc_id]}'''
+inp = open('${tmp}/input.txt').read()
+out = open('${tmp}/output.txt').read()
+criteria = open('${tmp}/criteria.txt').read()
+tc_name = open('${tmp}/tc_name.txt').read().strip()
+tc_mode = open('${tmp}/tc_mode.txt').read().strip()
 
 prompt = f'''You are a strict judge evaluating an AI-output-humanizer skill.
 
@@ -234,7 +244,7 @@ Judge criteria:
 Score the output against the judge criteria. Return STRICT JSON only — no prose, no markdown fences.
 
 Use this schema:
-{{"result": "pass"|"fail"|"skip", "reason": "explanation", "confidence": 0.0-1.0}}
+{{\"result\": \"pass\"|\"fail\"|\"skip\", \"reason\": \"explanation\", \"confidence\": 0.0-1.0}}
 '''
 print(prompt)
 " > "${tmp}/judge-prompt.md"
@@ -305,8 +315,11 @@ for tc in "${RUN_CASES[@]}"; do
       TC_PASS=$((TC_PASS + 1))
     fi
 
+    echo "$reason" > "${RESULTS_DIR}/${tc}/reason-${run}.txt"
+
     python3 -c "
 import json
+reason = open('${RESULTS_DIR}/${tc}/reason-${run}.txt').read()
 log = open('${SESSION_LOG}', 'a')
 log.write(json.dumps({
   'type': 'case-run',
@@ -316,7 +329,7 @@ log.write(json.dumps({
   'k': ${K},
   'result': '${result}',
   'confidence': ${confidence},
-  'reason': '''${reason}''',
+  'reason': reason,
   'timestamp': '$(date -u +%Y-%m-%dT%H:%M:%SZ)'
 }) + '\n')
 log.close()
