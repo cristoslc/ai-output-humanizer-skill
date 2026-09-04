@@ -88,6 +88,7 @@ These words are legitimate on their own. When two or more show up together, the 
 | navigate / navigating | work through, handle, deal with |
 | foster | encourage, support, build |
 | elevate | improve, raise, strengthen |
+| lifted | raised, increased, grew, accelerated (or name the actual delta) |
 | unleash | release, enable, unlock |
 | streamline | simplify, speed up |
 | empower | enable, let, allow |

@@ -45,14 +45,26 @@ Cut or replace "worth reading," "worth paying attention to," "worth a look," "wo
 ### "Make X land" / impact-verb placeholders
 "Make the concepts land," "makes the point hit," "that's where the argument lands," "this lands differently." "Land" (and siblings like "hit," "resonate," "stick," "work") used as a placeholder for the actual effect: the claim of impact substitutes for describing what happens in the reader's head. Replace with the concrete effect or the specific content that does the work: not "the submarine stories make the concepts land" but "the submarine stories are what make the rungs and the oscillation concrete." If you can't name what specifically lands, the sentence is asserting impact it hasn't earned — cut or concretize.
 
+### Vague validity/status verbs
+"Still holds," "remains the case," "continues to apply," "stands as discussed" — abstract stand-ins for restating the actual fact. Asserting that something is valid isn't the same as saying it. Cut the status verb and state the thing directly: not "the $220K figure still holds" but "$220K works."
+
 ### Hedging
 Cut perhaps, could potentially, it's important to note that, to be clear. Make the point directly.
+
+### Self-announcing honesty frames
+"the honest gap," "honestly," "stated plainly," "to be clear," "let's be clear," "I'll be direct," "I'll be honest," "if I'm being honest" — meta-frames that announce candor instead of being candid. A plain statement of the fact *is* the candor; the label is filler. Cut the frame and state the point directly: not "The honest gap, stated plainly: I do not write production code day to day" but "I do not write production code day to day." The honesty-label pattern is most common when a writer is about to state a weakness or a concession, which is exactly when the reader is most alert to whether the candor is real. (Canonical in project-spoke `ai-writing-tells.md` § "Self-announcing honesty frames"; operator 2026-08-06.)
+
+### Negative honesty assertions ("I won't claim X I don't have")
+"I am not going to claim X I do not have," "I won't pretend to know Y," "I'm not going to oversell this" — asserting what you *won't* claim is the same meta-frame as labeling candor: it advertises integrity instead of letting the plain statement carry it. Stating the fact directly ("I have no recent React production work") reads as more honest than declaring you're too honest to claim it. A writer doing this often intends a soft concession; make the concession plain instead. If the point is simply that you don't have the experience, say so and move on.
 
 ### Missing bridge sentences
 Each paragraph should connect to the last. If paragraphs could be rearranged without the reader noticing, add connective tissue.
 
+### Single-sentence overload
+A sentence that stacks an em dash aside, a parenthetical, and a subordinate clause is doing four sentences' work in one, and the long subject-verb distance it creates reads as a grammar error even when technically correct. If a sentence contains an em dash AND a parenthetical AND a subordinate clause, split it.
+
 ### Compulsive rule of three
-Vary groupings. Use two items, four items, or a full sentence instead of triads. Max one "adjective, adjective, and adjective" pattern per piece.
+Vary groupings. Use two items, four items, or a full sentence instead of triads. Max one "adjective, adjective, and adjective" pattern per piece. Also catches the disguised form: a parenthetical or appositive enumerating exactly three named entities with parallel role descriptions, e.g. "the three centers (A's X, B's Y, and C's Z)." Same forced-triad shape, just wearing parentheses instead of commas — fix the same way: a full sentence per item, or cut to two.
 
 ### Negative parallelisms
 "It's not just about X, it's about Y" constructions. Also tailing-negation fragments: "no guessing," "no wasted motion" tacked onto the end of a sentence.
@@ -199,6 +211,9 @@ AI rotates synonyms to avoid repeating a word: "developers… engineers… pract
 
 ### Filler phrases
 "It is important to note that," "In terms of," "The reality is that" — mechanical padding.
+
+### Recap-then-hollow-tail acknowledgment
+Restating what someone just told you back to them, then closing with a low-content tail like "which I didn't have going in," "which was new information for me," or "that I hadn't considered." The thanks already implies the value; recapping their point and then flagging that it was new is redundant twice over. State the thanks once, without the recap or the tail: "Thanks for explaining X" carries the same meaning in a third of the words.
 
 ### Hashtag stuffing
 6+ hashtags on a single short post. Fix: 2-3 specific tags max.
