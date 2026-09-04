@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Pattern: "make X land" / impact-verb placeholders (land/hit/resonate/stick as substitutes for the concrete effect)
+
+### Added
+
 - Initial skill scaffold with rewrite, detect, and edit modes
 - Pattern catalog, vocabulary tiers, tolerance matrix, and examples
 - Voice calibration from writing sample or named profiles

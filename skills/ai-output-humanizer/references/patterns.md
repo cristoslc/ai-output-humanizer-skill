@@ -42,6 +42,9 @@ Cut genuine/genuinely, real (as in "a real improvement"), truly, quite frankly, 
 ### Vague endorsement ("worth [verb]ing")
 Cut or replace "worth reading," "worth paying attention to," "worth a look," "worth exploring," "worth checking out," "worth your time." Say why something matters instead.
 
+### "Make X land" / impact-verb placeholders
+"Make the concepts land," "makes the point hit," "that's where the argument lands," "this lands differently." "Land" (and siblings like "hit," "resonate," "stick," "work") used as a placeholder for the actual effect: the claim of impact substitutes for describing what happens in the reader's head. Replace with the concrete effect or the specific content that does the work: not "the submarine stories make the concepts land" but "the submarine stories are what make the rungs and the oscillation concrete." If you can't name what specifically lands, the sentence is asserting impact it hasn't earned — cut or concretize.
+
 ### Hedging
 Cut perhaps, could potentially, it's important to note that, to be clear. Make the point directly.
 
