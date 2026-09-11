@@ -6,12 +6,12 @@
 
 1. `skills/ai-output-humanizer/references/patterns.md` — new "Parenthetical overuse" entry under Sentence structure, immediately after "Parenthetical hedging" (patterns.md:130). Near-zero target, hard max 2 instances per 1,000 words counting open parens; fix menu (cut, comma pair, own sentence, fold in); exemptions (code, citations, technical notation, quoted material, voice-sample density cap); cross-references to "Single-sentence overload" and "Compulsive rule of three" as covering the stacked/parenthetical forms.
 2. `skills/ai-output-humanizer/references/tolerance-matrix.md` — row `Parenthetical overuse`: linkedin skip, blog strict, technical-blog relaxed (notation parens OK), investor-email strict, docs relaxed (parameter/notation parens OK), casual skip (line 28).
-3. `skills/ai-output-humanizer/SKILL.md` — five touchpoints: sentence-structure bullet with the 2-per-1,000 hard max (line 169); severity P2 (line 201); EM DASH RULE paragraph extended with displacement language and aside-family self-audit (line 74); pre-delivery checklist parenthetical density scan (line 94); rewrite-mode final scan item 4, counting `(` instances with over-max-means-fix (line 100).
+3. `skills/ai-output-humanizer/SKILL.md` — five touchpoints: sentence-structure bullet with the 2-per-1,000 hard max (line 169); severity P2 (line 201); EM DASH RULE paragraph extended with displacement language and aside-family self-audit (line 74); pre-delivery checklist parenthetical density scan (line 94); rewrite-mode closing scan item 4, counting `(` instances with over-max-means-fix (line 100).
 4. `tests/superset/test-cases.yaml` — judge criterion "Rewritten prose has at most 2 parenthetical instances per 1,000 words (code/notation/quotes exempt)" appended to TC-01 and TC-06 judge_criteria. `tests/superset/test-cases.md` — same criterion mirrored in both TCs' Judge criteria lists. `judge-prompt.md` uses a generic `{{TEST_CASE}}` template with no per-TC criteria enumeration, so it was not touched; `tests/README.md` lists only what each TC tests, not criteria, so it was not touched.
 
 ## Verification
 
-Grep: "Parenthetical overuse" hits SKILL.md (2 lines), patterns.md (1), tolerance-matrix.md (1), test-cases.yaml (2 criterion lines); checklist and final-scan items also hit on "parenthetical instances".
+Grep: "Parenthetical overuse" hits SKILL.md (2 lines), patterns.md (1), tolerance-matrix.md (1), test-cases.yaml (2 criterion lines); checklist and closing-scan items also hit on "parenthetical instances".
 
 Test runs (k=3, from worktree, commit d3814d3):
 
@@ -22,7 +22,7 @@ No judge objection contradicted the new criterion, so no re-run was needed under
 
 ## Deviations
 
-- None from plan content. One interpretation note: in test outputs, parentheses in the reporting scaffolding (issues list, self-audit) are not "rewritten prose" and the judge scored them accordingly; the SKILL.md final-scan wording ("count `(` instances in the rewritten prose") already scopes the count the same way.
+- None from plan content. One interpretation note: in test outputs, parentheses in the reporting scaffolding (issues list, self-audit) are not "rewritten prose" and the judge scored them accordingly; the SKILL.md closing-scan wording ("count `(` instances in the rewritten prose") already scopes the count the same way.
 - results/ files left uncommitted (gitignored) as instructed.
 
 Commits landing this work: e08bd6a (skill + references), bb0725c (test criteria), plus chronicle entries 12740d2 and d3814d3.
