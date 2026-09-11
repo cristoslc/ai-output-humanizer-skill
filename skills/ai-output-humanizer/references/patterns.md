@@ -5,7 +5,7 @@ Full catalog of AI writing patterns to detect and fix. Each pattern includes wha
 ## Formatting tells
 
 ### Em dashes
-Replace with commas, periods, parentheses, or rewrite as two sentences. Target: zero. Hard max: one per 1,000 words. Catch both Unicode em dash (—) and double-hyphen (--).
+Replace with commas, periods, or rewrite as two sentences. Target: zero. Hard max: one per 1,000 words. Catch both Unicode em dash (—) and double-hyphen (--).
 
 ### Bold overuse
 Strip bold from most phrases. One bolded phrase per major section at most. If something's important enough to bold, restructure the sentence to lead with it instead.

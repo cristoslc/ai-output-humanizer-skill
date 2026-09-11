@@ -91,13 +91,13 @@ Trigger detect mode on "detect," "flag only," "audit only," "just flag," "scan."
 - [ ] No definitive claims about AI authorship: never say "not AI-generated," "definitely human," "clearly human-written," "already human-sounding" (use "may be," "could be," "reads as")
 - [ ] No remaining clichés from the original: "journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"
 - [ ] No remaining rule-of-three constructions (including fragment form: "They X. They Y. They Z.")
-- [ ] Parenthetical density scan: at most 2 parenthetical instances per 1,000 words in rewritten prose (code, technical notation, and quoted material are exempt)
+- [ ] Parenthetical density scan: at most 2 parenthetical instances per 1,000 words in rewritten prose (code, technical notation, citations, and quoted material are exempt; voice-calibrated rewrites cap at the writing sample's own parenthetical density)
 
 **Final scan:** After writing your entire output, search for these patterns and fix them:
 1. `—` or `--` → replace with `.` (period)
 2. `It's not` or `This isn't` or `is not` followed by `.` then `It's` or `It is` → rewrite as a single positive statement
 3. Any three-sentence sequence where the first sentence says "It's [X]" or "It is [X]" or "They think it's [X]", the second sentence is "It's not." or "It isn't." or "It doesn't." or "It is not.", and the third sentence says "It's [Y]" or "It is [Y]" or "[Y] matters" or "[Y] is" → rewrite as a single positive statement using the template below
-4. Count `(` instances in the rewritten prose (excluding code blocks, technical notation, and quoted material). More than 2 per 1,000 words means fix before delivery.
+4. Count `(` instances in the rewritten prose (excluding code blocks, technical notation, citations, and quoted material; voice-calibrated rewrites cap at the writing sample's own parenthetical density). More than 2 per 1,000 words means fix before delivery.
 
 **REWRITE TEMPLATE for "It's not X. It's Y.":** If you find yourself writing "It's not about [thing]. It's about [other thing]" or the three-sentence variant "It's about [thing]. It's not. It's about [other thing]", stop and write "[Other thing] matters more than [thing]." instead. For example: "It's not about vocabulary. It's about structure." becomes "Structure matters more than vocabulary." The three-sentence variant "It's about vocabulary. It's not. It's about structure." also becomes "Structure matters more than vocabulary."
 
