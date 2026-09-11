@@ -16,6 +16,7 @@ Eight test cases for non-deterministic evaluation of the ai-output-humanizer ski
 - No "let's dive/explore/break" transitions
 - No "it's worth noting" or "in conclusion"
 - Sentence length varies (not all 15-25 words)
+- Rewritten prose has at most 2 parenthetical instances per 1,000 words (code/notation/quotes exempt)
 - Reads as a person wrote it (subjective, 1-5 scale, pass >= 3)
 
 ### TC-02: Detect mode (flag only)
@@ -77,6 +78,7 @@ Eight test cases for non-deterministic evaluation of the ai-output-humanizer ski
 - Remaining tells from the first pass are fixed
 - The final output has fewer patterns than the first pass
 - The process is reported (what changed in the second pass)
+- Rewritten prose has at most 2 parenthetical instances per 1,000 words (code/notation/quotes exempt)
 
 ### TC-07: Ethics framing
 
