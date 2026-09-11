@@ -71,7 +71,7 @@ Trigger detect mode on "detect," "flag only," "audit only," "just flag," "scan."
 
 ### Rewrite mode
 
-**EM DASH RULE: ZERO em dashes (— or --) anywhere in your entire output — not in the rewritten text, not in the issues list, not in the self-audit, not in the ethics note. When quoting original text that contains em dashes, replace them with a comma or period in the quote. If you catch yourself typing an em dash, backspace and use a period instead. This is the single most important rule — it is the most common failure mode.**
+**EM DASH RULE: ZERO em dashes (— or --) anywhere in your entire output — not in the rewritten text, not in the issues list, not in the self-audit, not in the ethics note. When quoting original text that contains em dashes, replace them with a comma or period in the quote. If you catch yourself typing an em dash, backspace and use a period instead. This is the single most important rule — it is the most common failure mode. Watch for displacement: banning one aside mechanism can inflate its substitutes (parentheticals, semicolons), so the self-audit must scan the aside family — parenthetical density in particular — not just em dashes.**
 
 1. **Audit** — identify every AI-ism present, citing the specific text
 2. **Draft rewrite** — produce a clean version with all AI-isms removed. Use periods instead of em dashes.
@@ -91,11 +91,13 @@ Trigger detect mode on "detect," "flag only," "audit only," "just flag," "scan."
 - [ ] No definitive claims about AI authorship: never say "not AI-generated," "definitely human," "clearly human-written," "already human-sounding" (use "may be," "could be," "reads as")
 - [ ] No remaining clichés from the original: "journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"
 - [ ] No remaining rule-of-three constructions (including fragment form: "They X. They Y. They Z.")
+- [ ] Parenthetical density scan: at most 2 parenthetical instances per 1,000 words in rewritten prose (code, technical notation, citations, and quoted material are exempt; voice-calibrated rewrites cap at the writing sample's own parenthetical density)
 
 **Final scan:** After writing your entire output, search for these patterns and fix them:
 1. `—` or `--` → replace with `.` (period)
 2. `It's not` or `This isn't` or `is not` followed by `.` then `It's` or `It is` → rewrite as a single positive statement
 3. Any three-sentence sequence where the first sentence says "It's [X]" or "It is [X]" or "They think it's [X]", the second sentence is "It's not." or "It isn't." or "It doesn't." or "It is not.", and the third sentence says "It's [Y]" or "It is [Y]" or "[Y] matters" or "[Y] is" → rewrite as a single positive statement using the template below
+4. Count `(` instances in the rewritten prose (excluding code blocks, technical notation, citations, and quoted material; voice-calibrated rewrites cap at the writing sample's own parenthetical density). More than 2 per 1,000 words means fix before delivery.
 
 **REWRITE TEMPLATE for "It's not X. It's Y.":** If you find yourself writing "It's not about [thing]. It's about [other thing]" or the three-sentence variant "It's about [thing]. It's not. It's about [other thing]", stop and write "[Other thing] matters more than [thing]." instead. For example: "It's not about vocabulary. It's about structure." becomes "Structure matters more than vocabulary." The three-sentence variant "It's about vocabulary. It's not. It's about structure." also becomes "Structure matters more than vocabulary."
 
@@ -164,7 +166,7 @@ See `references/tolerance-matrix.md` for the full per-rule strictness table.
 The full pattern catalog is in `references/patterns.md`. Key categories:
 
 - **Formatting tells**: em dashes (HARD RULE: ZERO em dashes in the final output. Replace every em dash with a comma, period, or restructure the sentence. The self-audit MUST check for em dashes specifically. If any remain, fix them before delivering the final rewrite.), bold overuse, emoji in headers, excessive bullets, title case headings, curly quotes
-- **Sentence structure**: "It's not X — it's Y", hollow intensifiers, hedging, missing bridge sentences, compulsive rule of three
+- **Sentence structure**: "It's not X — it's Y", hollow intensifiers, hedging, missing bridge sentences, compulsive rule of three, parenthetical overuse (near-zero target; hard max 2 parenthetical instances per 1,000 words in rewritten prose — count open parens, not characters)
 - **Vocabulary**: 3-tier system (Tier 1 always flag, Tier 2 flag in clusters, Tier 3 flag at density) — see `references/vocabulary-tiers.md`
 - **Template phrases**: slot-fill constructions, transition phrases, generic conclusions
 - **Structural issues**: uniform paragraph length, formulaic openings, suspiciously clean grammar
@@ -196,7 +198,7 @@ The full pattern catalog is in `references/patterns.md`. Key categories:
 
 **P1 — Obvious AI smell** (fix before publishing): word-list violations, template phrases, "let's" transition openers, synonym cycling, formulaic openings, bold overuse, em dash frequency, generic future-narrative closers, hedge-stacked predictions, hashtag stuffing (6+), bullet lists of bare noun phrases.
 
-**P2 — Stylistic polish** (fix when time allows): generic conclusions, compulsive rule of three, uniform paragraph length, copula avoidance, transition phrases.
+**P2 — Stylistic polish** (fix when time allows): generic conclusions, compulsive rule of three, uniform paragraph length, copula avoidance, transition phrases, parenthetical overuse.
 
 ## Output format
 

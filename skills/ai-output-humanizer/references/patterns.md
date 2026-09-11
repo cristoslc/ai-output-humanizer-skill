@@ -5,7 +5,7 @@ Full catalog of AI writing patterns to detect and fix. Each pattern includes wha
 ## Formatting tells
 
 ### Em dashes
-Replace with commas, periods, parentheses, or rewrite as two sentences. Target: zero. Hard max: one per 1,000 words. Catch both Unicode em dash (—) and double-hyphen (--).
+Replace with commas, periods, or rewrite as two sentences. Target: zero. Hard max: one per 1,000 words. Catch both Unicode em dash (—) and double-hyphen (--).
 
 ### Bold overuse
 Strip bold from most phrases. One bolded phrase per major section at most. If something's important enough to bold, restructure the sentence to lead with it instead.
@@ -126,6 +126,9 @@ Too many headers in short text: more than 3 headings in under 300 words. Too man
 
 ### Parenthetical hedging
 "(and, increasingly, Z)" — if the aside matters, give it its own sentence.
+
+### Parenthetical overuse
+Parenthetical asides at high density, or parked where the em dash used to live. Target: near-zero. Hard max: 2 instances per 1,000 words in rewritten prose. Count instances (open parens), not characters. Fix: cut, use a comma pair, give the aside its own sentence, or fold it into the sentence. Do not flag: code, citations, technical notation, quoted material, or rewrites whose voice sample itself uses parentheticals (match the sample; cap at the sample's density). "Single-sentence overload" and "Compulsive rule of three" already catch stacked/parenthetical forms of those patterns; this entry covers the remaining density problem.
 
 ### Numbered list inflation
 "Three key takeaways" — only use when the content genuinely has that many discrete, parallel items.
