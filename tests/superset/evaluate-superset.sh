@@ -80,18 +80,12 @@ register_tc "TC-05" "Opt-out (technical docs)" "tc05-opt-out.txt" "rewrite" "" \
 register_tc "TC-06" "Convergence (iterate)" "tc06-convergence.txt" "rewrite" "" \
   "Second-pass audit performed|Remaining tells fixed|Final output has fewer patterns|Process reported"
 
-register_tc "TC-07" "Ethics framing" "tc07-ethics-framing.txt" "rewrite" "" \
-  "Ethics framing referenced|False positives acknowledged|No definitive AI claims|Non-native patterns handled with care"
-
-register_tc "TC-08" "Adversarial (non-native)" "tc08-adversarial.txt" "rewrite" "" \
-  "Zero patterns flagged|Second-language origin acknowledged|Original meaning preserved|Grammar not aggressively corrected"
-
-register_tc "TC-09" "Split It's not X It's Y pattern" "tc09-split-its-not.txt" "rewrite" "" \
+register_tc "TC-07" "Split It's not X It's Y pattern" "tc07-split-its-not.txt" "rewrite" "" \
   "No split It is not X It is Y constructions|No three-sentence It is X It is not It is Y pattern|Self-audit identifies split patterns|Rewrite uses template Y matters more than X"
 
 # Determine which test cases to run
 ALL_TCS=()
-for id in "TC-01" "TC-02" "TC-04" "TC-05" "TC-06" "TC-07" "TC-08" "TC-09"; do
+for id in "TC-01" "TC-02" "TC-04" "TC-05" "TC-06" "TC-07"; do
   ALL_TCS+=("$id")
 done
 

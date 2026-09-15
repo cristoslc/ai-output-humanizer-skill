@@ -8,7 +8,7 @@ Eight test cases for non-deterministic evaluation of the ai-output-humanizer ski
 
 **Input:** AI-slop blog post saturated with patterns (em dashes, "it's not X it's Y", "let's dive in", "it's worth noting", "in conclusion", rule of three, filler phrases).
 
-**Expected behavior:** Output reads as human-written. No em dashes. No "it's not X it's Y" constructions. No "let's" transitions. No "it's worth noting." No "in conclusion." Varied sentence length. Concrete details replace vague claims.
+**Expected behavior:** Output reads like natural human prose. No em dashes. No "it's not X it's Y" constructions. No "let's" transitions. No "it's worth noting." No "in conclusion." Varied sentence length. Concrete details replace vague claims.
 
 **Judge criteria:**
 - No em dashes present
@@ -78,26 +78,14 @@ Eight test cases for non-deterministic evaluation of the ai-output-humanizer ski
 - The final output has fewer patterns than the first pass
 - The process is reported (what changed in the second pass)
 
-### TC-07: Ethics framing
+### TC-07: Split "It's not X. It's Y." pattern
 
-**Input:** Text that could be non-native English writing (grammatical quirks, unusual word choices, but no obvious AI patterns).
+**Input:** Text containing the three-sentence "It's not X. It's Y." split pattern.
 
-**Expected behavior:** The skill acknowledges the probabilistic nature of detection. It does not over-flag. It frames output as "signals, not proof."
-
-**Judge criteria:**
-- The output includes or references the ethics framing
-- False positives are acknowledged as possible
-- The skill does not make definitive claims about AI authorship
-- Non-native English patterns are handled with care
-
-### TC-08: Adversarial (non-native English)
-
-**Input:** Text written by a non-native English speaker (grammatical errors, unusual constructions, but human-written).
-
-**Expected behavior:** The skill is conservative — it flags fewer patterns and acknowledges that the patterns may be second-language constructions rather than AI tells.
+**Expected behavior:** The skill detects and fixes the split pattern. The rewrite uses the "[Y] matters more than [X]" template, and the self-audit catches any remaining split patterns.
 
 **Judge criteria:**
-- Fewer than 3 patterns are flagged (conservative)
-- The output acknowledges possible second-language origin
-- The original meaning is preserved
-- The skill does not "correct" non-native grammar aggressively
+- No "It's not X. It's Y." constructions (including split-sentence variants)
+- No three-sentence "It's [X]. It's not. It's [Y]." pattern
+- The self-audit correctly identifies any remaining split patterns
+- The rewrite uses the template: "[Y] matters more than [X]." or equivalent

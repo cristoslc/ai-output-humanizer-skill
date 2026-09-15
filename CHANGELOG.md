@@ -17,4 +17,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pattern catalog, vocabulary tiers, tolerance matrix, and examples
 - Voice calibration from writing sample or named profiles
 - Self-audit and iterate-to-convergence workflow
-- Ethics framing and non-native English handling
+- Non-native English handling

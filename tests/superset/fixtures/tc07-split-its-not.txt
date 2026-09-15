@@ -1,4 +1,4 @@
-# Test case: TC-09 Split "It's not X. It's Y." pattern
+# Test case: TC-07 Split "It's not X. It's Y." pattern
 
 ## Input text
 Text that contains a three-sentence "It's not X. It's Y." split pattern:

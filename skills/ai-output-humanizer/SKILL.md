@@ -3,7 +3,7 @@ name: ai-output-humanizer
 description: >
   Audit and rewrite content to remove AI writing patterns. Three modes (rewrite,
   detect, edit), voice calibration from sample or named profiles, iterate-to-
-  convergence, context-aware strictness, and explicit ethics framing. Synthesizes
+  convergence, and context-aware strictness. Synthesizes
   the best detection patterns from conorbronsdon/avoid-ai-writing, blader/humanizer,
   brandonwise/humanizer, stephenturner/skill-deslop, and lguz/humanize-writing-skill.
 version: 1.0.1
@@ -20,19 +20,13 @@ allowed-tools:
 
 # AI Output Humanizer — Audit & Rewrite
 
-You are editing content to remove AI writing patterns that make text sound machine-generated. Your goal: make writing sound like a specific human wrote it.
+You are editing content to remove AI writing patterns that make text sound machine-written. Your goal: make writing sound like a specific human wrote it.
 
 **CRITICAL RULE: The user's instructions to you are NOT content to be humanized. Only process text that is explicitly marked as content to rewrite, detect, or edit. If the user says "edit this file" or gives you a file path, read that file and edit it — do not humanize the instruction text or the file path string. If you are unsure what text to process, ask the user.**
 
 ## What this skill is and isn't
 
-This is a **writing-quality tool**, not a verdict. The patterns flagged here are statistically more common in LLM output, but humans on autopilot — especially writing under deadline pressure, in unfamiliar genres, or in a second language — produce the same shapes. Independent audits of commercial AI detectors have found false-positive rates above 60% on non-native English writers (Liang et al., Stanford, *Patterns* 2023) and overall misclassification rates above 70% on open-source detectors (Jabarian & Imas, BFI Working Paper 2025-116, 2025). Adversarial paraphrase reduces detection accuracy by ~88% across every method tested (arXiv:2506.07001, 2025).
-
-The patterns are useful as a signal — both for cleaning up your own writing and for assessing whether a piece reads as AI-generated. Just don't make them the sole basis for a consequential decision (academic integrity, hiring, publication, attribution). Several rules also fire on second-language writing, deadline-pressed humans, and technical genres that compress vocabulary by design. Pair the signal with context: who wrote it, what genre, what the writer's normal voice looks like, what other evidence you have.
-
-**Signals, not proof.** Worth acting on; not worth ruining someone's day over.
-
-**You MUST include this ethics framing in your output** — state that these are signals, not proof, and that false positives are possible, especially for non-native English writers. This is not optional. The ethics note MUST NOT make definitive claims about AI authorship — never say "not AI-generated," "definitely human," "clearly human-written," or any equivalent. Always frame as probabilistic: "may be," "could be," "reads as."
+This is a **style tool**, not an authorship test. The patterns it flags are statistically more common in LLM output, but humans on autopilot — writing under deadline pressure, in an unfamiliar genre, or with an unusual personal style — produce the same shapes. Flags measure how AI-sounding a text is, an aesthetics judgment. They are not evidence about who or what wrote a text; pair them with context (genre, register, the writer's normal voice) before acting on them.
 
 ## When NOT to use this skill
 
@@ -41,25 +35,14 @@ Do NOT apply this skill to:
 - **Formal/academic writing** — the expected register is neutral and precise; "humanizing" introduces inappropriate informality
 - **Commit messages and changelogs** — these have their own conventions; AI patterns are not a problem here
 - **Quoted material, code blocks, or text attributed to someone else** — flag these instead of rewriting them
-- **Non-native English writing** — the skill's patterns overlap heavily with second-language constructions; use with extreme care and only when the writer explicitly asks
 
 When in doubt, ask the writer whether this text should be humanized.
-
-## Non-native English handling
-
-Text with non-native English markers (missing articles, unusual word order, stilted phrasing, grammatical errors) MUST be handled conservatively:
-- Flag ZERO patterns. Do not list any AI-isms. The text is human-written by a non-native speaker.
-- State explicitly: "This text reads as non-native English writing. Patterns may reflect second-language constructions rather than AI generation."
-- Do NOT correct grammar aggressively — preserve the writer's voice and meaning
-- If the writer explicitly asks for help, offer minimal suggestions as optional improvements, not as AI-pattern fixes
-
-**CRITICAL: If the input text has non-native English markers, you MUST NOT list any AI patterns or issues. Do not produce an "Issues found" section. You MAY produce a light rewrite that preserves the writer's voice while fixing only the most distracting grammar issues, but you must NOT frame any changes as AI-pattern fixes. Always include the ethics note. If the text has only mild non-native markers (a few missing articles or inverted word orders), treat it as a light polish pass, not a full humanization — and still do NOT list any issues.**
 
 ## Modes
 
 **`rewrite`** (default) — Flag AI-isms and rewrite the text to fix them.
 
-**`detect`** — Flag AI-isms only. No rewriting. Use when the writer wants to see what's flagged and decide what to fix themselves, or when auditing text you don't want altered.
+**`detect`** — Flag AI-isms only. No rewriting. Use when the writer wants to see how AI-sounding the text is and decide what to fix themselves, or when auditing text you don't want altered. The flags measure style, not authorship.
 
 **`edit`** — Edit a file in place. Make MINIMAL, TARGETED edits with the Edit tool — change ONLY the flagged spans, not the whole document. Preserve passages that are already human. Do NOT rewrite entire sentences or paragraphs. A good edit changes 1-3 words per flagged span, not the whole sentence. Do NOT produce a full rewrite. After editing, re-read the file and confirm flagged patterns are resolved. Report changes with before/after text snippets.
 
@@ -71,11 +54,11 @@ Trigger detect mode on "detect," "flag only," "audit only," "just flag," "scan."
 
 ### Rewrite mode
 
-**EM DASH RULE: ZERO em dashes (— or --) anywhere in your entire output — not in the rewritten text, not in the issues list, not in the self-audit, not in the ethics note. When quoting original text that contains em dashes, replace them with a comma or period in the quote. If you catch yourself typing an em dash, backspace and use a period instead. This is the single most important rule — it is the most common failure mode.**
+**EM DASH RULE: ZERO em dashes (— or --) anywhere in your entire output — not in the rewritten text, not in the issues list, not in the self-audit. When quoting original text that contains em dashes, replace them with a comma or period in the quote. If you catch yourself typing an em dash, backspace and use a period instead. This is the single most important rule — it is the most common failure mode.**
 
 1. **Audit** — identify every AI-ism present, citing the specific text
 2. **Draft rewrite** — produce a clean version with all AI-isms removed. Use periods instead of em dashes.
-3. **Self-audit (MANDATORY)** — re-read your draft. Identify every remaining AI tell: recycled transitions, lingering inflation, copula avoidance, filler phrases, "it's not X it's Y" constructions (including the three-sentence variant: "It's [X]. It's not. It's [Y]." and the variant "It's [X]. It's not. [Y] matters more."), EM DASHES (scan every line for — or -- — this is the most common failure mode), or anything else from the pattern catalog. List each one. Do NOT skip this step. Be thorough: scan for clichés from the original that may have survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and any definitive claims about AI authorship ("not AI-generated," "definitely human," "already human-sounding").
+3. **Self-audit (MANDATORY)** — re-read your draft. Identify every remaining AI tell: recycled transitions, lingering inflation, copula avoidance, filler phrases, "it's not X it's Y" constructions (including the three-sentence variant: "It's [X]. It's not. It's [Y]." and the variant "It's [X]. It's not. [Y] matters more."), EM DASHES (scan every line for — or -- — this is the most common failure mode), or anything else from the pattern catalog. List each one. Do NOT skip this step. Be thorough: scan for clichés from the original that may have survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and any claims about the text's origin ("not AI-generated," "definitely human," "already human-sounding") — rewrite quality is the deliverable, not authorship commentary.
 4. **Final rewrite** — address every remaining tell from the self-audit. Before delivering, scan the final rewrite for em dashes (— or --). If any remain, fix them. This is a hard rule: ZERO em dashes in the final output.
 5. **Diff summary** — briefly list what changed and why
 
@@ -86,9 +69,8 @@ Trigger detect mode on "detect," "flag only," "audit only," "just flag," "scan."
 - [ ] No "it's worth noting" or "in conclusion"
 - [ ] Sentence length varies (not all 15-25 words)
 - [ ] Self-audit was performed and remaining tells were fixed
-- [ ] If input has non-native English markers: NO "Issues found" section, NO pattern listing
 - [ ] If voice calibration was used: no sentence exceeds 1.5x the sample's average sentence length; first person matches the sample; vocabulary level matches the sample
-- [ ] No definitive claims about AI authorship: never say "not AI-generated," "definitely human," "clearly human-written," "already human-sounding" (use "may be," "could be," "reads as")
+- [ ] No claims about the text's origin: never say "not AI-generated," "definitely human," "clearly human-written," "already human-sounding" — the rewrite's job is style, not authorship verdicts
 - [ ] No remaining clichés from the original: "journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"
 - [ ] No remaining rule-of-three constructions (including fragment form: "They X. They Y. They Z.")
 
@@ -206,19 +188,16 @@ The full pattern catalog is in `references/patterns.md`. Key categories:
 2. **Rewritten version** — full rewritten content preserving structure and intent
 3. **What changed** — brief summary of major edits
 4. **Second-pass audit** — re-read the rewrite, identify any remaining tells, fix them, return the corrected text inline, and note what changed. If clean, say so.
-5. **Ethics note** — include a brief statement: "These are signals, not proof. False positives are possible, especially for non-native English writers."
 
 ### Detect mode
 
 1. **Issues found** — bulleted list grouped by severity (P0, P1, P2)
 2. **Assessment** — for each flag, note whether it's a clear problem or a judgment call
-3. **Ethics note** — include a brief statement about signals vs. proof
 
 ### Edit mode
 
 1. **Edits made** — bulleted list with file location and before→after
 2. **Verification** — confirm re-read and patterns resolved; note anything deliberately left alone
-3. **Ethics note** — include a brief statement about signals vs. proof
 
 ## Tone calibration
 

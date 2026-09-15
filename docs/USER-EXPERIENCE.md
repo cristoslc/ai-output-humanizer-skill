@@ -17,7 +17,6 @@
 
 - **Zero config** — the skill works without any setup beyond path registration
 - **Transparent** — every rewrite includes a diff summary and self-audit
-- **Ethical by default** — every output includes a signals-not-proof disclaimer
 - **Conservative** — the skill flags patterns but does not over-edit strong writing
 
 See `docs/user-experience/` for detail.

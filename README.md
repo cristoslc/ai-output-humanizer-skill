@@ -1,6 +1,6 @@
 # AI Output Humanizer
 
-An opencode skill that audits and rewrites content to remove AI writing patterns. Three modes (rewrite, detect, edit), voice calibration from sample or named profiles, iterate-to-convergence with self-audit, and explicit ethics framing.
+An opencode skill that audits and rewrites content to remove AI writing patterns. Three modes (rewrite, detect, edit), voice calibration from sample or named profiles, and iterate-to-convergence with self-audit.
 
 Synthesizes detection patterns from conorbronsdon/avoid-ai-writing, blader/humanizer, brandonwise/humanizer, stephenturner/skill-deslop, and lguz/humanize-writing-skill.
 

@@ -8,7 +8,8 @@ test_cases:
     input: "tc01-happy-path.txt"
     mode: "rewrite"
     description: >
-      Standard rewrite of AI-slop text. Output should read as human-written
+      Standard rewrite of AI-slop text. Output should read like natural
+      human prose
       with no em dashes, no "it's not X it's Y", no "let's" transitions,
       no "it's worth noting", no "in conclusion", and varied sentence length.
     judge_criteria:
@@ -89,29 +90,16 @@ test_cases:
       - "The process is reported (what changed in the second pass)"
 
   - id: "TC-07"
-    name: "Ethics framing"
-    input: "tc07-ethics-framing.txt"
+    name: "Split It's not X It's Y pattern"
+    input: "tc07-split-its-not.txt"
     mode: "rewrite"
     description: >
-      Ambiguous text that could be non-native English or AI. The skill should
-      acknowledge the probabilistic nature of detection, not over-flag, and
-      frame output as "signals, not proof."
+      Text containing the "It's not X. It's Y." construction (including
+      three-sentence variants). The rewrite must eliminate it, using the
+      "[Y] matters more than [X]" template, and the self-audit must catch
+      any split patterns.
     judge_criteria:
-      - "The output includes or references the ethics framing"
-      - "False positives are acknowledged as possible"
-      - "The skill does not make definitive claims about AI authorship"
-      - "Non-native English patterns are handled with care"
-
-  - id: "TC-08"
-    name: "Adversarial (non-native English)"
-    input: "tc08-adversarial.txt"
-    mode: "rewrite"
-    description: >
-      Human-written text by a non-native English speaker. The skill should be
-      conservative — flag fewer patterns and acknowledge that patterns may be
-      second-language constructions rather than AI tells.
-    judge_criteria:
-      - "Fewer than 3 patterns are flagged (conservative)"
-      - "The output acknowledges possible second-language origin"
-      - "The original meaning is preserved"
-      - "The skill does not 'correct' non-native grammar aggressively"
+      - "No 'It's not X, It's Y' constructions in the final output"
+      - "No three-sentence 'It's X. It's not. It's Y.' pattern"
+      - "Self-audit identifies split patterns"
+      - "Rewrite uses the '[Y] matters more than [X]' template"

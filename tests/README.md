@@ -1,11 +1,11 @@
 # Tests
 
-Non-deterministic evaluation harness for the ai-output-humanizer skill. Exercises the skill against 8 test cases, scores outputs with an LLM judge, and computes pass^k metrics.
+Non-deterministic evaluation harness for the ai-output-humanizer skill. Exercises the skill against 7 test cases, scores outputs with an LLM judge, and computes pass^k metrics.
 
 ## Layout
 
-- `superset/inputs/` — 9 input files (8 test cases + 1 voice sample)
-- `superset/fixtures/` — 8 expected-behavior descriptions
+- `superset/inputs/` — 8 input files (7 test cases + 1 voice sample)
+- `superset/fixtures/` — 7 expected-behavior descriptions
 - `superset/evaluate-superset.sh` — main harness (k-trials, pass^k, JSONL logging)
 - `superset/judge-prompt.md` — LLM judge template
 - `superset/test-cases.yaml` / `test-cases.md` — test case definitions
@@ -15,7 +15,7 @@ Non-deterministic evaluation harness for the ai-output-humanizer skill. Exercise
 ## Run it
 
 ```bash
-# Full suite (k=3, 7 test cases)
+# Full suite (k=3, 6 test cases)
 ./scripts/run-tests.sh
 
 # 5 trials per test case (more reliable)
@@ -38,8 +38,7 @@ Non-deterministic evaluation harness for the ai-output-humanizer skill. Exercise
 | TC-04 | Voice calibration | rewrite | Voice matching from writing sample |
 | TC-05 | Opt-out | rewrite | Technical docs left untouched |
 | TC-06 | Convergence | rewrite | Self-audit and iterate-to-convergence |
-| TC-07 | Ethics framing | rewrite | Signals-not-proof disclaimer |
-| TC-08 | Adversarial | rewrite | Non-native English handled conservatively |
+| TC-07 | Split "It's not X. It's Y." | rewrite | Split-construction removal, rewrite template |
 
 TC-03 is excluded from the default run (requires a real file path).
 
@@ -52,4 +51,4 @@ TC-03 is excluded from the default run (requires a real file path).
 
 ## Costs
 
-Each trial = 1 exercise call + 1 judge call. Default run (k=3, 7 TCs) = 42 LLM calls. Use `--only` to scope down.
+Each trial = 1 exercise call + 1 judge call. Default run (k=3, 6 TCs) = 36 LLM calls. Use `--only` to scope down.
