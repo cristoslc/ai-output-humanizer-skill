@@ -57,10 +57,10 @@ Trigger detect mode on "detect," "flag only," "audit only," "just flag," "scan."
 
 **EM DASH RULE: ZERO em dashes (— or --) anywhere in your entire output — not in the rewritten text, not in the issues list, not in the self-audit. When quoting original text that contains em dashes, replace them with a comma or period in the quote. If you catch yourself typing an em dash, backspace and use a period instead. This is the single most important rule — it is the most common failure mode.**
 
-1. **Audit** — identify every AI-ism present, citing the specific text
-2. **Draft rewrite** — produce a clean version with all AI-isms removed. Use periods instead of em dashes.
-3. **Self-audit (MANDATORY)** — re-read your draft. Identify every remaining AI tell: recycled transitions, lingering inflation, copula avoidance, filler phrases, "it's not X it's Y" constructions (including the three-sentence variant: "It's [X]. It's not. It's [Y]." and the variant "It's [X]. It's not. [Y] matters more."), EM DASHES (scan every line for — or -- — this is the most common failure mode), or anything else from the pattern catalog. List each one. Do NOT skip this step. Be thorough: scan for clichés from the original that may have survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and any claims about the text's origin ("not AI-generated," "definitely human," "already human-sounding") — rewrite quality is the deliverable, not authorship commentary.
-4. **Final rewrite** — address every remaining tell from the self-audit. Before delivering, scan the final rewrite for em dashes (— or --). If any remain, fix them. This is a hard rule: ZERO em dashes in the final output.
+1. **Audit** — run the regex scan FIRST (`references/regex-scan.md`): apply every HARD, LIMIT, and SOFT pattern to the original text mechanically and list each pattern with its hit count and matched spans. This scan is the objective starting point; it runs before any judgment-based analysis, and it never runs on the user's instructions. Then continue the audit with the judgment-based patterns in `references/patterns.md` (tone, uniformity, structure, significance), citing the specific text
+2. **Draft rewrite** — produce a clean version with all AI-isms removed, every HARD scan hit fixed. Use periods instead of em dashes.
+3. **Self-audit (MANDATORY)** — re-read your draft and re-run the regex scan on it. Every HARD pattern must show 0 hits and LIMIT patterns must be within their limit; any surviving hit gets fixed before delivery. Also identify every remaining AI tell: recycled transitions, lingering inflation, copula avoidance, filler phrases, "it's not X it's Y" constructions (including the three-sentence variant: "It's [X]. It's not. It's [Y]." and the variant "It's [X]. It's not. [Y] matters more."), EM DASHES (scan every line for — or -- — this is the most common failure mode), or anything else from the pattern catalog. List each one. Do NOT skip this step. Be thorough: scan for clichés from the original that may have survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and any claims about the text's origin ("not AI-generated," "definitely human," "already human-sounding") — rewrite quality is the deliverable, not authorship commentary.
+4. **Final rewrite** — address every remaining tell from the self-audit. Before delivering, scan the final rewrite for em dashes (— or --) and re-run every HARD pattern; if any HARD hit or over-limit LIMIT hit survives, fix it and scan again. This is a hard gate: ZERO HARD hits in the final output.
 5. **Diff summary** — briefly list what changed and why
 
 **Pre-delivery checklist.** Before returning ANY output, verify EVERY item. If any item fails, fix it before delivering:
@@ -86,8 +86,9 @@ The self-audit and final rewrite are MANDATORY. Do not skip them. If the draft i
 
 ### Detect mode
 
-1. **Audit** — identify every AI-ism, citing the specific text
-2. **Assess** — note which flags are clear problems vs. patterns that may be intentional or effective in context
+1. **Regex scan** — run `references/regex-scan.md` against the text; report every pattern with hit counts and matched spans. The counts are the backbone of the detect report
+2. **Audit** — identify every AI-ism, citing the specific text
+3. **Assess** — note which flags are clear problems vs. patterns that may be intentional or effective in context. HARD hits are clear problems; SOFT hits are the assess layer
 
 ### Edit mode
 

@@ -17,7 +17,8 @@ See `docs/agents-detail/project-navigation.md` for the full directory map.
 ## Test command
 
 ```bash
-./scripts/run-tests.sh [--k N] [--only TC-NN]
+node tests/regex-scan-selftest.mjs   # deterministic regex scan check (fast, no LLM)
+./scripts/run-tests.sh [--k N] [--only TC-NN]   # full eval harness (default k=3; slow)
 ```
 
 Runs the non-deterministic evaluation harness. Default: k=3, 7 test cases. See `tests/README.md` for details.
