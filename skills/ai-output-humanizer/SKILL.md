@@ -7,7 +7,7 @@ description: >
   the best detection patterns from conorbronsdon/avoid-ai-writing, blader/humanizer,
   brandonwise/humanizer, stephenturner/skill-deslop, lguz/humanize-writing-skill,
   Simon Willison's llm-cliche-highlighter, and Wikipedia's Signs of AI writing guide.
-version: 1.0.2
+version: 1.0.3
 license: MIT
 compatibility: any-agent
 allowed-tools:
@@ -64,6 +64,8 @@ Trigger detect mode on "detect," "flag only," "audit only," "just flag," "scan."
 5. **Diff summary** — briefly list what changed and why
 
 **Pre-delivery checklist.** Before returning ANY output, verify EVERY item. If any item fails, fix it before delivering:
+- [ ] Regex scan zero HARD hits: every HARD pattern in `references/regex-scan.md` shows 0 hits in the final text (run the scan on the final text, list pattern names with 0, and fix any survivor before delivering)
+- [ ] Regex scan LIMIT patterns within limit (stranded auxiliary: max 1; stacked questions: max 1)
 - [ ] ZERO em dashes (— or --) anywhere in the text (including quoted text from the original)
 - [ ] No "it's not X, it's Y" constructions (including split-sentence: "It's not X. It's Y." and three-sentence: "It's X. It's not. It's Y." or "It's X. It's not. Y matters more.")
 - [ ] No "let's dive/explore/break" transitions
@@ -93,8 +95,9 @@ The self-audit and final rewrite are MANDATORY. Do not skip them. If the draft i
 ### Edit mode
 
 1. **Read** the file the writer named
-2. **Edit in place** — minimal, targeted fixes to flagged spans only. Do NOT rewrite the entire file. Preserve already-human passages.
-3. **Verify** — re-read and confirm patterns are resolved; report what changed with before/after
+2. **Scan** — run `references/regex-scan.md` against the file; the hits are the edit list
+3. **Edit in place** — minimal, targeted fixes to flagged spans only. Do NOT rewrite the entire file. Preserve already-human passages.
+4. **Verify** — re-run the scan against the edited file; every HARD hit must clear. Re-read and confirm patterns are resolved; report what changed with before/after
 
 ## Voice calibration
 
