@@ -7,7 +7,7 @@ description: >
   detection patterns from conorbronsdon/avoid-ai-writing, blader/humanizer,
   brandonwise/humanizer, stephenturner/skill-deslop, lguz/humanize-writing-skill,
   Simon Willison's llm-cliche-highlighter, and Wikipedia's Signs of AI writing guide.
-version: 1.3.2
+version: 1.4.0
 license: MIT
 compatibility: any-agent
 allowed-tools:
@@ -53,13 +53,14 @@ Trigger audit mode on "audit," "detect," "flag only," "just flag," "scan." Trigg
 
 1. **Audit**: run the regex scan FIRST (`references/regex-scan.md`). Apply every HARD, LIMIT, and SOFT pattern to the original text mechanically and list each pattern with its hit count and matched spans. This scan is the objective starting point; it runs before any judgment-based analysis, and it never runs on the user's instructions. Then continue the audit with the judgment-based patterns in `references/patterns.md` (tone, uniformity, structure, significance), citing the specific text.
 2. **Draft rewrite**: produce a clean version with all AI-isms removed, every HARD scan hit fixed. Use periods instead of em dashes. If the text is already clean, return it unchanged and say so. Editing for its own sake is over-editing.
-3. **Self-audit (MANDATORY)**: re-read your draft and re-run the regex scan on it. Every HARD pattern must show 0 hits and LIMIT patterns must be within their limit; any surviving hit gets fixed before delivery. Then hunt for judgment-level tells: recycled transitions, lingering inflation, copula avoidance, filler phrases, contrast denials (", not Y" and the regex-blind wordings "instead of Y", "rather than Y", "not merely Y", stacked in one passage), colon-and-enumeration in prose, "it's not X it's Y" constructions and their three-sentence variant, EM DASHES (scan every line for — or --; this is the most common failure mode), and anything else from `references/patterns.md`. List each one. Do NOT skip this step. Be thorough: look for original clichés that survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and claims about the text's origin ("not AI-generated," "definitely human," "already human-sounding"). The rewrite's deliverable is quality, so commentary on who wrote the original has no place in it.
+3. **Self-audit (MANDATORY)**: re-read your draft and re-run the regex scan on it. Every HARD pattern must show 0 hits and LIMIT patterns must be within their limit; any surviving hit gets fixed before delivery. Then hunt for judgment-level tells: recycled transitions, lingering inflation, copula avoidance, filler phrases, contrast denials (", not Y" and the regex-blind wordings "instead of Y", "rather than Y", "not merely Y", stacked in one passage), colon-and-enumeration in prose, "it's not X it's Y" constructions and their three-sentence variant, unresolvable references (every ticket ID, option label, and pointer phrase must carry its name on first use; `references/patterns.md` § Unresolvable references), EM DASHES (scan every line for — or --; this is the most common failure mode), and anything else from `references/patterns.md`. List each one. Do NOT skip this step. Be thorough: look for original clichés that survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and claims about the text's origin ("not AI-generated," "definitely human," "already human-sounding"). The rewrite's deliverable is quality, so commentary on who wrote the original has no place in it.
 4. **Final rewrite**: address every remaining tell from the self-audit. Before delivering, scan the final rewrite for em dashes (— or --) and re-run every HARD pattern; if any HARD hit or over-limit LIMIT hit survives, fix it and scan again. This is a hard gate: zero HARD hits in the final output.
 5. **Diff summary**: briefly list what changed and why.
 
 **Pre-delivery checklist.** Before returning ANY output, verify EVERY item. If any item fails, fix it before delivering:
 - [ ] Regex scan zero HARD hits: every HARD pattern in `references/regex-scan.md` shows 0 hits in the final text (run the scan on the final text, list pattern names with 0, and fix any survivor before delivering)
 - [ ] Regex scan LIMIT patterns within limit (stranded auxiliary: max 1; stacked questions: max 1)
+- [ ] Cold-copy check: the text resolves with nothing but itself; every ticket number and option label carries its title on first use, and every pointer phrase names its referent (first-use gloss; `references/patterns.md` § Unresolvable references)
 - [ ] ZERO em dashes (— or --) anywhere in the text (including quoted text from the original)
 - [ ] No "it's not X, it's Y" constructions (including split-sentence: "It's not X. It's Y." and three-sentence: "It's X. It's not. It's Y." or "It's X. It's not. Y matters more.")
 - [ ] At most one trailing denial in a passage, in any wording ("X, not Y", "instead of Y", "rather than Y"), used only when both sides are true
@@ -151,6 +152,7 @@ The full pattern catalog is in `references/patterns.md`. Key categories:
 - **Cutoff disclaimers**: "As of my last update," "While specific details are limited"
 - **Speculative gap-filling**: "maintains a low profile," "is believed to have"
 - **Unfilled placeholders**: `[Your Name]`, `[INSERT SOURCE URL]`
+- **Assumed-context references**: every ticket number and option label carries its title on first use, every pointer phrase names its referent, later uses travel bare (`references/patterns.md` § Unresolvable references)
 - **Citation markup leaks**: `citeturn0search0`, `oai_citation`
 - **AI-tool URL parameters**: `utm_source=chatgpt.com`, `utm_source=claude.ai`
 - **Emotional flatline**: "What surprised me most," "I was fascinated to discover"
@@ -169,7 +171,7 @@ The full pattern catalog is in `references/patterns.md`. Key categories:
 
 **P0 (credibility killers, fix immediately)**: cutoff disclaimers, chatbot artifacts, vague attributions without sources, significance inflation on routine events, unfilled placeholders, citation markup leaks.
 
-**P1 (obvious AI smell, fix before publishing)**: word-list violations, template phrases, "let's" transition openers, synonym cycling, formulaic openings, bold overuse, em dash frequency, generic future-narrative closers, hedge-stacked predictions, hashtag stuffing (6+), bullet lists of bare noun phrases.
+**P1 (obvious AI smell, fix before publishing)**: word-list violations, template phrases, "let's" transition openers, synonym cycling, formulaic openings, bold overuse, em dash frequency, generic future-narrative closers, hedge-stacked predictions, hashtag stuffing (6+), bullet lists of bare noun phrases, unglossed first-use references (ticket IDs, option labels, pointer phrases).
 
 **P2 (stylistic polish, fix when time allows)**: generic conclusions, compulsive rule of three, uniform paragraph length, copula avoidance, transition phrases.
 
@@ -206,5 +208,5 @@ If the original writing is already strong, say so and make only the necessary cu
 ## Reference files
 
 - `references/patterns.md`: full pattern catalog with before/after examples
-- `references/regex-scan.md`: the 25 mechanical patterns for the mandatory first pass
+- `references/regex-scan.md`: the 26 mechanical patterns for the mandatory first pass
 - `references/examples.md`: before/after transformations and output-format examples

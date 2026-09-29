@@ -88,7 +88,7 @@ See [`skills/ai-output-humanizer/SKILL.md`](skills/ai-output-humanizer/SKILL.md)
 ## What's inside
 
 - [`patterns.md`](skills/ai-output-humanizer/references/patterns.md): the full pattern catalog with before/after examples
-- [`regex-scan.md`](skills/ai-output-humanizer/references/regex-scan.md): the 25 mechanical patterns with severity tiers
+- [`regex-scan.md`](skills/ai-output-humanizer/references/regex-scan.md): the 26 mechanical patterns with severity tiers
 - [`examples.md`](skills/ai-output-humanizer/references/examples.md): before/after transformations per genre
 
 ## Testing

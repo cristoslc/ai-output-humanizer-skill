@@ -171,3 +171,9 @@ Catches the denial form with no "but" ("a style tool, not an authorship test"), 
 :\s*[^.:;!?]{15,}[,;]\s*[^.:;!?]{10,}[,;]\s*(?:and\s+)?[^.:;!?]{10,}
 ```
 A colon followed by three or more parallel comma-separated phrases in prose: a list wearing a sentence's clothes. Real Markdown lists and short enumerations of names, files, or flags are exempt. Fix by splitting: one sentence per item that matters.
+
+### Assumed-context labels — SOFT
+```
+\b(?:option|variant|approach|plan|phase|scenario|spike)\s+(?:[a-dA-D]|[0-9])\b
+```
+A hit is corroboration, not a blocker: it routes the span to the judgment check in `patterns.md` § "Unresolvable references (assumed thread context)". A label with a first-use gloss ("Option A, the streaming migration") passes the resolvability check; the judgment pass decides how each hit resolves. Bare ticket IDs (`ABC-123`) are deliberately not scanned: they are standard and usually resolvable by tracker lookup, and resolvability is a judgment call no regex can make.

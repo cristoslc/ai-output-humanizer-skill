@@ -146,6 +146,13 @@ const CASES = [
     ["The shapes are everywhere: sentences that signal importance, rhythm applied by rule, and facts dressed as turning points.", 1],
     ["Ingredients: flour, water, salt.", 0],
   ]],
+  ["Assumed-context labels", [
+    ["Option C was the winner.", 1],
+    ["Plan 2 covers the migration.", 1],
+    ["Option A, the streaming migration, was the winner.", 1],
+    ["This option works well.", 0],
+    ["We compared three approaches.", 0],
+  ]],
 ];
 
 let fails = 0;
