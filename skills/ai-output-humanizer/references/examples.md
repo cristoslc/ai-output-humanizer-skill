@@ -38,6 +38,18 @@ Great question! Here is an overview of sustainable energy. Sustainable energy se
 **After:**
 Solar panel costs dropped 90% between 2010 and 2023, according to IRENA data. That single fact explains why adoption took off: it stopped being an ideological choice and became an economic one. Germany gets 46% of its electricity from renewables now. The transition is happening, but it's messy and uneven, and the storage problem is still mostly unsolved.
 
+## Assumed-context references
+
+This pair moves referents from the surrounding thread into the text. The gloss carries context the source conversation supplied; it never invents it. If the thread named no referent, the fix is to ask, not to gloss.
+
+**Before:**
+Option C was the winner; the team liked its simplicity. PRO-4182 tracks the follow-up. We agreed to defer the indexing work until the second spike settles.
+
+**After:**
+Option C, the streaming migration, was the winner; the team liked its simplicity. PRO-4182, the index backfill ticket, tracks the follow-up. We agreed to defer the indexing work until the second spike, the sorted-versus-partitioned benchmark, settles.
+
+First mention says who; later mentions travel bare: five sentences later, "PRO-4182 also cleaned up the fixtures." needs no gloss.
+
 ## Rewrite-mode response example
 
 **Input:**
@@ -53,7 +65,7 @@ The acquisition is a major change for the company.
 
 **What changed:** removed the hedging opener and the inflation; the original carried one claim, so the rewrite carries one claim.
 
-**Second-pass audit:** all 25 patterns rescanned; zero HARD hits; the rewrite is clean.
+**Second-pass audit:** all 26 patterns rescanned; zero HARD hits; the rewrite is clean.
 
 ## Audit-mode response example
 
@@ -77,4 +89,4 @@ It's worth noting that the acquisition may mark a pivotal moment for the company
 - `memo.md` line 3: "a pivotal moment" → "a major shift" (inflation swap, three words)
 - before→after: "It's worth noting that the acquisition may mark a pivotal moment for the company's retail division." → "The acquisition may mark a major shift for the company's retail division."
 
-**Verification:** the 25-pattern scan re-run on the edited file shows zero HARD hits. Other lines were left alone deliberately; they were already clean.
+**Verification:** the 26-pattern scan re-run on the edited file shows zero HARD hits. Other lines were left alone deliberately; they were already clean.

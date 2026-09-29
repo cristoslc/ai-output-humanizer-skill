@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[1.4.0] - 2026-09-29
+
+### Added
+
+- Pattern "Unresolvable references (assumed thread context)" and a SOFT scan for bare option, plan, phase, spike, and similar labels (scan count 25 → 26): the output resolves every ticket ID, option label, and pointer phrase out of the text itself, with a first-use gloss and bare later uses; the self-audit, pre-delivery checklist, and P1 tier carry a cold-copy check. Instruction surfaces (catalog entry, SKILL.md wiring, scan prose) are encoded positive-only, quoting no failing form; the failing shape and its fix live only in `references/examples.md` § "Assumed-context references". Selftest gained five SOFT cases. The Project Hal global spoke (`.agents/agents-md-detail/ai-writing-tells.md`) gained the same tell and checklist item in the same encoding (that repo, not this one). SKILL.md bumped to 1.4.0.
+
 ## [Unreleased]
 
 ### Changed

@@ -229,6 +229,18 @@ The stock invitation to verify. Cut it; the passage works without it.
 ### Acknowledgment loops
 "You're asking about," "The question of whether," "To answer your question" — AI restates the prompt before answering.
 
+### Unresolvable references (assumed thread context)
+The chat's memory is not the reader's memory. Chat-shaped drafts resolve references out of the conversation instead of out of the document. In a finished deliverable the text is the referent's home: every numbered artifact arrives with its title, every lettered or numbered option arrives with the thing it stands for, and every pointer phrase names what it points at. The repair is a first-use gloss, not a recap; after the first use the bare label stands fine. This is the mirror of vague attribution: that tell under-specifies, this one over-specifies toward a referent the text alone cannot settle.
+
+**Cold-copy test:** paste the deliverable into a blank file and resolve every numbered artifact, option label, and pointer phrase using only that file. Each one must answer from the file. The before/after for this pattern lives in `references/examples.md` § "Assumed-context references".
+
+First mention says who; later mentions travel bare. The demo is the rule:
+
+First use in a document: "PRO-4182, the retry backoff ticket, fixed the flaky tests."
+Same document, five sentences later: "PRO-4182 also cleaned up the fixtures."
+
+Exemptions: referents the document itself already defined, numbered artifacts in tracker-linked material where the ID is the standard lookup key, and replies inside the thread itself, where the recipient demonstrably holds the context. The test is resolvability, not the absence of an identifier.
+
 ### Confidence calibration phrases
 "It's worth noting that," "Interestingly," "Surprisingly," "Importantly," "Significantly," "Notably," "Certainly," "Undoubtedly."
 
