@@ -9,8 +9,8 @@
 ## Invocation
 
 - `humanize this: [text]` — rewrite mode (default)
-- `detect AI patterns in: [text]` — detect mode
-- `edit this file: [path]` — edit mode
+- `audit this: [text]` — audit mode ("detect AI patterns in: [text]" still routes here)
+- `patch this file: [path]` — patch mode (in-place minimal fixes; "edit this file: [path]" also routes here)
 - `make this sound [voice]: [text]` — voice-calibrated rewrite
 
 ## UX principles

@@ -33,10 +33,10 @@ Non-deterministic evaluation harness for the ai-output-humanizer skill. Exercise
 | ID | Name | Mode | What it tests |
 |----|------|------|---------------|
 | TC-01 | Happy path | rewrite | Standard rewrite, em dash rule, pattern removal |
-| TC-02 | Detect mode | detect | Flag-only, no rewriting, pattern grouping |
-| TC-03 | Edit mode | edit | In-place file editing, minimal changes |
+| TC-02 | Audit mode | audit | Flag-only, no rewriting, pattern grouping |
+| TC-03 | Patch mode | patch | In-place file patching, minimal changes |
 | TC-04 | Voice calibration | rewrite | Voice matching from writing sample |
-| TC-05 | Opt-out | rewrite | Technical docs left untouched |
+| TC-05 | Tech docs | rewrite | Technical docs processed at full pattern strength |
 | TC-06 | Convergence | rewrite | Self-audit and iterate-to-convergence |
 | TC-07 | Split "It's not X. It's Y." | rewrite | Split-construction removal, rewrite template |
 

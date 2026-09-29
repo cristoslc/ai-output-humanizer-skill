@@ -65,17 +65,17 @@ register_tc() {
 register_tc "TC-01" "Happy path (standard rewrite)" "tc01-happy-path.txt" "rewrite" "" \
   "No em dashes present|No 'it is not X it is Y' constructions|No 'let us' transitions|No 'it is worth noting' or 'in conclusion'|Sentence length varies|Reads as a person wrote it"
 
-register_tc "TC-02" "Detect mode (flag only)" "tc02-detect-mode.txt" "detect" "" \
+register_tc "TC-02" "Audit mode (flag only)" "tc02-audit-mode.txt" "audit" "" \
   "Original text is preserved|At least 3 AI patterns identified|Patterns are grouped or categorized|No rewritten version produced"
 
-register_tc "TC-03" "Edit mode (in-place)" "tc03-edit-mode.txt" "edit" "" \
-  "Describes edit mode workflow correctly|Identifies which patterns to fix|Proposes targeted not full rewrite|Follows edit mode output format"
+register_tc "TC-03" "Patch mode (in-place)" "tc03-patch-mode.txt" "patch" "" \
+  "Describes patch mode workflow correctly|Identifies which patterns to fix|Proposes targeted not full rewrite|Follows patch mode output format"
 
 register_tc "TC-04" "Voice calibration" "tc04-voice-calibration.txt" "rewrite" "tc04-voice-sample.txt" \
   "Matches sample sentence length|Matches sample casual register|First-person perspective present|Vocabulary not upgraded"
 
-register_tc "TC-05" "Opt-out (technical docs)" "tc05-opt-out.txt" "rewrite" "" \
-  "Technical terms preserved|Output not made informal|Changes are minimal|Opt-out context acknowledged"
+register_tc "TC-05" "Tech docs (full-strength patterns)" "tc05-tech-docs.txt" "rewrite" "" \
+  "Technical terms preserved|Output not made informal|Patterns cleared at full strength|No AI patterns remain"
 
 register_tc "TC-06" "Convergence (iterate)" "tc06-convergence.txt" "rewrite" "" \
   "Second-pass audit performed|Remaining tells fixed|Final output has fewer patterns|Process reported"
@@ -137,10 +137,10 @@ exercise_one() {
   local tmp
   tmp=$(mktemp -d)
 
-  # For edit mode, write the input to a real file so the agent can Read+Edit it.
-  if [ "$mode" = "edit" ]; then
-    local edit_file="${tmp}/draft.md"
-    cp "$input_file" "$edit_file"
+  # For patch mode, write the input to a real file so the agent can Read+Edit it.
+  if [ "$mode" = "patch" ]; then
+    local patch_file="${tmp}/draft.md"
+    cp "$input_file" "$patch_file"
   fi
 
   {
@@ -148,13 +148,13 @@ exercise_one() {
     cat "$SKILL_MD"
     printf '\n=== SKILL INSTRUCTIONS END ===\n\n'
 
-    if [ "$mode" = "detect" ]; then
-      printf 'detect\n\n'
+    if [ "$mode" = "audit" ]; then
+      printf 'audit\n\n'
       printf '=== TEXT TO PROCESS BEGIN ===\n'
       cat "$input_file"
       printf '\n=== TEXT TO PROCESS END ===\n\n'
-    elif [ "$mode" = "edit" ]; then
-      printf 'edit\n\n'
+    elif [ "$mode" = "patch" ]; then
+      printf 'patch\n\n'
       printf '=== TEXT TO PROCESS BEGIN ===\n'
       cat "$input_file"
       printf '\n=== TEXT TO PROCESS END ===\n\n'

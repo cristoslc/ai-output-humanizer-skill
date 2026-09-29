@@ -74,7 +74,7 @@ Vary groupings. Use two items, four items, or a full sentence instead of triads.
 
 ## Vocabulary
 
-See `vocabulary-tiers.md` for the full 3-tier system.
+Flag AI-associated word choices wherever they occur, at full strength in every genre. Single hits of words with legitimate technical use (`robust`, `comprehensive`, `seamless`, `leverage`) are judgment calls; say so in the audit. Clusters and repeated density of flagged vocabulary are clear problems at any severity. `delve`, `tapestry`, `beacon`, `embark`, `testament to`, `game-changer`, `harness` are flagged anywhere, no exceptions.
 
 ## Template phrases
 
@@ -308,7 +308,7 @@ Aggressively editing out every irregularity can push human writing toward AI sta
 ## Stylometric signals
 
 ### Type-token ratio (TTR)
-In prose over 200 words, TTR below 0.40 is worth a second look. Fix by broadening the what — name specific things, cite specific cases.
+In prose over 200 words, TTR below 0.40 is worth a second look. Fix by broadening the what: name specific things, cite specific cases.
 
 ### Paragraph-reshuffle immunity
 Can you swap two body paragraphs without breaking the piece? If yes, establish a through-line or decide whether the piece should be an explicit list.
@@ -319,3 +319,31 @@ Read each paragraph and ask "what's actually new here?" If you could cut 40-60% 
 ## When to rewrite from scratch vs. patch
 
 If the text has 5+ flagged vocabulary hits across multiple categories, 3+ distinct pattern categories triggered, and uniform sentence/paragraph length, patching individual phrases won't fix it. Advise a full rewrite: state the core point in one sentence, then rebuild from there.
+
+## Contrast denial and list templates
+
+These three shapes substitute list-like rhythm for statements. They appear in otherwise clean prose, which is exactly why judgment matters more than regex here.
+
+### Trailing denial ("X, not Y")
+The sentence pivots at the end to deny what the reader might have assumed: "This is a style tool, not an authorship test." "Flags measure style, not authorship." One denial is plain human contrast and can stay when both sides are true and the contrast carries information. The tell is stacking them (two or more in one passage) or using them instead of saying what the thing is.
+
+The regex only catches the comma form ("X, not Y"). Audit for the same tell in other clothes, which the regex cannot see: "flagged instead of rewritten", "kept rather than removed", "not merely X", "X, and not Y". If a sentence states its subject and then spends its tail distinguishing it from a lookalike, apply this pattern even though the scan shows no hit.
+
+Before: "This is a style tool, not an authorship test. Flags measure style, not authorship."
+After: "This is a style tool. It measures style only; pair flags with genre and register before acting on them."
+
+### Colon-and-enumeration
+A colon followed by three or more parallel noun phrases is a list wearing a sentence's clothes. It is the rule of three with a colon as the delivery mechanism.
+
+Before: "The default shows up as recognizable shapes: signaling instead of informing, rule-driven rhythm, inflated significance, and chat leftovers."
+After: "The default has a fingerprint. Sentences announce importance instead of adding a fact. Rhythm lands on schedule. Ordinary facts get dressed up as turning points. Chunks of the chat survive as leftovers."
+
+Exemptions: real Markdown lists, short enumerations of names, files, or flags ("flags: --k, --only"), and definitions.
+
+### Parenthetical triple
+Three parallel items inside parentheses.
+
+Before: "humans on autopilot (deadline pressure, genre drift, second-language phrasing) produce the same shapes"
+After: "deadline pressure alone produces the same shapes"
+
+Usually one member carries the point; write that member and drop the padding. If all three genuinely matter, each gets its own prose, not a parenthetical crowd.
