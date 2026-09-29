@@ -5,8 +5,9 @@ description: >
   detect, edit), voice calibration from sample or named profiles, iterate-to-
   convergence, and context-aware strictness. Synthesizes
   the best detection patterns from conorbronsdon/avoid-ai-writing, blader/humanizer,
-  brandonwise/humanizer, stephenturner/skill-deslop, and lguz/humanize-writing-skill.
-version: 1.0.1
+  brandonwise/humanizer, stephenturner/skill-deslop, lguz/humanize-writing-skill,
+  Simon Willison's llm-cliche-highlighter, and Wikipedia's Signs of AI writing guide.
+version: 1.0.2
 license: MIT
 compatibility: any-agent
 allowed-tools:

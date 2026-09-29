@@ -96,7 +96,7 @@ Moreover, Furthermore, Additionally, In today's [X], In an era where, It's worth
 Vary deliberately. Include some 1-2 sentence paragraphs and some longer ones.
 
 ### Formulaic openings
-If the piece opens with broad context before getting to the point ("In the rapidly evolving world of..."), rewrite to lead with the news or the insight.
+If the piece opens with broad context before getting to the point ("In the rapidly evolving world of...", "the ever-evolving landscape of...", "in today's fast-paced / digital world"), rewrite to lead with the news or the insight.
 
 ### Suspiciously clean grammar
 Don't sand away all personality. Deliberate fragments, sentences starting with "And" or "But," comma splices for effect: if the natural voice uses them, keep them.
@@ -107,7 +107,7 @@ Too many headers in short text: more than 3 headings in under 300 words. Too man
 ## Significance and framing
 
 ### Significance inflation
-"Marking a pivotal moment in the evolution of..." or "a watershed moment for the industry." State what happened and let the reader judge significance.
+"Marking a pivotal moment in the evolution of..." or "a watershed moment for the industry." State what happened and let the reader judge significance. Also: "stands as a testament to," "is a testament to," "plays a crucial / pivotal / vital / key role in" — inflating significance instead of saying what happened. State the actual fact.
 
 ### Generic future-narrative closers
 "May become one of the most important narratives of the next market cycle." Pattern: modal + "become" + (one of) the most [adjective] + (narrative/story/trend/theme).
@@ -162,6 +162,58 @@ Rapid-fire lists of past technologies to borrow their weight ("like the printing
 
 ### Social endorsement closers
 "This one is worth your time:", "Do yourself a favor and read this." — say what the thing is and who it's for, then drop the CTA.
+
+## Essay-voice tics
+
+Source: llm-cliche-highlighter (Simon Willison, tools.simonwillison.net), a pattern library of ChatGPT-voiced blog-essay tics, which itself draws on Wikipedia's "Signs of AI writing" guide. These are rare in formal writing and dense in personal essays and dev blogs. Almost every fix is the same move: the tic announces or gestures at a point instead of stating it, so state it directly.
+
+### Superlative totalizers ("that's the whole point")
+"That's the whole point / game / thing," "consistency is the entire game," "the entire pitch is one sentence long," "here is the whole secret" — declaring totality about a detail. Say why it matters instead: not "consistency is the entire game" but "inconsistent names cost us an hour of debugging a week."
+
+### "The punchline is ..."
+"The punchline is that nobody wants to hear it." Announcing a point as a punchline instead of delivering it. Cut the framing and state the point.
+
+### "That's not nothing"
+"That's not nothing," "it is not nothing" — conceding small significance. Quantify the thing's actual weight or cut the sentence.
+
+### "X is real, and it's not subtle"
+"The improvement is real, and it's not subtle" — asserting realness instead of showing the thing. If it is real, give the number, quote, or example.
+
+### "Worth naming"
+"That loss is real and it's worth naming," "it's worth naming that ...," "Worth naming:" opener — announcing the value of naming the thing instead of naming it. Name it.
+
+### Negation chains ("no X, no Y", "didn't X, didn't Y")
+"No fluff, no filler, no jargon." "Did not flinch, did not blink, did not reach for the red pen." Two or more negated items in a row, also "didn't X, didn't Y." Keep at most one; rewrite as a positive statement about what the thing does or is.
+
+### Corrective definition ("don't call it X, call it Y")
+"Don't call it a rewrite. Call it a rescue." Negated verb + "it," then the same verb + "it." State the corrective claim directly: "It's a rescue: every test still passes and three bugs are gone."
+
+### "You already know"
+"You already know the answer." Excluding the reader or flattering them instead of informing. If the reader already knows, the sentence adds nothing; if they don't, tell them.
+
+### "Sit with that"
+"sit with that / this / it for a moment," "sit with the discomfort" — commanding a reflective pause instead of writing the reflection. Cut, or say the consequence of the point.
+
+### "Turns out ..."
+Sentence-initial "Turns out X" or "it turns out that X" — casual-revelation framing bolted to a tidy conclusion. State the discovered fact plainly.
+
+### "Don't take my word for it"
+The stock invitation to verify. Cut it; the passage works without it.
+
+### "That's the part ..." gesture
+"That's the part a schedule can't capture," "the part that makes me trust the rest," "my favourite part of ..." — pointing at a favoured detail without giving it. Name the detail.
+
+### "The only X I trust"
+"The only marketing I trust," "the only estimate I trust," "the only thing that matters" — the narrowing superlative reveal. Say why that one and not the others.
+
+### "X is dead"
+"Peer code review is dead," "X is dead; long live X" — obituary headlines standing in for an argument. A claim of death needs the specific fact: who moved away from it, why, to what.
+
+### "That's why X mattered"
+"That's why being able to open the environment mattered." Retroactively assigning significance with "that's why ... mattered / counted." State the actual consequence instead.
+
+### Stranded auxiliary contrast
+"The tool died; the data didn't." — a clause landing on a bare auxiliary (didn't, wouldn't, doesn't) to make the reversal. A legitimate human device, but a favorite of LLM voice; treat as corroborating, not conclusive. Keep at most one per piece.
 
 ## Communication artifacts
 
@@ -228,6 +280,12 @@ Restating what someone just told you back to them, then closing with a low-conte
 "Interesting part of the project:" / "Interesting thing here:" / "Interesting aspect:" — pre-announcing significance the writing hasn't earned.
 
 ## Rhythm and uniformity
+
+### Echoing skeleton runs
+Consecutive sentences built on the same multi-word skeleton: "The parser is a tiny state machine. The renderer is a tiny state machine." The shared frame makes the prose feel generated. Collapse into one sentence listing both subjects, or rewrite each sentence around its own point.
+
+### Repeated sentence openers
+Three or more consecutive sentences starting on the same word: "Maybe nobody needed it. Maybe the shortcut confused people. Maybe the redesign was overdue." Pronoun and article repetition is ordinary prose and fine; content-word repetition is the tell. Vary the openers or merge the sentences.
 
 ### Sentence length uniformity
 If most sentences are 15-25 words, the text sounds robotic. Mix short punchy sentences (3-8 words) with longer flowing ones (20+).
