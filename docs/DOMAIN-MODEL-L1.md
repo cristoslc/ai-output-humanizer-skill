@@ -6,7 +6,7 @@
 
 - **AI-ism** — A textual pattern statistically more common in LLM output than human writing. Measures style, not authorship.
 - **Voice** — The distinctive register, sentence rhythm, and word choice that makes writing sound like a specific person.
-- **Mode** — One of three operating modes: rewrite (fix + output), detect (measure how AI-sounding the text is, flag only), edit (in-place file fixes).
+- **Mode** — One of three operating modes: rewrite (fix + output), audit (measure how AI-sounding the text is, flag only), patch (in-place file fixes).
 - **Self-audit** — The skill re-reads its own output to catch remaining AI patterns before delivery.
 - **Iterate-to-convergence** — Repeat audit → fix → re-audit until no AI patterns remain.
 

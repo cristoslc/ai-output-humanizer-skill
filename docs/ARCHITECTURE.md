@@ -18,8 +18,6 @@ Single container: the skill definition at `skills/ai-output-humanizer/SKILL.md`,
 
 - `SKILL.md` — skill instructions, process, output format
 - `references/patterns.md` — full pattern catalog
-- `references/vocabulary-tiers.md` — 3-tier vocabulary system
-- `references/tolerance-matrix.md` — per-context rule strictness
 - `references/examples.md` — before/after transformations
 
 ### Deployment

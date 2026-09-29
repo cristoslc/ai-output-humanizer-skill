@@ -159,3 +159,15 @@ Corroborating signal in plain-text output; never block on it. See `patterns.md`.
 
 ### "Experts suggest" with named sources — SOFT
 The generic regex above hard-flags unnamed attribution. Attribution naming a specific person or publication is soft and usually correct; verify the name is real.
+
+### Trailing denial ("X, not Y") — SOFT
+```
+,\s*not\s+(?!surprisingly|including|coincidentally|only|just|merely|simply|that|to\s)(?:[\w'’-]+(?:\s+[\w'’-]+){0,2})(?=[.!?;:\n]|$)
+```
+Catches the denial form with no "but" ("a style tool, not an authorship test"), which the negative-parallelism HARD patterns above miss. A single instance can be legitimate human contrast; stacked denials or denials substituting for a positive statement are the tell. The judgment entry in `patterns.md` has the before/after.
+
+### Colon-and-enumeration — SOFT
+```
+:\s*[^.:;!?]{15,}[,;]\s*[^.:;!?]{10,}[,;]\s*(?:and\s+)?[^.:;!?]{10,}
+```
+A colon followed by three or more parallel comma-separated phrases in prose: a list wearing a sentence's clothes. Real Markdown lists and short enumerations of names, files, or flags are exempt. Fix by splitting: one sentence per item that matters.

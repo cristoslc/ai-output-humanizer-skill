@@ -18,7 +18,7 @@ Eight test cases for non-deterministic evaluation of the ai-output-humanizer ski
 - Sentence length varies (not all 15-25 words)
 - Reads as a person wrote it (subjective, 1-5 scale, pass >= 3)
 
-### TC-02: Detect mode (flag only)
+### TC-02: Audit mode (flag only)
 
 **Input:** Same AI-slop blog post as TC-01.
 
@@ -30,7 +30,7 @@ Eight test cases for non-deterministic evaluation of the ai-output-humanizer ski
 - Patterns are grouped or categorized
 - No rewritten version is produced
 
-### TC-03: Edit mode (in-place)
+### TC-03: Patch mode (in-place)
 
 **Input:** A short file path (simulated) with AI-slop text. The skill should make minimal, targeted edits.
 
@@ -54,17 +54,17 @@ Eight test cases for non-deterministic evaluation of the ai-output-humanizer ski
 - First-person perspective is present where appropriate
 - Vocabulary is not upgraded beyond the sample's level
 
-### TC-05: Opt-out (when NOT to use)
+### TC-05: Tech docs (full-strength patterns)
 
 **Input:** Technical documentation text (API reference, parameter docs, README-style content) that contains some AI patterns but is primarily technical reference.
 
-**Expected behavior:** The skill recognizes this as technical writing and does NOT apply humanization. Or if it does, changes are minimal and preserve the technical register.
+**Expected behavior:** Pattern rules apply at full strength. Technical terms and register are preserved, tells are still cleared, and the rewrite injects no conversational voice. A clean input returns as an acknowledged no-op.
 
 **Judge criteria:**
 - Technical terms are preserved
 - The output is not made informal/casual
-- Changes (if any) are minimal
-- The skill acknowledges the opt-out context
+- Changes are minimal, or a clean no-op is explicitly acknowledged
+- No AI patterns remain in the final output
 
 ### TC-06: Convergence (iterate)
 

@@ -138,6 +138,14 @@ const CASES = [
     ["a seamless, ever-evolving tapestry", 2],
     ["a smooth, changing story", 0],
   ]],
+  ["Trailing denial", [
+    ["A style tool, not an authorship test.", 1],
+    ["The flag exists, but the parser ignores it.", 0],
+  ]],
+  ["Colon-and-enumeration", [
+    ["The shapes are everywhere: sentences that signal importance, rhythm applied by rule, and facts dressed as turning points.", 1],
+    ["Ingredients: flour, water, salt.", 0],
+  ]],
 ];
 
 let fails = 0;

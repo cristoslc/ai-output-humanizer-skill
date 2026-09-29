@@ -1,0 +1,1 @@
+Patch the file at /tmp/draft.md in place. Use PATCH mode. Make minimal, targeted edits to fix AI writing patterns. Preserve passages that are already human. Report what you changed with before/after text snippets.

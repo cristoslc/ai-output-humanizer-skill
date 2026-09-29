@@ -21,9 +21,9 @@ test_cases:
       - "Reads as a person wrote it (subjective, 1-5 scale, pass >= 3)"
 
   - id: "TC-02"
-    name: "Detect mode (flag only)"
-    input: "tc02-detect-mode.txt"
-    mode: "detect"
+    name: "Audit mode (flag only)"
+    input: "tc02-audit-mode.txt"
+    mode: "audit"
     description: >
       Flag-only mode. Should identify and list AI patterns without rewriting
       the text. Original text is preserved. Patterns are grouped by severity.
@@ -34,11 +34,11 @@ test_cases:
       - "No rewritten version is produced"
 
   - id: "TC-03"
-    name: "Edit mode (in-place)"
-    input: "tc03-edit-mode.txt"
-    mode: "edit"
+    name: "Patch mode (in-place)"
+    input: "tc03-patch-mode.txt"
+    mode: "patch"
     description: >
-      In-place file editing. Should make minimal, targeted edits to flagged
+      In-place file patching. Should make minimal, targeted edits to flagged
       spans. Already-human passages are left untouched. Changes are reported.
     judge_criteria:
       - "Changes are minimal (not a full rewrite)"
@@ -62,18 +62,18 @@ test_cases:
       - "Vocabulary is not upgraded beyond the sample's level"
 
   - id: "TC-05"
-    name: "Opt-out (when NOT to use)"
-    input: "tc05-opt-out.txt"
+    name: "Tech docs (full-strength patterns)"
+    input: "tc05-tech-docs.txt"
     mode: "rewrite"
     description: >
-      Technical documentation text. The skill should recognize this as
-      technical writing and NOT apply humanization. Changes (if any) should
-      be minimal and preserve the technical register.
+      Technical documentation. Pattern rules apply at full strength: tells
+      cleared, technical terms and register preserved, no conversational
+      injection. A clean input returns as an acknowledged no-op.
     judge_criteria:
       - "Technical terms are preserved"
       - "The output is not made informal/casual"
-      - "Changes (if any) are minimal"
-      - "The skill acknowledges the opt-out context"
+      - "Changes are minimal, or a clean no-op is explicitly acknowledged"
+      - "No AI patterns remain in the final output"
 
   - id: "TC-06"
     name: "Convergence (iterate)"
