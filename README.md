@@ -1,8 +1,8 @@
 # AI Output Humanizer
 
-An opencode skill that strips the patterns AI models leave in prose, from contrast templates that argue with nobody to chatbot leftovers and em dashes on every noun. It keeps your meaning and your voice and removes the tells, then audits itself until every one is gone.
+An opencode skill that strips the tells language models leave in prose, from announced importance to scheduled rhythm and chatbot leftovers. It keeps the meaning and the voice, then audits itself until every tell is gone.
 
-Works in any agent or harness that supports SKILLS.md.
+Works in any agent or harness that reads a `SKILL.md`.
 
 **Before:**
 
@@ -12,28 +12,27 @@ Works in any agent or harness that supports SKILLS.md.
 
 > If individual model rankings are unstable across geography and time, ensemble methods that weight models by past performance may not improve on equal-weight approaches.
 
-More before/after pairs (scientific writing, travel writing, marketing copy) live in [`skills/ai-output-humanizer/references/examples.md`](skills/ai-output-humanizer/references/examples.md).
+More pairs (scientific writing, travel writing, marketing copy) live in [`skills/ai-output-humanizer/references/examples.md`](skills/ai-output-humanizer/references/examples.md).
 
 ## Background
 
-Language models write by picking the phrase that best fits the widest range of readers and subjects. That optimization has a fingerprint, including:
+Language models write by picking the phrase that best fits the widest range of readers and subjects. That optimization has a fingerprint:
 
 - Sentences announce importance instead of adding a fact
 - Rhythm shows up by rule rather than by ear
-- A same-length triple lands on schedule, every time
+- Same-length triples land on schedule
 - Ordinary facts get dressed up as turning points
-- Chunks of the chat itself survive as leftovers in the text
+- Chunks of the chat survive as leftover prose
 
-Wikipedia documents these shapes on its [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) page, where editors use them to catch machine-written text. This skill turns a synthesized version of that catalog into an editing workflow your agent can run.
+Wikipedia catalogues these on its [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) page. The skill turns a synthesized version of that catalog into an editing workflow agents can run.
 
 ## What it is and isn't
 
-This is a **style tool**, not an authorship test. The patterns it flags are statistically more common in LLM output, but humans under deadline pressure, writing in an unfamiliar genre, or writing in a second language produce the same shapes. Flags measure how AI-sounding a text is. They are not evidence about who or what wrote it.
+This is a **style tool**, not an authorship test. The patterns are statistically more common in LLM output, but humans under deadline or writing in a second language produce the same shapes. Flags measure how AI-sounding a text is. They are not evidence about who wrote it.
 
-Point it at anything. The same patterns run at the same strength on an API doc as on a blog post, and the same goes for commit messages and changelogs. The rewrite strips the tells but keeps the register, so a humanized technical document still sounds like technical documentation. Technical and formal writing never picks up casual voice. Parameter lists and code blocks belong to the genre, so the rewrite leaves them standing. Quoted material and attributed text stay word-for-word. A tell inside quoted text gets flagged, and the quote itself goes untouched.
+Point it at anything. The same patterns run at the same strength on an API doc as on a blog post. The rewrite strips the tells but keeps the register, so a humanized technical document still sounds like technical documentation. Parameter lists and code blocks belong to the genre and stay standing. Quoted material stays word-for-word; a tell inside a quote gets flagged, and the quote itself goes untouched.
 
 ## Modes
-
 
 | Mode                | What it does                                                                             | Use when                                                                                         |
 | ------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -41,73 +40,58 @@ Point it at anything. The same patterns run at the same strength on an API doc a
 | `audit`             | Flags AI patterns grouped by severity, changes nothing                                   | You want to see what's wrong and fix it yourself, or you're checking text you don't want altered |
 | `patch`             | Fixes a named file in place with minimal, targeted edits of a few words per flagged span | You have a file and only the bad spans should change; already-clean passages stay untouched      |
 
-
-Voice calibration is optional in `rewrite`: paste 2-3 paragraphs of your own writing and the rewrite matches your sentence length, vocabulary level, and habits. Without a sample, choose a named profile (`casual`, `professional`, `technical`, `warm`, `blunt`). If you name neither, the skill infers register from the input.
+Voice calibration is optional in `rewrite`. Paste 2-3 paragraphs of your own writing and the rewrite matches your rhythm and word level. Without a sample, choose a named profile (`casual`, `professional`, `technical`, `warm`, `blunt`), or let the skill infer register from the input.
 
 ## How it works
 
-1. **Regex scan.** A deterministic 25-pattern scan (`references/regex-scan.md`) runs first, mechanically, with HARD, LIMIT, and SOFT severities. HARD hits block delivery until fixed.
-2. **Judgment audit.** The skill reads the text for what regexes cannot see: tone, uniformity, structure, significance inflation, citing the specific text for each finding.
-3. **Draft rewrite.** A clean version with all audit findings addressed.
-4. **Self-audit.** The draft is re-scanned against every HARD pattern and every remaining tell is listed and fixed. This step is mandatory; so is a final re-scan after the last fix.
+1. **Regex scan.** A 25-pattern mechanical scan runs first, with HARD, LIMIT, and SOFT severities. HARD hits block delivery until fixed.
+2. **Judgment audit.** The skill reads for what regexes cannot see. It checks tone, uniformity, structure, and significance inflation, and ties each finding to the specific text.
+3. **Draft rewrite.** Every finding addressed.
+4. **Self-audit.** The draft is re-scanned against every HARD pattern, every surviving tell is listed and fixed, then the text is scanned once more. Mandatory.
 
-That loop, audit and re-check until the scan is clean, is the iterate-to-convergence workflow. Nothing ships until the mechanical scan reports zero hard-pattern hits.
+Audit and re-check until the scan is clean: that is the iterate-to-convergence loop. Nothing ships while a hard pattern still hits.
 
 ## Installation
-
-Install or update globally with the skills CLI:
 
 ```bash
 npx skills add cristoslc/ai-output-humanizer-skill -g
 ```
 
-This copies the skill into every detected agent directory (`~/.agents/skills/` and agent-specific locations such as `~/.config/opencode/skills/`) and handles updates on re-run. No manual file copying. The skill is plain Markdown, so any agent that reads a `SKILL.md` works.
+The skills CLI copies the skill into every detected agent directory (such as `~/.config/opencode/skills/`) and handles updates on re-run.
 
 ## Usage
 
-Ask in plain language:
+Plain language, three entry points:
 
-```
-humanize this: [text]
-```
-
-```
-audit this: [text]
+```bash
+humanize this: [text]       # rewrite
+audit this: [text]          # audit; "detect AI patterns in ..." also routes here
+patch this file: [path]     # patch; "edit this file ..." also routes here
 ```
 
-"Detect AI patterns in: [text]" also routes to audit mode. For files:
+Patch mode edits the file on disk and returns a list of before/after changes, not a copy of the file. See [`skills/ai-output-humanizer/SKILL.md`](skills/ai-output-humanizer/SKILL.md) for the full workflow, severity tiers, trigger words, and output formats.
 
-```
-patch this file: [path]
-```
+## Inside the skill
 
-"Edit this file: [path]" also routes to patch mode. In patch mode the file is edited on disk and the response is a list of before/after changes, not a copy of the file.
-
-See [`skills/ai-output-humanizer/SKILL.md`](skills/ai-output-humanizer/SKILL.md) for the full workflow, severity tiers, trigger words, and output formats.
-
-## What's inside
-
-- [`patterns.md`](skills/ai-output-humanizer/references/patterns.md): the full pattern catalog with before/after examples
-- [`regex-scan.md`](skills/ai-output-humanizer/references/regex-scan.md): the 25 mechanical patterns with severity tiers
-- [`examples.md`](skills/ai-output-humanizer/references/examples.md): before/after transformations per genre
+- [`patterns.md`](skills/ai-output-humanizer/references/patterns.md): the full catalog, with before/after examples
+- [`regex-scan.md`](skills/ai-output-humanizer/references/regex-scan.md): the 25 mechanical patterns and their severities
+- [`examples.md`](skills/ai-output-humanizer/references/examples.md): genre before/after pairs and full response examples
 
 ## Testing
 
-The repo carries two test layers:
-
 ```bash
-node tests/regex-scan-selftest.mjs     # deterministic regex checks, runs in seconds
+node tests/regex-scan-selftest.mjs     # deterministic regex checks, seconds to run
 ./scripts/run-tests.sh [--k N] [--only TC-NN]   # LLM-judged eval (default k=3, 7 test cases)
 ```
 
-The selftest verifies every scan pattern fires on a known-bad sample and stays silent on a clean one. The eval harness runs the skill through `opencode` k times per case and scores the output with an LLM judge against per-case criteria; details in [`tests/README.md`](tests/README.md).
+The selftest proves every scan pattern fires on a known-bad sample and stays silent on a clean one. The harness runs the skill through `opencode` k times per case and scores the output with an LLM judge; details in [`tests/README.md`](tests/README.md).
 
 ## Project structure
 
 ```
 .
 ├── skills/ai-output-humanizer/
-│   ├── SKILL.md              # the skill itself (primary artifact)
+│   ├── SKILL.md              # the skill itself
 │   └── references/           # pattern catalog, regex scan, examples
 ├── docs/                     # architecture, domain model, UX, plans, tech debt
 ├── tests/                    # regex selftest + LLM-judged eval harness
