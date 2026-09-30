@@ -28,9 +28,9 @@ Wikipedia catalogues these on its [Signs of AI writing](https://en.wikipedia.org
 
 ## What it is and isn't
 
-This is a **style tool**, not an authorship test. The patterns are statistically more common in LLM output, but humans under deadline or writing in a second language produce the same shapes. Flags measure how AI-sounding a text is. They are not evidence about who wrote it.
+This is a **style tool**, not an authorship test. The patterns show up more often in LLM output, but people under deadline and people writing in a second language produce the same shapes.
 
-Point it at anything. The same patterns run at the same strength on an API doc as on a blog post. The rewrite strips the tells but keeps the register, so a humanized technical document still sounds like technical documentation. Parameter lists and code blocks belong to the genre and stay standing. Quoted material stays word-for-word; a tell inside a quote gets flagged, and the quote itself goes untouched.
+Point it at anything. An API doc and a blog post face the same patterns at the same strength. The rewrite keeps the register, so technical documentation still sounds technical. Parameter lists and code blocks are genre furniture and stay standing. Quoted material stays word-for-word. A tell inside a quote gets flagged, and the quote itself goes untouched.
 
 ## Modes
 
