@@ -5,13 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-[1.4.0] - 2026-09-29
+## [Unreleased]
+
+## [1.5.0] - 2026-09-30
+
+### Added
+
+- Bundled scanner (`skills/ai-output-humanizer/tools/`) that runs the regex-scan.md catalog mechanically on arbitrary text. Tier 1 dispatches fidelity-first to the first runtime the host has (node -> python3 -> perl); Windows runs `tools/scan.ps1` (in-box PowerShell). All engines parse the catalog markdown at run time (single source of truth; no pattern is duplicated into code), emit identical reports byte-for-byte, and enforce the HARD/LIMIT gate via exit codes (0 pass, 1 violation, 2 usage/catalog parse error). Tier 2: with no runtime available, exit 3 presents an ask-user message; the agent asks the user to either install a runtime (never auto-install) or consent to the lower-fidelity `--degraded` scan (awk + grep ERE subset, ~20/26 patterns mechanical, SKIPPED patterns listed for LLM judgment, exit 4 marks reduced coverage). Regex-less LIMIT procedures (stacked questions, repeated openers, echoing skeletons) surface as JUDGMENT REQUIRED everywhere without affecting the exit code. `tests/regex-scan-selftest.mjs` gained three layers: the existing pattern cases, an engine-parity harness (byte-identical text reports + per-engine JSON over five fixtures, including tc07/tc01), and dispatcher tests (--engine passthrough, degraded triage vs expected SKIPPED set, corrupt-catalog exit 2 via SCAN_CATALOG, exit-3 message under an empty PATH). `regex-scan.md` gained the wiring sentence and an "Engine contract" section documenting the shared flavor. Pending: one smoke run of `tools/scan.ps1` on a real Windows box (WSL dispatches to a Unix engine and does not substitute). SKILL.md bumped to 1.5.0.
+
+## [1.4.0] - 2026-09-29
 
 ### Added
 
 - Pattern "Unresolvable references (assumed thread context)" and a SOFT scan for bare option, plan, phase, spike, and similar labels (scan count 25 → 26): the output resolves every ticket ID, option label, and pointer phrase out of the text itself, with a first-use gloss and bare later uses; the self-audit, pre-delivery checklist, and P1 tier carry a cold-copy check. Instruction surfaces (catalog entry, SKILL.md wiring, scan prose) are encoded positive-only, quoting no failing form; the failing shape and its fix live only in `references/examples.md` § "Assumed-context references". Selftest gained five SOFT cases. The Project Hal global spoke (`.agents/agents-md-detail/ai-writing-tells.md`) gained the same tell and checklist item in the same encoding (that repo, not this one). SKILL.md bumped to 1.4.0.
 
-## [Unreleased]
+## [1.3.2] and earlier
+
+### Changed
 
 ### Changed
 

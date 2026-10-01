@@ -8,7 +8,7 @@ Mechanical, deterministic detection pass. The patterns below are regular express
 2. **Self-audit (after drafting):** run every HARD pattern against your draft.
 3. **Gate (before delivery):** the rewrite is deliverable only when HARD patterns have zero hits and LIMIT patterns are within their limit. If a HARD pattern survives, fix it and re-run the scan. Never claim the scan passed without listing the patterns you ran.
 
-If your harness has a shell, run the scan mechanically (Node, Python, or ripgrep) instead of by eye: extract each regex into a script and count matches per pattern. Mechanical execution beats eyeballing. If you have no shell, apply each pattern as an explicit search and report "pattern: 0 hits" for each.
+The bundled scanner runs all fenced patterns mechanically: `sh tools/scan.sh <file>` (dispatches to the node, python3, or perl engine the host has; Windows: `tools/scan.ps1`). Same output contract on every engine; `--json` for a machine-readable result; exit 0 means the HARD/LIMIT gate passes at full fidelity. Exit 3 means no runtime was found: ask the user whether to install one (apt/brew/dnf/apk; never install without asking) or to run the lower-fidelity degraded scan (`sh tools/scan.sh --degraded <file>`, exit 4, covers the ERE-compatible subset mechanically and lists the rest for LLM judgment). Prefer the scanner over ad hoc extraction. If you have no shell, apply each pattern as an explicit search and report "pattern: 0 hits" for each.
 
 Severity meanings:
 
@@ -177,3 +177,14 @@ A colon followed by three or more parallel comma-separated phrases in prose: a l
 \b(?:option|variant|approach|plan|phase|scenario|spike)\s+(?:[a-dA-D]|[0-9])\b
 ```
 A hit is corroboration, not a blocker: it routes the span to the judgment check in `patterns.md` § "Unresolvable references (assumed thread context)". A label with a first-use gloss ("Option A, the streaming migration") passes the resolvability check; the judgment pass decides how each hit resolves. Bare ticket IDs (`ABC-123`) are deliberately not scanned: they are standard and usually resolvable by tracker lookup, and resolvability is a judgment call no regex can make.
+
+## Engine contract
+
+The bundled engines (`tools/scan.sh`, `tools/scan.ps1`, `tools/engines/scan.mjs|scan.py|scan.pl`) read these fences directly; the markdown above is the single source of truth for the patterns. Catalog edits must stay inside the shared flavor:
+
+- Supported across all engines: non-capturing groups, lookaheads/lookbehinds, backreferences (`\1`), `{n,m}` intervals, and `\uXXXX` escapes.
+- Perl engine converts `\uXXXX` to `\x{XXXX}` mechanically. Treat every bare `$` in a fence as JS end-anchor semantics; the Perl engine rewrites it to `\z`. Writing `$` inside a character class, or a literal `@`, breaks the Perl engine and is forbidden here.
+- Degraded mode (ERE + grep) skips patterns containing lookaheads, backreferences, or `\uXXXX` escapes and lists them as `SKIPPED — LLM JUDGMENT REQUIRED`; it rewrites `(?:` and in-class `\s`/`\w`/`\d` to POSIX classes.
+- Every `###` section under `## HARD patterns` needs exactly one fenced regex, except "Em dash / double hyphen" (a literal search, no fence). Fence-less sections are allowed only under `## LIMIT patterns` and `## SOFT patterns`.
+- Limit patterns declare their max in the heading (`— LIMIT n`). Engines enforce it against total hits for the fenced patterns only.
+- Engines emit identical reports by construction; `node tests/regex-scan-selftest.mjs` (repo dev side) asserts parity and must run after any catalog edit.
