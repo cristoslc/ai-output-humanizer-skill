@@ -6,7 +6,15 @@ No build step. The skill is plain Markdown loaded by opencode at runtime.
 
 ## Test
 
-Non-deterministic evaluation harness in `tests/`. Runs k trials per test case, scores outputs with an LLM judge, and computes pass^k metrics.
+Two layers, fast to slow:
+
+```bash
+node tests/regex-scan-selftest.mjs   # pattern cases + engine parity + dispatcher tests (fast, no LLM)
+```
+
+Covers the mechanical scanner (`skills/ai-output-humanizer/tools/scan.sh`): per-engine parity over `tests/scan-fixtures/`, degraded-mode triage, and exit-code contracts.
+
+Non-deterministic evaluation harness in `tests/superset/`. Runs k trials per test case, scores outputs with an LLM judge, and computes pass^k metrics.
 
 ```bash
 # Full suite (k=3, 7 test cases)

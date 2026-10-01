@@ -7,7 +7,7 @@ description: >
   detection patterns from conorbronsdon/avoid-ai-writing, blader/humanizer,
   brandonwise/humanizer, stephenturner/skill-deslop, lguz/humanize-writing-skill,
   Simon Willison's llm-cliche-highlighter, and Wikipedia's Signs of AI writing guide.
-version: 1.4.0
+version: 1.5.0
 license: MIT
 compatibility: any-agent
 allowed-tools:
