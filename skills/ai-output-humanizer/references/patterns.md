@@ -1,6 +1,6 @@
 # Pattern Catalog
 
-Full catalog of AI writing patterns to detect and fix. Each pattern includes what to watch for and how to fix it. Entries state their scope and exclusions so overlapping patterns do not double-flag the same text. Additions from 2026 on draw on awnist/slop-cop (github.com/awnist/slop-cop, MIT), whose taxonomy credits sneak's LLM_PROSE_TELLS.md (git.eeqj.de/sneak) and tropes.fyi, both queued as further upstream sources to mine.
+Full catalog of AI writing patterns to detect and fix. Each pattern includes what to watch for and how to fix it. Entries state their scope and exclusions so overlapping patterns do not double-flag the same text. Additions from 2026 on draw on awnist/slop-cop (github.com/awnist/slop-cop, MIT), whose taxonomy credits sneak's LLM_PROSE_TELLS.md (git.eeqj.de/sneak) and tropes.fyi; both were mined for the 1.6.1 additions.
 
 ## Formatting tells
 
@@ -24,6 +24,12 @@ Use sentence case for subheadings. Title case only for the piece's main title, i
 
 ### Curly quotation marks
 Curly quotes (" ") are a weak paste-from-chat signal — meaningful mainly in plain-text contexts. Treat as corroborating, never conclusive. Replace with straight quotes in plain-text/code; leave in finished publications.
+
+### Unicode arrow decoration
+Unicode arrows (→, ⇒, ←) inside running prose or text-drawn flow chains ("input → processing → output") stand in for the connecting sentence. Write out the relation, or let a sentence carry it ("Input produces Output"). Exempt: real tables, code blocks, shell pipelines, step chains, and before/after notation, where the arrow is genre furniture. (Scanner: SOFT § Unicode arrow decoration.)
+
+### Wh-word headings
+Section titles built on Where/What/Why ("Where the market is stuck today," "What we do differently," "Why this matters"). The default shape the model reaches for when it has to name a section; the tell is independent of what the heading's body says. One such heading is a judgment call; several per piece is the template showing. Rename to the section's actual claim ("Adoption stalled on data access"). (Scanner: SOFT § Wh-word headings.)
 
 ### Inline-header lists
 Bullet lists where each item starts with a bold header that repeats itself. Strip the bold header and write the point directly.
@@ -52,10 +58,10 @@ Cut or replace "worth reading," "worth paying attention to," "worth a look," "wo
 "Still holds," "remains the case," "continues to apply," "stands as discussed" — abstract stand-ins for restating the actual fact. Asserting that something is valid isn't the same as saying it. Cut the status verb and state the thing directly: not "the $220K figure still holds" but "$220K works."
 
 ### Hedging
-Cut perhaps, could potentially, it's important to note that, to be clear. Make the point directly.
+Cut perhaps, could potentially, it's important to note that, to be clear. Make the point directly. The stacked form is the tell at full strength: five hedges in one sentence ("it's worth noting that, while this may not be universally applicable, in many cases it can potentially offer...") communicates nothing. Keep at most one hedge per sentence.
 
 ### Self-announcing honesty frames
-"the honest gap," "honestly," "stated plainly," "to be clear," "let's be clear," "I'll be direct," "I'll be honest," "if I'm being honest" — meta-frames that announce candor instead of being candid. A plain statement of the fact *is* the candor; the label is filler. Cut the frame and state the point directly: not "The honest gap, stated plainly: I do not write production code day to day" but "I do not write production code day to day." The honesty-label pattern is most common when a writer is about to state a weakness or a concession, which is exactly when the reader is most alert to whether the candor is real. (Canonical in project-spoke `ai-writing-tells.md` § "Self-announcing honesty frames"; operator 2026-08-06.)
+"the honest gap," "honestly," "stated plainly," "to be clear," "let's be clear," "I'll be direct," "I'll be honest," "if I'm being honest" — meta-frames that announce candor instead of being candid. A plain statement of the fact *is* the candor; the label is filler. Cut the frame and state the point directly: not "The honest gap, stated plainly: I do not write production code day to day" but "I do not write production code day to day." The honesty-label pattern is most common when a writer is about to state a weakness or a concession, which is exactly when the reader is most alert to whether the candor is real. (Canonical in project-spoke `ai-writing-tells.md` § "Self-announcing honesty frames"; operator 2026-08-06.) The performative-vulnerability form is the same move in a costume: "And yes, I'm openly in love with the platform model," "And yes, since we're being honest: ..." — a polished, risk-free confession that borrows the shape of honesty without paying for it. Real candor is specific and uncomfortable; either write the uncomfortable specifics or delete the frame.
 
 ### Negative honesty assertions ("I won't claim X I don't have")
 "I am not going to claim X I do not have," "I won't pretend to know Y," "I'm not going to oversell this" — asserting what you *won't* claim is the same meta-frame as labeling candor: it advertises integrity instead of letting the plain statement carry it. Stating the fact directly ("I have no recent React production work") reads as more honest than declaring you're too honest to claim it. A writer doing this often intends a soft concession; make the concession plain instead. If the point is simply that you don't have the experience, say so and move on.
@@ -72,6 +78,21 @@ Vary groupings. Use two items, four items, or a full sentence instead of triads.
 ### Negative parallelisms
 "It's not just about X, it's about Y" constructions. Also tailing-negation fragments: "no guessing," "no wasted motion" tacked onto the end of a sentence.
 
+### Almost hedges
+"almost always," "almost never," "almost certainly," "almost exclusively" — a micro-hedge that dodges commitment while sounding decisive. Less obvious than the full hedge stack. Either commit to the unqualified claim, or pick an honest qualifier ("usually," "rarely") that carries information. (Scanner: SOFT § "Almost" hedges.)
+
+### Unnecessary contrast connectives
+A "whereas," "as opposed to," "unlike," or "except that" clause appended to a sentence that already says it: "Models write one register above where a human would, whereas human writers tend to match register to context." The test: delete the clause; if the sentence still carries everything it needs, the contrast was filler and the clause dies. Keep the contrast only when both sides carry information.
+
+### Unnecessary elaboration
+The sentence keeps going after making its point, and the tail restates what an earlier word already meant: "use fifteen of them per paragraph, consistently, throughout the entire piece" — the tail after "paragraph" adds nothing. Cut the last third when it repeats. Document-level: the same test applies to a closing paragraph that only re-airs the piece. Exclusion: developing a genuine analogy or example is elaboration that earns its place; only cut elaboration that adds no information.
+
+### Gerund fragment litany
+Two or more consecutive standalone fragments opening on a gerund or present participle: "Measuring velocity. Getting a number. Calling it progress." Rewrite as full sentences with subjects, or merge into one sentence. (Scanner: LIMIT; regex-less, judged.)
+
+### Listicle in a trench coat
+Prose paragraphs doing list work through ordinals: "The first issue is that... The second issue is that... The third issue is..." Two or more ordinal openers in a passage; convert to an actual list, or dissolve the ordinals so the prose follows the argument's own order. Related to "Excessive enumeration"; extends numbered-list inflation into continuous prose. (Scanner: LIMIT; regex-less, judged.)
+
 ### Passive voice and subjectless fragments
 "No configuration file needed" — rewrite with active voice and named actors when it makes the sentence clearer.
 
@@ -79,9 +100,9 @@ Vary groupings. Use two items, four items, or a full sentence instead of triads.
 
 Flag AI-associated word choices wherever they occur, at full strength in every genre. Single hits of words with legitimate technical use (`robust`, `comprehensive`, `seamless`, `leverage`) are judgment calls; say so in the audit. Clusters and repeated density of flagged vocabulary are clear problems at any severity. `delve`, `tapestry`, `beacon`, `embark`, `testament to`, `game-changer`, `harness` are flagged anywhere, no exceptions.
 
-Slop vocabulary from slop-cop, in two severities. Regex-flagged (SOFT scan, cluster escalation): synergy, holistic, transformative, cutting-edge, nuanced, unprecedented, noteworthy, enduring, intricacies, showcase, spearhead, streamline, foster, resonate, plus the elevated register one-offs ascertain, ameliorate, elucidate, promulgate, cognizant. Judgment-only (regex hit would be noise far more often than signal): dynamic, innovative, valuable, navigate in the figurative "navigate the challenges" sense, craft and boast as verbs. Filler adverbs, judgment calls when sentence-opening or purely ornamental: inherently, increasingly, remarkably, quietly, deeply, and "rather" as a bare intensifier ("rather good"), never inside "rather than".
+Slop vocabulary from slop-cop, in two severities. Regex-flagged (SOFT scan, cluster escalation): synergy, holistic, transformative, cutting-edge, nuanced, unprecedented, noteworthy, enduring, intricacies, showcase, spearhead, streamline, foster, resonate, plus the elevated register one-offs ascertain, ameliorate, elucidate, promulgate, cognizant. Judgment-only (regex hit would be noise far more often than signal): dynamic, innovative, valuable, navigate in the figurative "navigate the challenges" sense, craft and boast as verbs, multifaceted, underscores as a verb ("this underscores the need"), landscape as a domain noun ("the AI landscape"), realm, and the figurative-inhabitance phrase "where X actually lives". Filler adverbs, judgment calls when sentence-opening or purely ornamental: inherently, increasingly, remarkably, quietly, deeply, essentially, ultimately, particularly, arguably, fundamentally, and "rather" as a bare intensifier ("rather good"), never inside "rather than".
 
-Elevated-register swaps to plain equivalents: ascertain (find out), ameliorate (improve), elucidate (explain), promulgate (spread), cognizant (aware), "in the realm of" (in), "at this juncture" (now), "one must consider" (cut), "pertaining to" (about), "in regards to" (about), and "in a [adjective] way, manner, sense, fashion, or regard" collapses to the adverb ("in a crucial way" becomes "crucially"). (Scanner: SOFT § "Broader implications" / "in the realm of" for the phrase forms, § "In a [adjective] way/manner" for the collapse.)
+Elevated-register swaps to plain equivalents: ascertain (find out), ameliorate (improve), elucidate (explain), promulgate (spread), cognizant (aware), utilize (use), commence (start), facilitate (help), endeavor (try), demonstrate (show, in prose sense; keep the technical sense in engineering docs), "in the realm of" (in), "at this juncture" (now), "one must consider" (cut), "pertaining to" (about), "in regards to" (about), and "in a [adjective] way, manner, sense, fashion, or regard" collapses to the adverb ("in a crucial way" becomes "crucially"). (Scanner: SOFT § "Broader implications" / "in the realm of" for the phrase forms, § "In a [adjective] way/manner" for the collapse.)
 
 ## Template phrases
 
@@ -89,10 +110,10 @@ Elevated-register swaps to plain equivalents: ascertain (find out), ameliorate (
 "a [adjective] step towards [adjective] AI infrastructure" — if a phrase has a blank where a noun or adjective could go and still sound the same, it's too generic.
 
 ### Transition phrases
-Moreover, Furthermore, Additionally, In today's [X], In an era where, It's worth noting that, Notably, Here's what's interesting, In conclusion, In summary, When it comes to, At the end of the day, That said, That being said, With that in mind, It follows that, Having said that, On the contrary.
+Moreover, Furthermore, Additionally, In today's [X], In an era where, In an era of [X], It's worth noting that, Notably, Here's what's interesting, In conclusion, In summary, When it comes to, At the end of the day, Moving forward, That said, That being said, With that in mind, It follows that, Having said that, On the contrary. The paragraph-level form is connector addiction: three or more consecutive paragraphs opening on a transition word (However, Furthermore, Moreover, Additionally, That said) chain into a template. Rewrite those openings to start with their subject.
 
 ### Generic conclusions
-"The future looks bright," "Only time will tell," "One thing is certain," "As we move forward" — filler disguised as conclusions.
+"The future looks bright," "Only time will tell," "One thing is certain," "As we move forward" — filler disguised as conclusions. The never-ending form stacks clause after clause instead of landing one point, as if the piece cannot bear to stop. Read the final paragraph: if it keeps extending and restating, land the strongest single line and stop there.
 
 ### Generic positive conclusions
 "The future looks bright for the company. Exciting times lie ahead." — replace with a specific plan or fact.
@@ -102,14 +123,26 @@ Moreover, Furthermore, Additionally, In today's [X], In an era where, It's worth
 ### Uniform paragraph length
 Vary deliberately. Include some 1-2 sentence paragraphs and some longer ones.
 
+### Pivot paragraphs
+A one-sentence paragraph that exists only to transition: "But here's where it gets interesting." "Which raises an uncomfortable truth." It contains zero information and the actual point sits in the next paragraph. Delete the pivot and let the point open its paragraph directly.
+
+### Fractal summaries
+"What I'll tell you; what I'm telling you; what I just told you" applied at every level: every section opens by previewing its content and closes by recapping it, and the whole document previews and recaps too. One preview at the top and one synthesis at the end is plenty. Cut the per-section framing.
+
+### Announce-then-answer preambles
+A structural announcer before the point: "Two constraints shape the design," "Two continuations are worth supporting," "The more important point is..." It names the count or shape of what follows instead of delivering it. The sentence sets up the answer instead of being the answer; it pairs with compulsive counting (the stated number) and the ordinal delivery ("The first... The second..." — see Listicle in a trench coat). Cut the announcer and lead with the content.
+
 ### Formulaic openings
-If the piece opens with broad context before getting to the point ("In the rapidly evolving world of...", "the ever-evolving landscape of...", "in today's fast-paced / digital world"), rewrite to lead with the news or the insight.
+If the piece opens with broad context before getting to the point ("In the rapidly evolving world of...", "the ever-evolving landscape of...", "in today's fast-paced / digital world", "In an era of rapid technological change..."), rewrite to lead with the news or the insight. The "era-of" form is the model stalling while it finds its argument; delete the first paragraph entirely when a test read proves the piece improves without it.
+
+### Premise stacking
+A point, often a question, preceded by a paragraph of the evidence for it, so the point is made two or three times before it is finally stated: the internal doc says X, a teammate says roughly X, the region comparison supports X, and then the question "is X available here?" arrives already answered. Also linked to reasoning leaks. Compress: ask the question, then give the one piece of evidence that answers it.
 
 ### Suspiciously clean grammar
 Don't sand away all personality. Deliberate fragments, sentences starting with "And" or "But," comma splices for effect: if the natural voice uses them, keep them.
 
 ### Excessive structure
-Too many headers in short text: more than 3 headings in under 300 words. Too many list items: 8+ bullets in under 200 words. Formulaic section headers: "Overview," "Key Points," "Summary," "Conclusion."
+Too many headers in short text: more than 3 headings in under 300 words. Too many list items: 8+ bullets in under 200 words. Formulaic section headers: "Overview," "Key Points," "Summary," "Conclusion." And the five-paragraph prison: a rigid introduction that previews the argument, 3-5 body points, and a conclusion that restates the thesis, applied when nobody asked for an essay. Break the arc when the content doesn't demand it.
 
 ## Significance and framing
 
@@ -135,10 +168,10 @@ Too many headers in short text: more than 3 headings in under 300 words. Too man
 A rhetorical question answered by the very next sentence, especially a short pat answer ("What does this mean? It means trust."). Delete the question and keep the answer as a plain statement. (Extends "Rhetorical question openers"; the short pat answer is the tell the opener check misses.)
 
 ### Parenthetical hedging
-"(and, increasingly, Z)" — if the aside matters, give it its own sentence.
+"(and, increasingly, Z)" — if the aside matters, give it its own sentence. The comma-wrapped qualifier family works the same way: "(of course)," "(to be fair)," "(needless to say)," "(in fairness)," "(admittedly)," "(to be sure)," "(it must be said)," "(after all)," "(as everyone knows)" — parenthetical asides performing nuance without changing the argument. (Scanner: SOFT § Comma parenthetical qualifiers.)
 
 ### Numbered list inflation
-"Three key takeaways" — only use when the content genuinely has that many discrete, parallel items. The LLM default extends past threes: drafted lists of exactly 3, 5, 7, or 10 items are the magic counts slop-cop observed. Ask whether the count came from the content or from the default; let a real list have its natural length, 4, 6, or 9.
+"Three key takeaways" — only use when the content genuinely has that many discrete, parallel items. The LLM default extends past threes: drafted lists of exactly 3, 5, 7, or 10 items are the magic counts slop-cop observed. Ask whether the count came from the content or from the default; let a real list have its natural length, 4, 6, or 9. The prose cousin is compulsive counting: stating the exact number before the list exists ("Five things we wish to discuss," "Four reasons why this will work") as if getting the count right were itself the achievement. Drop the announced count and let the items stand on their content.
 
 ### Self-labeling significance
 "That last move is the contrarian one" — the label does the work the content was supposed to do. Cut the labeling sentence.
@@ -156,7 +189,7 @@ Rapid-fire lists of past technologies to borrow their weight ("like the printing
 "Nestled within the breathtaking foothills," "a vibrant hub of innovation." Replace with plain description.
 
 ### Formulaic challenges
-"Despite challenges, [subject] continues to thrive." Name the actual challenge and the actual response.
+"Despite challenges, [subject] continues to thrive." Name the actual challenge and the actual response. The full formula: acknowledge the difficulties only to dismiss them, opening "Despite its [positive qualities], [subject] faces challenges..." and closing "Despite these challenges, [optimistic conclusion]." Replace the frame with the specific difficulty and the specific answer.
 
 ### Speculative scenario openers
 "Imagine a world where..." — cut the hypothetical and state the real claim.
@@ -181,6 +214,9 @@ Rapid-fire lists of past technologies to borrow their weight ("like the printing
 
 ### Grandiose stakes
 "Will fundamentally reshape how we think about everything," "will define the next era of computing," "has implications for the future of humanity": an ordinary point inflated to world-historical scale. Scale the claim to what was actually shown.
+
+### Belaboring the unnecessary
+A minor or uncontroversial point stated, then defended as if an objection was coming: "We are setting this out in full rather than quietly changing the recommendation, because the failure mode is the reason it matters." Nobody was going to raise the objection; the defense adds nothing. Cut to the plain statement.
 
 ## Essay-voice tics
 
@@ -212,6 +248,9 @@ Source: llm-cliche-highlighter (Simon Willison, tools.simonwillison.net), a patt
 
 ### "Sit with that"
 "sit with that / this / it for a moment," "sit with the discomfort" — commanding a reflective pause instead of writing the reflection. Cut, or say the consequence of the point.
+
+### Quotable one-liners
+A standalone line dressed to be pulled out and quoted with zero context: "Story points are a planning tool with no fixed unit," "Every metric that rewards volume punishes leverage." Slide bait; it carries no new information and proves nothing on its own. If the line holds a real claim, give the argument behind it in the same passage; otherwise cut it.
 
 ### "Turns out ..."
 Sentence-initial "Turns out X" or "it turns out that X" — casual-revelation framing bolted to a tidy conclusion. State the discovered fact plainly.
@@ -246,7 +285,7 @@ The stock invitation to verify. Cut it; the passage works without it.
 "Great question!", "Excellent point!", "You're absolutely right!" — conversational rewards from chat interfaces.
 
 ### Acknowledgment loops
-"You're asking about," "The question of whether," "To answer your question" — AI restates the prompt before answering.
+"You're asking about," "The question of whether," "To answer your question" — AI restates the prompt before answering. The tie-back is the same artifact at close: the reply delivers the point, then bolts a summary of itself back onto the original ask ("So, to answer your question: yes, the employee can be added to the app," "In short, this gives you everything you need to ship"). Once the answer is given, stop.
 
 ### Unresolvable references (assumed thread context)
 The chat's memory is not the reader's memory. Chat-shaped drafts resolve references out of the conversation instead of out of the document. In a finished deliverable the text is the referent's home: every numbered artifact arrives with its title, every lettered or numbered option arrives with the thing it stands for, and every pointer phrase names what it points at. The repair is a first-use gloss, not a recap; after the first use the bare label stands fine. This is the mirror of vague attribution: that tell under-specifies, this one over-specifies toward a referent the text alone cannot settle.
@@ -264,7 +303,7 @@ Exemptions: referents the document itself already defined, numbered artifacts in
 "It's worth noting that," "Interestingly," "Surprisingly," "Importantly," "Significantly," "Notably," "Certainly," "Undoubtedly."
 
 ### Reasoning chain artifacts
-"Let me think step by step," "Breaking this down," "Step 1:", "Here's my thought process" — chain-of-thought reasoning leaking into published prose.
+"Let me think step by step," "Breaking this down," "Step 1:", "Here's my thought process" — chain-of-thought reasoning leaking into published prose. The subtler form narrates the writing itself instead of the subject: "What that changes in the design is smaller than it might appear, and what it changes is worth being precise about," "I want to be exact about my own role here." The reader gets a voiceover of the piece's own moves. Delete the voiceover; do the move.
 
 ### Cutoff disclaimers
 "As of my last update," "While specific details are limited based on available information," "I don't have access to real-time data."
@@ -284,13 +323,13 @@ Exemptions: referents the document itself already defined, numbered artifacts in
 ## Emotional and stylistic
 
 ### Emotional flatline
-"What surprised me most," "I was fascinated to discover," "What struck me was," "I was excited to learn," "The most interesting part."
+"What surprised me most," "I was fascinated to discover," "What struck me was," "I was excited to learn," "The most interesting part." Related is the empathy performance: emotional language so generic it could apply to anything ("This can be a deeply challenging experience," "Your feelings are valid."). Replace with the specific feeling or the specific situation, or cut.
 
 ### Synonym cycling
 AI rotates synonyms to avoid repeating a word: "developers… engineers… practitioners… builders" in the same paragraph. Human writers repeat the clearest word.
 
 ### Vague attributions
-"Experts believe," "Studies show," "Research suggests," "Industry leaders agree" — without naming the expert, study, or leader.
+"Experts believe," "Studies show," "Research suggests," "Industry leaders agree" — without naming the expert, study, or leader. The familiarity variant borrows the reader's supposed prior knowledge as the unnamed authority: "famously," "notoriously," "considered a classic," "as we all know." If you can't name the source, the claim doesn't have one.
 
 ### Filler phrases
 "It is important to note that," "In terms of," "The reality is that" — mechanical padding.
@@ -321,11 +360,14 @@ Three or more consecutive sentences starting on the same word: "Maybe nobody nee
 ### Sentence length uniformity
 If most sentences are 15-25 words, the text sounds robotic. Mix short punchy sentences (3-8 words) with longer flowing ones (20+).
 
+### Two-clause compound monotony
+Most sentences are two balanced independent clauses joined by a comma and a conjunction ("X, and Y.", "..., which is why Z.", "..., because they never change the argument.") — every sentence two similar-length halves, the same shape over and over. Human prose mixes one-clause sentences, front-loaded subordinate clauses, and complexity embedded mid-sentence. Fix in order: try deleting the second clause (it is often redundant); if it carries meaning, make it its own sentence; otherwise front the subordinate clause or embed a relative clause mid-sentence instead of appending.
+
 ### Paragraph length uniformity
-If every paragraph is 3-5 sentences and roughly the same size, vary deliberately.
+If every paragraph is 3-5 sentences and roughly the same size, vary deliberately. The section-level form counts too: if the first section runs about 150 words and every later section lands between 130 and 170, split or merge so the sizes vary for content reasons.
 
 ### Vocabulary repetition vs. synonym cycling
-AI either repeats the same word mechanically or cycles through synonyms conspicuously. Human writers repeat when the word is right and vary when it's natural.
+AI either repeats the same word mechanically or cycles through synonyms conspicuously. Human writers repeat when the word is right and vary when it's natural. The self-echo form: the piece reuses one of its own distinctive phrases pages later as if paying it off ("quietly disappeared" surfacing again in a unrelated section). Once is a motif, twice without intent is the pattern; rewrite the second use plain.
 
 ### Read-aloud test
 If the text sounds like it could be read by a TTS engine without sounding weird, it's probably too uniform.
@@ -334,7 +376,22 @@ If the text sounds like it could be read by a TTS engine without sounding weird,
 Where appropriate, the writer should have opinions, preferences, and reactions. AI is relentlessly neutral.
 
 ### Over-polishing
-Aggressively editing out every irregularity can push human writing toward AI statistical profiles. Don't sand away all personality.
+Aggressively editing out every irregularity can push human writing toward AI statistical profiles. Don't sand away all personality. The absence-of-mess test is the same read: model prose never contradicts itself mid-paragraph and catches it, never takes a tangent and walks it back, never risks a joke that could fall flat, never leaves a thought genuinely unfinished. A couple of deliberate rough edges are healthy; polish that erases all of them is the tell.
+
+### Dead metaphor recurrence
+Stock metaphors used as if fresh, then repeated: "game-changer," "double-edged sword," "tip of the iceberg," "north star," "perfect storm," "elephant in the room," "building blocks." "game-changer" is flagged anywhere by the vocabulary rule; recurrence (the same metaphor or two in a row) is the rhythm tell. Replace with the comparison the actual topic affords, at most once each.
+
+### Coined metaphor crutch
+A forced simile or coined metaphor reached for because it sounds clever: "Tracking productivity with that metric is like tracking weight loss with a scale you also calibrate." Nobody would say it in conversation and it clarifies nothing. A favorite variant steals a word from the prompt and repurposes it as a metaphor for something unrelated. Cut, or state the point directly.
+
+### Dramatic fragments (corroborating)
+Sentence fragments as standalone paragraphs for manufactured emphasis: "Full stop." "Let that sink in." "He published this. Openly. In a book. As a priest." Corroborating signal, same treatment as the stranded auxiliary: a piece may keep one; two or more is the pattern. Expand into a complete sentence that adds information, or delete.
+
+### Short-hook paragraphs
+Standalone one-line paragraphs whose only job is suspense or audience handling ("And that's where it all went wrong."). Cut the line, or give it actual content as a full paragraph.
+
+### Staccato bursts (corroborating)
+Three or more very short sentences in a row at matching cadence and length: "The data is clear. The trend is undeniable. The conclusion is obvious." Corroborating signal; merge at least two into a longer sentence or vary the lengths so they stop landing on the same beat.
 
 ## Stylometric signals
 
@@ -342,10 +399,13 @@ Aggressively editing out every irregularity can push human writing toward AI sta
 In prose over 200 words, TTR below 0.40 is worth a second look. Fix by broadening the what: name specific things, cite specific cases.
 
 ### Paragraph-reshuffle immunity
-Can you swap two body paragraphs without breaking the piece? If yes, establish a through-line or decide whether the piece should be an explicit list.
+Can you swap two body paragraphs without breaking the piece? If yes, establish a through-line or decide whether the piece should be an explicit list. The extreme form is content duplication: whole sections or paragraphs repeated verbatim inside one piece, a leftover from lost tracking. Merge or delete the duplicate.
 
 ### Treadmill effect / low information density
 Read each paragraph and ask "what's actually new here?" If you could cut 40-60% and lose no information, cut it.
+
+### One-point dilution
+One thesis restated across thousands of words with rotating metaphors, framings, and examples, adding nothing: an 800-word argument becomes 4,000 words of circular repetition; a single argument restated eight ways. Whole-piece counterpart of the treadmill effect, which names paragraph-level padding. Fix: state the point once, then keep only framings that carry a genuinely new angle and cut the rest.
 
 ## When to rewrite from scratch vs. patch
 
@@ -369,15 +429,9 @@ A colon followed by three or more parallel noun phrases is a list wearing a sent
 Before: "The default shows up as recognizable shapes: signaling instead of informing, rule-driven rhythm, inflated significance, and chat leftovers."
 After: "The default has a fingerprint. Sentences announce importance instead of adding a fact. Rhythm lands on schedule. Ordinary facts get dressed up as turning points. Chunks of the chat survive as leftovers."
 
-Exemptions: real Markdown lists, short enumerations of names, files, or flags ("flags: --k, --only"), and definitions.
+Exemptions: real Markdown lists, short enumerations of names, files, or flags ("flags: --k, --only"), and definitions. The cadence survives without the colon too: a short setup clause followed by an elaboration, repeated ("X means Y. Y demands Z. Z resists W.") is the same list rhythm wearing prose; vary the shape or collapse the chain.
 
 ### Parenthetical triple
-Three parallel items inside parentheses.
-
-Before: "humans on autopilot (deadline pressure, genre drift, second-language phrasing) produce the same shapes"
-After: "deadline pressure alone produces the same shapes"
-
-Usually one member carries the point; write that member and drop the padding. If all three genuinely matter, each gets its own prose, not a parenthetical crowd.
 Three parallel items inside parentheses.
 
 Before: "humans on autopilot (deadline pressure, genre drift, second-language phrasing) produce the same shapes"

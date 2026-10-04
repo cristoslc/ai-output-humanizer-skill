@@ -206,6 +206,10 @@ const CASES = [
     ["Input → Output in one hop.", 1],
     ["Plain text, no decoration.", 0],
   ]],
+  ["Wh-word headings", [
+    ["Intro line first.\n\n## Where the market is stuck\n\nBody.", 1],
+    ["Intro line first.\n\n## Adoption stalled on data access\n\nBody.", 0],
+  ]],
 ];
 
 let fails = 0;

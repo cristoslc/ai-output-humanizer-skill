@@ -76,7 +76,7 @@ The acquisition is a major change for the company.
 
 **What changed:** removed the hedging opener and the inflation; the original carried one claim, so the rewrite carries one claim.
 
-**Second-pass audit:** all 35 patterns rescanned; zero HARD hits; the rewrite is clean.
+**Second-pass audit:** all 36 patterns rescanned; zero HARD hits; the rewrite is clean.
 
 ## Audit-mode response example
 
@@ -100,4 +100,4 @@ It's worth noting that the acquisition may mark a pivotal moment for the company
 - `memo.md` line 3: "a pivotal moment" → "a major shift" (inflation swap, three words)
 - before→after: "It's worth noting that the acquisition may mark a pivotal moment for the company's retail division." → "The acquisition may mark a major shift for the company's retail division."
 
-**Verification:** the 35-pattern scan re-run on the edited file shows zero HARD hits. Other lines were left alone deliberately; they were already clean.
+**Verification:** the 36-pattern scan re-run on the edited file shows zero HARD hits. Other lines were left alone deliberately; they were already clean.

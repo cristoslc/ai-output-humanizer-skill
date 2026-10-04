@@ -1,6 +1,6 @@
 # Regex Scan
 
-Mechanical, deterministic detection pass. The patterns below are regular expressions over the plain text; run them in order and record every hit with its location. Source: Simon Willison's llm-cliche-highlighter (tools.simonwillison.net), adapted to this skill's catalog; some regexes are verbatim from that tool (MIT-licensed style credit), some are derived from this catalog's entries. The 2026 additions draw on awnist/slop-cop (MIT), whose own taxonomy credits sneak's LLM_PROSE_TELLS.md (git.eeqj.de/sneak) and tropes.fyi, both queued as further upstream sources to mine.
+Mechanical, deterministic detection pass. The patterns below are regular expressions over the plain text; run them in order and record every hit with its location. Source: Simon Willison's llm-cliche-highlighter (tools.simonwillison.net), adapted to this skill's catalog; some regexes are verbatim from that tool (MIT-licensed style credit), some are derived from this catalog's entries. The 2026 additions draw on awnist/slop-cop (MIT), and the 1.6.1 additions on tropes.fyi and sneak's LLM_PROSE_TELLS.md (git.eeqj.de/sneak/prompts), both credited upstream by slop-cop.
 
 ## How to use
 
@@ -151,7 +151,13 @@ Count runs of 2+ question marks in consecutive sentences. One rhetorical questio
 Flag any run of three or more consecutive sentences opening on the same non-function word (skip I, it, the, a, an, this, that, we, you, they, there, but, and, so, in, as, if). Fix by varying openers or merging.
 
 ### Echoing skeleton runs — LIMIT 0 (runs of 2+)
-Flag runs of two or more consecutive sentences sharing a 4+ word skeleton (like "is a tiny state machine"). Collapse to one sentence or rewrite each around its own point. These three procedures have no compact regex; apply them as explicit sentence-by-sentence checks.
+Flag runs of two or more consecutive sentences sharing a 4+ word skeleton (like "is a tiny state machine"). Collapse to one sentence or rewrite each around its own point. These five procedures have no compact regex; apply them as explicit sentence-by-sentence checks.
+
+### Gerund fragment litany — LIMIT 0 (runs of 2+)
+Flag runs of two or more consecutive standalone paragraphs or lines opening on a gerund or present participle fragment: "Measuring velocity. Getting a number. Calling it progress." Rewrite as full sentences with subjects, or merge into one.
+
+### Listicle in a trench coat — LIMIT 0 (runs of 2+)
+Flag passages carrying two or more ordinal openers doing list work in continuous prose: "The first issue is...", "The second issue is...". Convert to a real list or dissolve the ordinals.
 
 ## SOFT patterns
 
@@ -232,6 +238,12 @@ Extends the HARD participle-tails pattern to finite verbs: "This highlights the 
 →
 ```
 The arrow as a transition inside running prose. Write out the relation ("Input produces Output"). Exempt: tables, step chains, shell pipelines, code, and before/after notation, where the arrow is genre furniture.
+
+### Wh-word headings — SOFT
+```
+(?:^|\n)#{1,6}\s+(?:Where|What|Why)\b
+```
+Section titles built on Where/What/Why: the model's default shape when naming a section. Several per piece is the template showing; rename each to the section's actual claim. Judgment entry: `patterns.md` § "Wh-word headings".
 
 ## Engine contract
 

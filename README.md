@@ -44,7 +44,7 @@ Voice calibration is optional in `rewrite`. Paste 2-3 paragraphs of your own wri
 
 ## How it works
 
-1. **Regex scan.** A 35-pattern mechanical scan runs first, with HARD, LIMIT, and SOFT severities. HARD hits block delivery until fixed.
+1. **Regex scan.** A 36-pattern mechanical scan runs first, with HARD, LIMIT, and SOFT severities. HARD hits block delivery until fixed.
 2. **Judgment audit.** The skill reads for what regexes cannot see. It checks tone, uniformity, structure, and significance inflation, and ties each finding to the specific text.
 3. **Draft rewrite.** Every finding addressed.
 4. **Self-audit.** The draft is re-scanned against every HARD pattern, every surviving tell is listed and fixed, then the text is scanned once more. Mandatory.
@@ -74,7 +74,7 @@ Patch mode edits the file on disk and returns a list of before/after changes, no
 ## Inside the skill
 
 - [`patterns.md`](skills/ai-output-humanizer/references/patterns.md): the full catalog, with before/after examples
-- [`regex-scan.md`](skills/ai-output-humanizer/references/regex-scan.md): the 35 mechanical patterns and their severities
+- [`regex-scan.md`](skills/ai-output-humanizer/references/regex-scan.md): the 36 mechanical patterns and their severities
 - [`examples.md`](skills/ai-output-humanizer/references/examples.md): genre before/after pairs and full response examples
 
 

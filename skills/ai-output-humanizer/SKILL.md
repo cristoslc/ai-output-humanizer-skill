@@ -7,8 +7,8 @@ description: >
   detection patterns from conorbronsdon/avoid-ai-writing, blader/humanizer,
   brandonwise/humanizer, stephenturner/skill-deslop, lguz/humanize-writing-skill,
   Simon Willison's llm-cliche-highlighter, Wikipedia's Signs of AI writing guide,
-  and awnist/slop-cop.
-version: 1.7.0
+  awnist/slop-cop, tropes.fyi, and sneak's LLM_PROSE_TELLS.md.
+version: 1.7.1
 license: MIT
 compatibility: any-agent
 allowed-tools:
@@ -144,11 +144,11 @@ Match their word level too. If they use "stuff" and "things," don't upgrade to "
 
 The full pattern catalog is in `references/patterns.md`. Key categories:
 
-- **Formatting tells**: em dashes (HARD RULE: zero em dashes in the final output. Replace every em dash with a comma, period, or restructure the sentence. The self-audit MUST check for em dashes specifically. If any remain, fix before delivering.), hard wraps (HARD RULE: every prose paragraph is one logical line; a paragraph split across lines with a bare newline joins back into one line), bold overuse, emoji in headers, excessive bullets, title case headings, curly quotes
-- **Sentence structure**: "It's not X, it's Y" and its split and three-sentence variants, trailing denials ("content, not pattern"), colon-and-enumeration in prose, parenthetical triples, hollow intensifiers, hedging, missing bridge sentences, compulsive rule of three
+- **Formatting tells**: em dashes (HARD RULE: zero em dashes in the final output. Replace every em dash with a comma, period, or restructure the sentence. The self-audit MUST check for em dashes specifically. If any remain, fix before delivering.), hard wraps (HARD RULE: every prose paragraph is one logical line; a paragraph split across lines with a bare newline joins back into one line), bold overuse, emoji in headers, excessive bullets, title case headings, curly quotes, unicode arrows in running prose, wh-word headings (Where/What/Why section titles)
+- **Sentence structure**: "It's not X, it's Y" and its split and three-sentence variants, trailing denials ("content, not pattern"), colon-and-enumeration in prose, parenthetical triples, hollow intensifiers, hedging, missing bridge sentences, compulsive rule of three, almost hedges, unnecessary contrast connectives, unnecessary elaboration, gerund fragment litanies, listicles in a trench coat
 - **Vocabulary**: AI-associated word choices such as delve, tapestry, showcase, or leverage used as filler, flagged wherever they occur; single hits register as judgment calls, clusters and density raise severity
 - **Template phrases**: slot-fill constructions, transition phrases, generic conclusions
-- **Structural issues**: uniform paragraph length, formulaic openings, suspiciously clean grammar
+- **Structural issues**: uniform paragraph length, formulaic openings, suspiciously clean grammar, pivot paragraphs, fractal summaries, announce-then-answer preambles, premise stacking
 - **Significance inflation**: "marking a pivotal moment," "a watershed moment"
 - **Generic future-narrative closers**: "may become one of the most important narratives"
 - **Chatbot artifacts**: "I hope this helps!", "Certainly!", "Great question!"
@@ -167,8 +167,8 @@ The full pattern catalog is in `references/patterns.md`. Key categories:
 - **Numbered list inflation**: "Three key takeaways"; only use when content genuinely has that many discrete items
 - **Self-labeling significance**: "That last move is the contrarian one"; the label is doing work the content should do
 - **Excessive structure**: too many headers in short text, too many list items, formulaic section headers
-- **Rhythm and uniformity**: sentence length uniformity, paragraph length uniformity, vocabulary repetition vs. synonym cycling, read-aloud test, missing first-person perspective, over-polishing, dead metaphor recurrence, short-hook paragraphs, staccato and dramatic fragments (corroborating)
-- **Vocabulary diversity (stylometric)**: type-token ratio below 0.40 in prose over 200 words is worth a second look
+- **Rhythm and uniformity**: sentence length uniformity, paragraph length uniformity, vocabulary repetition vs. synonym cycling, read-aloud test, missing first-person perspective, over-polishing, dead metaphor recurrence, coined metaphor crutch, two-clause compound monotony, short-hook paragraphs, staccato and dramatic fragments (corroborating)
+- **Vocabulary diversity (stylometric)**: type-token ratio below 0.40 in prose over 200 words is worth a second look; one-point dilution (a single thesis restated into a multi-thousand-word piece) is the whole-piece form
 - **Paragraph-reshuffle immunity**: can you swap two body paragraphs without breaking the piece? If yes, the piece is a list posing as an argument
 - **Treadmill effect / low information density**: read each paragraph and ask "what's actually new here?" If you could cut 40-60% and lose no information, cut it
 
@@ -213,5 +213,5 @@ If the original writing is already strong, say so and make only the necessary cu
 ## Reference files
 
 - `references/patterns.md`: full pattern catalog with before/after examples
-- `references/regex-scan.md`: the 35 mechanical patterns for the mandatory first pass
+- `references/regex-scan.md`: the 36 mechanical patterns for the mandatory first pass
 - `references/examples.md`: before/after transformations and output-format examples
