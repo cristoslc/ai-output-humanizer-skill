@@ -246,16 +246,19 @@ print(prompt)
   if ! opencode run --format json --dangerously-skip-permissions \
         < "${tmp}/judge-prompt.md" \
         > "${tmp}/judge-raw.json" 2>"${tmp}/judge-stderr.log"; then
-    echo "    judge failed; see ${tmp}/judge-stderr.log" >&2
+    echo "    judge invocation failed; see ${tmp}/judge-stderr.log" >&2
     rm -rf "$tmp"
-    echo '{"result":"fail","reason":"judge invocation failed","confidence":0.0}'
-    return
+    return 1
   fi
 
   local extracted="${tmp}/judge-out.md"
-  python3 "${HARNESS_DIR}/extract-output.py" "${tmp}/judge-raw.json" "${extracted}" 2>/dev/null || true
+  if ! python3 "${HARNESS_DIR}/extract-output.py" "${tmp}/judge-raw.json" "${extracted}" 2>"${tmp}/extract-stderr.log"; then
+    echo "    judge output extraction failed; see ${tmp}/extract-stderr.log" >&2
+    rm -rf "$tmp"
+    return 1
+  fi
   local text
-  text=$(cat "$extracted" 2>/dev/null || echo '{"result":"fail","reason":"extract failed","confidence":0.0}')
+  text=$(cat "$extracted")
 
   # Strip markdown fences if present
   if echo "$text" | head -1 | grep -q '```'; then
@@ -299,11 +302,35 @@ for tc in "${RUN_CASES[@]}"; do
       echo "$output_text" > "${RESULTS_DIR}/${tc}/run-${run}.txt"
     fi
 
-    judge_result=$(judge_output "$tc" "$input_text" "$output_text") || judge_result='{"result":"fail","reason":"judge error","confidence":0.0}'
+    judge_result=$(judge_output "$tc" "$input_text" "$output_text") || {
+      echo "    ERROR: judge failed for $tc run $run; aborting suite (fail loud)" >&2
+      exit 1
+    }
 
-    result=$(echo "$judge_result" | python3 -c "import sys,json; print(json.load(sys.stdin).get('result','fail'))" 2>/dev/null || echo "fail")
-    confidence=$(echo "$judge_result" | python3 -c "import sys,json; print(json.load(sys.stdin).get('confidence',0.0))" 2>/dev/null || echo "0.0")
-    reason=$(echo "$judge_result" | python3 -c "import sys,json; print(json.load(sys.stdin).get('reason',''))" 2>/dev/null || echo "")
+    if ! parsed=$(echo "$judge_result" | python3 -c '
+import sys, json
+raw = sys.stdin.read().strip()
+try:
+    d = json.loads(raw)
+    result = d.get("result")
+    if result not in ("pass", "fail", "skip"):
+        raise ValueError(f"invalid result: {result!r}")
+    if not isinstance(d.get("confidence"), (int, float)):
+        raise ValueError("confidence not numeric")
+    print(result)
+    print(d.get("confidence"))
+    print(d.get("reason", ""))
+except Exception as e:
+    sys.stderr.write(f"unparseable judge output ({e}): {raw[:200]!r}\n")
+    sys.exit(1)
+'); then
+      echo "    ERROR: judge returned unparseable output for $tc run $run: $judge_result" >&2
+      echo "    aborting suite (fail loud)" >&2
+      exit 1
+    fi
+    result=$(echo "$parsed" | sed -n 1p)
+    confidence=$(echo "$parsed" | sed -n 2p)
+    reason=$(echo "$parsed" | tail -n +3)
 
     if [ "$result" = "pass" ]; then
       TC_PASS=$((TC_PASS + 1))
