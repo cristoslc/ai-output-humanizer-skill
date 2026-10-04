@@ -1,6 +1,6 @@
 # Regex Scan
 
-Mechanical, deterministic detection pass. The patterns below are regular expressions over the plain text; run them in order and record every hit with its location. Source: Simon Willison's llm-cliche-highlighter (tools.simonwillison.net), adapted to this skill's catalog; some regexes are verbatim from that tool (MIT-licensed style credit), some are derived from this catalog's entries.
+Mechanical, deterministic detection pass. The patterns below are regular expressions over the plain text; run them in order and record every hit with its location. Source: Simon Willison's llm-cliche-highlighter (tools.simonwillison.net), adapted to this skill's catalog; some regexes are verbatim from that tool (MIT-licensed style credit), some are derived from this catalog's entries. The 2026 additions draw on awnist/slop-cop (MIT), whose own taxonomy credits sneak's LLM_PROSE_TELLS.md (git.eeqj.de/sneak) and tropes.fyi, both queued as further upstream sources to mine.
 
 ## How to use
 
@@ -184,6 +184,54 @@ A colon followed by three or more parallel comma-separated phrases in prose: a l
 \b(?:option|variant|approach|plan|phase|scenario|spike)\s+(?:[a-dA-D]|[0-9])\b
 ```
 A hit is corroboration, not a blocker: it routes the span to the judgment check in `patterns.md` § "Unresolvable references (assumed thread context)". A label with a first-use gloss ("Option A, the streaming migration") passes the resolvability check; the judgment pass decides how each hit resolves. Bare ticket IDs (`ABC-123`) are deliberately not scanned: they are standard and usually resolvable by tracker lookup, and resolvability is a judgment call no regex can make.
+
+### "Almost" hedges — SOFT
+```
+\balmost\s+(?:always|never|certainly|exclusively|entirely|completely|invariably|universally)\b
+```
+Hedging where the claim needs a stance. Commit, or pick the honest qualifier ("usually", "rarely"). Judgment entry: `patterns.md` § "Almost hedges".
+
+### Comma parenthetical qualifiers — SOFT
+```
+,\s*(?:of course|to be fair|it should be said|needless to say|in fairness|admittedly|to be sure|it must be said|after all|as everyone knows)\s*,
+```
+The comma-wrapped form only ("This is, of course, a simplification."); a sentence-initial "Of course," is ordinary speech and passes. Integrate the qualifier into the sentence or cut it. Judgment entry: `patterns.md` § "Parenthetical hedging".
+
+### "In a [adjective] way/manner" filler — SOFT
+```
+\bin\s+(?:a|an)\s+[\w-]+(?:\s+[\w-]+)?\s+(?:way|manner|sense|fashion|regard)\b
+```
+Collapse to the adverb ("in a crucial way" becomes "crucially"). Idioms like "in a big way" and the bare hedge "in a sense" (no adjective, so not scanned) are judgment calls.
+
+### "Broader implications" / "in the realm of" — SOFT
+```
+\b(?:broader|wider)\s+implications?\b|\bin\s+the\s+realm\s+of\b|\bat\s+this\s+juncture\b|\bone\s+must\s+consider\b|\bpertaining\s+to\b|\bin\s+regards\s+to\b
+```
+Zooming out to unearned significance, or elevated register padding. State the actual implication and use the plain phrase. Judgment entry: `patterns.md` § "Broader implications".
+
+### "Rather than" preference framing — SOFT
+```
+\b\w+(?:\s+\w+){1,6}\s+rather\s+than\s+\w+(?:\s+\w+){1,5}\b
+```
+Two or more words on each side of "rather than": the preference-framing shape LLMs use to show nuance. Short natural contrasts ("walk rather than run") fall under the word minimum and pass. One per passage at most, same rule as the trailing denial.
+
+### Semicolon negation pivot — SOFT
+```
+\b(?:not|never|no longer|don['’]t|doesn['’]t|isn['’]t|wasn['’]t|aren['’]t)\b(?:(?![;.!?\n—–]).){3,80};
+```
+A negated first clause before a semicolon, the reframe shape "not X; Y". Plain prose where the semicolon carries a real connection ("We shipped Monday; support was ready.") passes on judgment. Corroborating only.
+
+### "Highlights the" + abstract noun — SOFT
+```
+\b(?:highlights?|highlighted|highlighting)\s+the\s+(?:importance|need|significance|value|role|impact|fact|challenges?|complexity|potential|limitations?|urgency|gaps?|contrast|tensions?|reality|severity|concerns?|problems?|issues?|difficult(?:y|ies)|dangers?|failures?|successes?|disparit(?:y|ies)|inequalit(?:y|ies)|tradeoffs?)\b
+```
+Extends the HARD participle-tails pattern to finite verbs: "This highlights the importance of X" is the same empty significance claim. Replace the verb with show/shows/showed/showing, or cut the phrase and state the actual fact.
+
+### Unicode arrow decoration — SOFT
+```
+→
+```
+The arrow as a transition inside running prose. Write out the relation ("Input produces Output"). Exempt: tables, step chains, shell pipelines, code, and before/after notation, where the arrow is genre furniture.
 
 ## Engine contract
 

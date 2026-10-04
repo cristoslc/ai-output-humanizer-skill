@@ -6,8 +6,9 @@ description: >
   convergence. Synthesizes
   detection patterns from conorbronsdon/avoid-ai-writing, blader/humanizer,
   brandonwise/humanizer, stephenturner/skill-deslop, lguz/humanize-writing-skill,
-  Simon Willison's llm-cliche-highlighter, and Wikipedia's Signs of AI writing guide.
-version: 1.6.0
+  Simon Willison's llm-cliche-highlighter, Wikipedia's Signs of AI writing guide,
+  and awnist/slop-cop.
+version: 1.7.0
 license: MIT
 compatibility: any-agent
 allowed-tools:
@@ -166,7 +167,7 @@ The full pattern catalog is in `references/patterns.md`. Key categories:
 - **Numbered list inflation**: "Three key takeaways"; only use when content genuinely has that many discrete items
 - **Self-labeling significance**: "That last move is the contrarian one"; the label is doing work the content should do
 - **Excessive structure**: too many headers in short text, too many list items, formulaic section headers
-- **Rhythm and uniformity**: sentence length uniformity, paragraph length uniformity, vocabulary repetition vs. synonym cycling, read-aloud test, missing first-person perspective, over-polishing
+- **Rhythm and uniformity**: sentence length uniformity, paragraph length uniformity, vocabulary repetition vs. synonym cycling, read-aloud test, missing first-person perspective, over-polishing, dead metaphor recurrence, short-hook paragraphs, staccato and dramatic fragments (corroborating)
 - **Vocabulary diversity (stylometric)**: type-token ratio below 0.40 in prose over 200 words is worth a second look
 - **Paragraph-reshuffle immunity**: can you swap two body paragraphs without breaking the piece? If yes, the piece is a list posing as an argument
 - **Treadmill effect / low information density**: read each paragraph and ask "what's actually new here?" If you could cut 40-60% and lose no information, cut it
@@ -212,5 +213,5 @@ If the original writing is already strong, say so and make only the necessary cu
 ## Reference files
 
 - `references/patterns.md`: full pattern catalog with before/after examples
-- `references/regex-scan.md`: the 27 mechanical patterns for the mandatory first pass
+- `references/regex-scan.md`: the 35 mechanical patterns for the mandatory first pass
 - `references/examples.md`: before/after transformations and output-format examples

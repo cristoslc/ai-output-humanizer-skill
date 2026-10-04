@@ -1,6 +1,6 @@
 # Pattern Catalog
 
-Full catalog of AI writing patterns to detect and fix. Each pattern includes what to watch for and how to fix it.
+Full catalog of AI writing patterns to detect and fix. Each pattern includes what to watch for and how to fix it. Entries state their scope and exclusions so overlapping patterns do not double-flag the same text. Additions from 2026 on draw on awnist/slop-cop (github.com/awnist/slop-cop, MIT), whose taxonomy credits sneak's LLM_PROSE_TELLS.md (git.eeqj.de/sneak) and tropes.fyi, both queued as further upstream sources to mine.
 
 ## Formatting tells
 
@@ -79,13 +79,17 @@ Vary groupings. Use two items, four items, or a full sentence instead of triads.
 
 Flag AI-associated word choices wherever they occur, at full strength in every genre. Single hits of words with legitimate technical use (`robust`, `comprehensive`, `seamless`, `leverage`) are judgment calls; say so in the audit. Clusters and repeated density of flagged vocabulary are clear problems at any severity. `delve`, `tapestry`, `beacon`, `embark`, `testament to`, `game-changer`, `harness` are flagged anywhere, no exceptions.
 
+Slop vocabulary from slop-cop, in two severities. Regex-flagged (SOFT scan, cluster escalation): synergy, holistic, transformative, cutting-edge, nuanced, unprecedented, noteworthy, enduring, intricacies, showcase, spearhead, streamline, foster, resonate, plus the elevated register one-offs ascertain, ameliorate, elucidate, promulgate, cognizant. Judgment-only (regex hit would be noise far more often than signal): dynamic, innovative, valuable, navigate in the figurative "navigate the challenges" sense, craft and boast as verbs. Filler adverbs, judgment calls when sentence-opening or purely ornamental: inherently, increasingly, remarkably, quietly, deeply, and "rather" as a bare intensifier ("rather good"), never inside "rather than".
+
+Elevated-register swaps to plain equivalents: ascertain (find out), ameliorate (improve), elucidate (explain), promulgate (spread), cognizant (aware), "in the realm of" (in), "at this juncture" (now), "one must consider" (cut), "pertaining to" (about), "in regards to" (about), and "in a [adjective] way, manner, sense, fashion, or regard" collapses to the adverb ("in a crucial way" becomes "crucially"). (Scanner: SOFT § "Broader implications" / "in the realm of" for the phrase forms, § "In a [adjective] way/manner" for the collapse.)
+
 ## Template phrases
 
 ### Slot-fill constructions
 "a [adjective] step towards [adjective] AI infrastructure" — if a phrase has a blank where a noun or adjective could go and still sound the same, it's too generic.
 
 ### Transition phrases
-Moreover, Furthermore, Additionally, In today's [X], In an era where, It's worth noting that, Notably, Here's what's interesting, In conclusion, In summary, When it comes to, At the end of the day, That said, That being said.
+Moreover, Furthermore, Additionally, In today's [X], In an era where, It's worth noting that, Notably, Here's what's interesting, In conclusion, In summary, When it comes to, At the end of the day, That said, That being said, With that in mind, It follows that, Having said that, On the contrary.
 
 ### Generic conclusions
 "The future looks bright," "Only time will tell," "One thing is certain," "As we move forward" — filler disguised as conclusions.
@@ -127,11 +131,14 @@ Too many headers in short text: more than 3 headings in under 300 words. Too man
 ### Rhetorical question openers
 "But what does this mean for developers?" — if you know the answer, just say it.
 
+### Question-then-answer pairs
+A rhetorical question answered by the very next sentence, especially a short pat answer ("What does this mean? It means trust."). Delete the question and keep the answer as a plain statement. (Extends "Rhetorical question openers"; the short pat answer is the tell the opener check misses.)
+
 ### Parenthetical hedging
 "(and, increasingly, Z)" — if the aside matters, give it its own sentence.
 
 ### Numbered list inflation
-"Three key takeaways" — only use when the content genuinely has that many discrete, parallel items.
+"Three key takeaways" — only use when the content genuinely has that many discrete, parallel items. The LLM default extends past threes: drafted lists of exactly 3, 5, 7, or 10 items are the magic counts slop-cop observed. Ask whether the count came from the content or from the default; let a real list have its natural length, 4, 6, or 9.
 
 ### Self-labeling significance
 "That last move is the contrarian one" — the label does the work the content was supposed to do. Cut the labeling sentence.
@@ -161,10 +168,19 @@ Rapid-fire lists of past technologies to borrow their weight ("like the printing
 "He introduced a term," "a concept nobody's naming" — describe what the person did with the concept, not that they discovered it.
 
 ### Infomercial engagement hooks
-"The catch?", "The kicker?", "Here's the thing." — delete the hook and state the thing.
+"The catch?", "The kicker?", "Here's the thing," "Here's the kicker," "Here's what most people miss," "Here's the real." — delete the hook and state the thing.
 
 ### Social endorsement closers
 "This one is worth your time:", "Do yourself a favor and read this." — say what the thing is and who it's for, then drop the CTA.
+
+### Broader implications
+"Broader implications," "wider implications," "implications for the broader landscape." Zooming out to unearned significance. State the actual implication or cut the phrase. (Scanner: SOFT.)
+
+### Invented concept labels
+"The attention paradox," "the trust vacuum," "the context creep," "the expertise chasm": a fake conceptual brand built by suffixing a noun with paradox, trap, creep, vacuum, inversion, or chasm. Describe the phenomenon in plain terms, or use the established name if one exists.
+
+### Grandiose stakes
+"Will fundamentally reshape how we think about everything," "will define the next era of computing," "has implications for the future of humanity": an ordinary point inflated to world-historical scale. Scale the claim to what was actually shown.
 
 ## Essay-voice tics
 
@@ -356,6 +372,12 @@ After: "The default has a fingerprint. Sentences announce importance instead of 
 Exemptions: real Markdown lists, short enumerations of names, files, or flags ("flags: --k, --only"), and definitions.
 
 ### Parenthetical triple
+Three parallel items inside parentheses.
+
+Before: "humans on autopilot (deadline pressure, genre drift, second-language phrasing) produce the same shapes"
+After: "deadline pressure alone produces the same shapes"
+
+Usually one member carries the point; write that member and drop the padding. If all three genuinely matter, each gets its own prose, not a parenthetical crowd.
 Three parallel items inside parentheses.
 
 Before: "humans on autopilot (deadline pressure, genre drift, second-language phrasing) produce the same shapes"

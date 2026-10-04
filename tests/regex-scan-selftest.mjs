@@ -174,6 +174,38 @@ const CASES = [
     ["The scan ran;\nnothing else did.", 1],
     ["He fixed the parser. And the tests passed.\n\nNew paragraph here.", 0],
   ]],
+  ['"Almost" hedges', [
+    ["It is almost always the fastest option.", 1],
+    ["We almost finished the port.", 0],
+  ]],
+  ["Comma parenthetical qualifiers", [
+    ["The plan, of course, was dead on arrival.", 1],
+    ["Of course the plan had a flaw.", 0],
+  ]],
+  ["way/manner", [
+    ["He explained the rollback in a decisive manner.", 1],
+    ["The way we ship changed.", 0],
+  ]],
+  ["Broader implications", [
+    ["This has broader implications for the field.", 1],
+    ["She studied the implications for one week.", 0],
+  ]],
+  ["Rather than", [
+    ["The team simplified the failing test rather than deleting the coverage entirely.", 1],
+    ["Walk rather than run for the first week.", 0],
+  ]],
+  ["Semicolon", [
+    ["The config is not the problem; the loader is.", 1],
+    ["We shipped Monday; support was ready.", 0],
+  ]],
+  ['"Highlights the"', [
+    ["This section highlights the importance of staging.", 1],
+    ["The parser highlights the matched text.", 0],
+  ]],
+  ["Unicode arrow", [
+    ["Input → Output in one hop.", 1],
+    ["Plain text, no decoration.", 0],
+  ]],
 ];
 
 let fails = 0;
