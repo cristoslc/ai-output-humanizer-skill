@@ -169,6 +169,11 @@ const CASES = [
     ["This option works well.", 0],
     ["We compared three approaches.", 0],
   ]],
+  ["Hard wraps", [
+    ["He fixed the parser,\nand the tests passed.", 1],
+    ["The scan ran;\nnothing else did.", 1],
+    ["He fixed the parser. And the tests passed.\n\nNew paragraph here.", 0],
+  ]],
 ];
 
 let fails = 0;
@@ -205,6 +210,8 @@ const FIXTURES = [
   { file: path.join(root, "tests", "scan-fixtures", "clean.txt"), expectExit: 0 },
   { file: path.join(root, "tests", "scan-fixtures", "seeded.txt"), expectExit: 1,
     counts: { "Em dash / double hyphen": 2, '"It\'s not X, it\'s Y" (one-line contrast)': 1, '"It\'s not X. It\'s Y." (split sentence)': 1, "Negation chains (\"no X, no Y\")": 1, "Superlative totalizers": 1, "Didactic hedging": 1, "Vague attribution to unnamed authorities": 1, "Stranded auxiliary contrast": 1 } },
+  { file: path.join(root, "tests", "scan-fixtures", "hardwrap.txt"), expectExit: 1,
+    counts: { "Hard wraps (mid-paragraph line breaks)": 1, "Em dash / double hyphen": 1 } },
   { file: path.join(root, "tests", "scan-fixtures", "utf8.txt"), expectExit: 0 },
   { file: path.join(root, "tests", "superset", "inputs", "tc07-split-its-not.txt"), expectExit: 1, degradedExit: 4, // its only hit (three-sentence variant) is exactly the pattern degraded mode skips
     // The tc07 input uses the apostrophe form ("It's not. It's about…"), which
@@ -295,7 +302,7 @@ const refEngine = available[0];
     const triageSkipped = sections
       .filter((s) => {
         const src = s.source || "";
-        return src.includes("(?=") || src.includes("(?!") || /\\[0-9]/.test(src) || /\\u[0-9A-Fa-f]{4}/.test(src);
+        return src.includes("(?=") || src.includes("(?!") || /\\[0-9]/.test(src) || /\\u[0-9A-Fa-f]{4}/.test(src) || src.includes("\n"); // multi-line fence: grep is line-based, cannot match across a newline
       })
       .map((s) => s.name.split(" — ")[0])
       .sort();

@@ -1,3 +1,1 @@
-“Quoted prose,” she said calmly. The paragraph carries one curly opening
-quote, one curly close, and an apostrophe that mustn’t shift any column.
-One long line of non-ASCII marks with zero ASCII violations: all good.
+“Quoted prose,” she said calmly. The paragraph carries one curly opening quote, one curly close, and an apostrophe that mustn’t shift any column. One long line of non-ASCII marks with zero ASCII violations: all good.

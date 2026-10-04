@@ -1,0 +1,3 @@
+The output wraps paragraphs at column 74 with a manual newline,
+which the pattern must catch.
+— seeded em dash also keeps the degraded exit at 1.

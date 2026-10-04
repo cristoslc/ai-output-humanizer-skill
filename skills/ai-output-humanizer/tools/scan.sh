@@ -119,6 +119,7 @@ if [ "$degraded" -eq 1 ]; then
           # classes only, so inside classes we rewrite to POSIX classes.
           if (p ~ /\n/ || p == "") {
             status="skip"
+            p=""  # a multi-line body would inject its newline into the 5-line record layout; the status alone is enough
           } else {
             gsub(/\(\?:/, "(", p)
             gsub(/\\u2019/, "\342\200\231", p)

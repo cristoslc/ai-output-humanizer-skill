@@ -7,7 +7,7 @@ description: >
   detection patterns from conorbronsdon/avoid-ai-writing, blader/humanizer,
   brandonwise/humanizer, stephenturner/skill-deslop, lguz/humanize-writing-skill,
   Simon Willison's llm-cliche-highlighter, and Wikipedia's Signs of AI writing guide.
-version: 1.5.0
+version: 1.6.0
 license: MIT
 compatibility: any-agent
 allowed-tools:
@@ -51,9 +51,11 @@ Trigger audit mode on "audit," "detect," "flag only," "just flag," "scan." Trigg
 
 **EM DASH RULE: the final output contains zero em dashes, in any form (— or --). This ban covers the rewritten text, the issues list, and the self-audit, including quoted original text; replace each with a comma or period in the quote. An em dash is the single most common surviving tell, so scan for it last.**
 
+**HARD WRAP RULE: the final output contains zero manual mid-paragraph line breaks. Every prose paragraph is one logical line; blank lines separate paragraphs. Headings, list items, block quotes, tables, and code fences are structural boundaries and keep their breaks.**
+
 1. **Audit**: run the regex scan FIRST (`references/regex-scan.md`). Apply every HARD, LIMIT, and SOFT pattern to the original text mechanically and list each pattern with its hit count and matched spans. This scan is the objective starting point; it runs before any judgment-based analysis, and it never runs on the user's instructions. Then continue the audit with the judgment-based patterns in `references/patterns.md` (tone, uniformity, structure, significance), citing the specific text.
 2. **Draft rewrite**: produce a clean version with all AI-isms removed, every HARD scan hit fixed. Use periods instead of em dashes. If the text is already clean, return it unchanged and say so. Editing for its own sake is over-editing.
-3. **Self-audit (MANDATORY)**: re-read your draft and re-run the regex scan on it. Every HARD pattern must show 0 hits and LIMIT patterns must be within their limit; any surviving hit gets fixed before delivery. Then hunt for judgment-level tells: recycled transitions, lingering inflation, copula avoidance, filler phrases, contrast denials (", not Y" and the regex-blind wordings "instead of Y", "rather than Y", "not merely Y", stacked in one passage), colon-and-enumeration in prose, "it's not X it's Y" constructions and their three-sentence variant, unresolvable references (every ticket ID, option label, and pointer phrase must carry its name on first use; `references/patterns.md` § Unresolvable references), EM DASHES (scan every line for — or --; this is the most common failure mode), and anything else from `references/patterns.md`. List each one. Do NOT skip this step. Be thorough: look for original clichés that survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and claims about the text's origin ("not AI-generated," "definitely human," "already human-sounding"). The rewrite's deliverable is quality, so commentary on who wrote the original has no place in it.
+3. **Self-audit (MANDATORY)**: re-read your draft and re-run the regex scan on it. Every HARD pattern must show 0 hits and LIMIT patterns must be within their limit; any surviving hit gets fixed before delivery. Then hunt for judgment-level tells: recycled transitions, lingering inflation, copula avoidance, filler phrases, contrast denials (", not Y" and the regex-blind wordings "instead of Y", "rather than Y", "not merely Y", stacked in one passage), colon-and-enumeration in prose, "it's not X it's Y" constructions and their three-sentence variant, hard wraps (paragraph text split across lines with a bare newline; every prose paragraph is one logical line), unresolvable references (every ticket ID, option label, and pointer phrase must carry its name on first use; `references/patterns.md` § Unresolvable references), EM DASHES (scan every line for — or --; this is the most common failure mode), and anything else from `references/patterns.md`. List each one. Do NOT skip this step. Be thorough: look for original clichés that survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and claims about the text's origin ("not AI-generated," "definitely human," "already human-sounding"). The rewrite's deliverable is quality, so commentary on who wrote the original has no place in it.
 4. **Final rewrite**: address every remaining tell from the self-audit. Before delivering, scan the final rewrite for em dashes (— or --) and re-run every HARD pattern; if any HARD hit or over-limit LIMIT hit survives, fix it and scan again. This is a hard gate: zero HARD hits in the final output.
 5. **Diff summary**: briefly list what changed and why.
 
@@ -62,6 +64,7 @@ Trigger audit mode on "audit," "detect," "flag only," "just flag," "scan." Trigg
 - [ ] Regex scan LIMIT patterns within limit (stranded auxiliary: max 1; stacked questions: max 1)
 - [ ] Cold-copy check: the text resolves with nothing but itself; every ticket number and option label carries its title on first use, and every pointer phrase names its referent (first-use gloss; `references/patterns.md` § Unresolvable references)
 - [ ] ZERO em dashes (— or --) anywhere in the text (including quoted text from the original)
+- [ ] ZERO hard wraps: every prose paragraph is a single logical line with no manual mid-paragraph break; blank lines separate paragraphs (headings, list items, block quotes, tables, and code fences are structural and keep their breaks)
 - [ ] No "it's not X, it's Y" constructions (including split-sentence: "It's not X. It's Y." and three-sentence: "It's X. It's not. It's Y." or "It's X. It's not. Y matters more.")
 - [ ] At most one trailing denial in a passage, in any wording ("X, not Y", "instead of Y", "rather than Y"), used only when both sides are true
 - [ ] No colon followed by three or more parallel phrases in prose (real Markdown lists and short enumerations are exempt)
@@ -81,6 +84,7 @@ Trigger audit mode on "audit," "detect," "flag only," "just flag," "scan." Trigg
 3. Any three-sentence sequence where the first sentence says "It's [X]" or "It is [X]" or "They think it's [X]", the second sentence is "It's not." or "It isn't." or "It doesn't." or "It is not.", and the third sentence says "It's [Y]" or "It is [Y]" or "[Y] matters" or "[Y] is" → rewrite as a single positive statement using the template below
 4. A colon followed by three or more parallel comma-separated phrases in prose → split into separate sentences (real lists and short enumerations are exempt)
 5. Trailing denials in any wording ("X, not Y", "instead of Y", "rather than Y") → keep at most one, then state the positive claim directly
+6. A paragraph split across lines with a bare newline (hard wrap) → join the paragraph into a single logical line; blank lines only between paragraphs
 
 **REWRITE TEMPLATE for "It's not X. It's Y.":** If you find yourself writing "It's not about [thing]. It's about [other thing]" or the three-sentence variant "It's about [thing]. It's not. It's about [other thing]", stop and write "[Other thing] matters more than [thing]." instead. For example: "It's not about vocabulary. It's about structure." becomes "Structure matters more than vocabulary." The three-sentence variant "It's about vocabulary. It's not. It's about structure." also becomes "Structure matters more than vocabulary."
 
@@ -139,7 +143,7 @@ Match their word level too. If they use "stuff" and "things," don't upgrade to "
 
 The full pattern catalog is in `references/patterns.md`. Key categories:
 
-- **Formatting tells**: em dashes (HARD RULE: zero em dashes in the final output. Replace every em dash with a comma, period, or restructure the sentence. The self-audit MUST check for em dashes specifically. If any remain, fix before delivering.), bold overuse, emoji in headers, excessive bullets, title case headings, curly quotes
+- **Formatting tells**: em dashes (HARD RULE: zero em dashes in the final output. Replace every em dash with a comma, period, or restructure the sentence. The self-audit MUST check for em dashes specifically. If any remain, fix before delivering.), hard wraps (HARD RULE: every prose paragraph is one logical line; a paragraph split across lines with a bare newline joins back into one line), bold overuse, emoji in headers, excessive bullets, title case headings, curly quotes
 - **Sentence structure**: "It's not X, it's Y" and its split and three-sentence variants, trailing denials ("content, not pattern"), colon-and-enumeration in prose, parenthetical triples, hollow intensifiers, hedging, missing bridge sentences, compulsive rule of three
 - **Vocabulary**: AI-associated word choices such as delve, tapestry, showcase, or leverage used as filler, flagged wherever they occur; single hits register as judgment calls, clusters and density raise severity
 - **Template phrases**: slot-fill constructions, transition phrases, generic conclusions
@@ -192,7 +196,7 @@ The full pattern catalog is in `references/patterns.md`. Key categories:
 ### Patch mode
 
 1. **Edits made**: bulleted list with file location and before→after
-2. **Verification**: confirm re-read and patterns resolved; note anything deliberately left alone
+2. **Verification**: confirm re-read and patterns resolved; note anything deliberately left alone (fences and front matter flagged by the hard-wrap scan stay untouched)
 
 ## Tone calibration
 
@@ -208,5 +212,5 @@ If the original writing is already strong, say so and make only the necessary cu
 ## Reference files
 
 - `references/patterns.md`: full pattern catalog with before/after examples
-- `references/regex-scan.md`: the 26 mechanical patterns for the mandatory first pass
+- `references/regex-scan.md`: the 27 mechanical patterns for the mandatory first pass
 - `references/examples.md`: before/after transformations and output-format examples

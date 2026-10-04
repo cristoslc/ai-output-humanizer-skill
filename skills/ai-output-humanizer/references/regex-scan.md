@@ -21,6 +21,13 @@ Severity meanings:
 ### Em dash / double hyphen
 `—` or `--` anywhere, including quoted original text and your own commentary. Replace with a period or comma. The zero rule from SKILL.md, stated as a regex: nothing to match, just search for the two literals.
 
+### Hard wraps (mid-paragraph line breaks)
+```
+[a-z,;][ \t]*\r?
+[ \t]*[a-z]
+```
+Prose paragraphs wrapped by hand at a fixed column, one bare newline joining the pieces. The mechanical signature: the previous line ends on a lowercase letter, a comma, or a semicolon, and the next line continues in lowercase; that pair of lines is one paragraph split mid-sentence. The fence body spans two physical lines on purpose: the pattern needs the newline itself, so a body carrying it degrades to skip under the line-based grep engine, and the script engines match across the newline at full fidelity. Fix: every prose paragraph becomes one logical line, blank lines separate paragraphs. Headings, list items, block quotes, table rows, code fences, and front matter are structural boundaries and keep their breaks; a hit inside a fence or front matter is a scan artifact, judge it manually and leave the fence alone.
+
 ### "It's not X, it's Y" (one-line contrast)
 ```
 \b(?:it|this|that)(?:['’]s|\s+(?:is|was))\s+not\s+[^.!?\n,;—–]{1,60}[,;—–]\s*(?:it|this|that)(?:['’]s|\s+(?:is|was))\b
@@ -184,7 +191,7 @@ The bundled engines (`tools/scan.sh`, `tools/scan.ps1`, `tools/engines/scan.mjs|
 
 - Supported across all engines: non-capturing groups, lookaheads/lookbehinds, backreferences (`\1`), `{n,m}` intervals, and `\uXXXX` escapes.
 - Perl engine converts `\uXXXX` to `\x{XXXX}` mechanically. Treat every bare `$` in a fence as JS end-anchor semantics; the Perl engine rewrites it to `\z`. Writing `$` inside a character class, or a literal `@`, breaks the Perl engine and is forbidden here.
-- Degraded mode (ERE + grep) skips patterns containing lookaheads, backreferences, or `\uXXXX` escapes and lists them as `SKIPPED — LLM JUDGMENT REQUIRED`; it rewrites `(?:` and in-class `\s`/`\w`/`\d` to POSIX classes.
+- Degraded mode (ERE + grep) skips patterns containing lookaheads, backreferences, or `\uXXXX` escapes, and multi-line fences (grep is line-based and cannot match across a newline); it lists them as `SKIPPED — LLM JUDGMENT REQUIRED`; it rewrites `(?:` and in-class `\s`/`\w`/`\d` to POSIX classes.
 - Every `###` section under `## HARD patterns` needs exactly one fenced regex, except "Em dash / double hyphen" (a literal search, no fence). Fence-less sections are allowed only under `## LIMIT patterns` and `## SOFT patterns`.
 - Limit patterns declare their max in the heading (`— LIMIT n`). Engines enforce it against total hits for the fenced patterns only.
 - Engines emit identical reports by construction; `node tests/regex-scan-selftest.mjs` (repo dev side) asserts parity and must run after any catalog edit.

@@ -7,6 +7,9 @@ Full catalog of AI writing patterns to detect and fix. Each pattern includes wha
 ### Em dashes
 Replace with commas, periods, parentheses, or rewrite as two sentences. Target: zero. Hard max: one per 1,000 words. Catch both Unicode em dash (—) and double-hyphen (--).
 
+### Hard wraps
+Manual mid-paragraph line breaks: the paragraph wrapped at a fixed column, one bare newline joining sentence pieces. Fix by writing each prose paragraph as a single logical line; blank lines separate paragraphs. Headings, list items, block quotes, tables, and code fences are structural boundaries and keep their line breaks. Mechanical form: `references/regex-scan.md` § "Hard wraps (mid-paragraph line breaks)".
+
 ### Bold overuse
 Strip bold from most phrases. One bolded phrase per major section at most. If something's important enough to bold, restructure the sentence to lead with it instead.
 

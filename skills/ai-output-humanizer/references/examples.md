@@ -50,6 +50,17 @@ Option C, the streaming migration, was the winner; the team liked its simplicity
 
 First mention says who; later mentions travel bare: five sentences later, "PRO-4182 also cleaned up the fixtures." needs no gloss.
 
+## Hard wraps
+
+This pair joins hand-wrapped lines into one logical line per paragraph. Meaning is unchanged; only the line breaks move. Headings, list items, block quotes, table rows, and code fences keep their line breaks.
+
+**Before:**
+The output wraps every paragraph at column 74 with a bare newline,
+so each line ends mid-sentence and the pieces have to join.
+
+**After:**
+The output wraps every paragraph at column 74 with a bare newline, so each line ends mid-sentence and the pieces have to join.
+
 ## Rewrite-mode response example
 
 **Input:**
@@ -65,7 +76,7 @@ The acquisition is a major change for the company.
 
 **What changed:** removed the hedging opener and the inflation; the original carried one claim, so the rewrite carries one claim.
 
-**Second-pass audit:** all 26 patterns rescanned; zero HARD hits; the rewrite is clean.
+**Second-pass audit:** all 27 patterns rescanned; zero HARD hits; the rewrite is clean.
 
 ## Audit-mode response example
 
@@ -89,4 +100,4 @@ It's worth noting that the acquisition may mark a pivotal moment for the company
 - `memo.md` line 3: "a pivotal moment" → "a major shift" (inflation swap, three words)
 - before→after: "It's worth noting that the acquisition may mark a pivotal moment for the company's retail division." → "The acquisition may mark a major shift for the company's retail division."
 
-**Verification:** the 26-pattern scan re-run on the edited file shows zero HARD hits. Other lines were left alone deliberately; they were already clean.
+**Verification:** the 27-pattern scan re-run on the edited file shows zero HARD hits. Other lines were left alone deliberately; they were already clean.

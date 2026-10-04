@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-10-03
+
+### Added
+
+- Pattern "Hard wraps (mid-paragraph line breaks)" (scan count 26 → 27): the rewrite is delivered with every prose paragraph as one logical line, blank lines separating paragraphs, and structural boundaries (headings, list items, block quotes, tables, code fences, front matter) keeping their breaks. The catalog fence body spans two physical lines, whose join carries the newline the pattern matches, so grep-based degraded mode skips it honestly (grep is line-based and cannot match across a newline) while the node, python3, and perl engines scan at full fidelity; the engine contract documents the multi-line triage and the selftest's expected SKIPPED set now covers it. The self-audit step, final scan list, pre-delivery checklist, formatting-tells summary, and patch-mode verification carry the rule, and `references/examples.md` gained the § "Hard wraps" before/after. `tests/regex-scan-selftest.mjs` gained three pattern cases plus a `hardwrap.txt` fixture (one hard wrap, one seeded em dash) in the engine-parity layer; `clean.txt` and `utf8.txt` were unwrapped to keep holding their exit-0 gate under the new pattern. SKILL.md bumped to 1.6.0.
+
 ## [1.5.0] - 2026-09-30
 
 ### Added
