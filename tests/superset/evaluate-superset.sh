@@ -260,9 +260,30 @@ print(prompt)
   local text
   text=$(cat "$extracted")
 
-  # Strip markdown fences if present
+  # Strip a leading markdown fence if present
   if echo "$text" | head -1 | grep -q '```'; then
     text=$(echo "$text" | sed '1s/^```json//;1s/^```//;$s/```$//')
+  fi
+
+  # The judge may wrap the verdict JSON in a fence after analysis prose.
+  # If the whole text is not JSON, try the last fenced block; if no block
+  # parses, print the original text so the caller's fail-loud abort fires.
+  if ! echo "$text" | python3 -c 'import sys, json; json.loads(sys.stdin.read())' 2>/dev/null; then
+    text=$(echo "$text" | python3 -c '
+import sys, json, re
+text = sys.stdin.read().strip()
+try:
+    json.loads(text)
+except Exception:
+    for block in reversed(re.findall(r"```(?:json)?\s*\n?(.*?)```", text, re.S)):
+        try:
+            json.loads(block.strip())
+            text = block.strip()
+            break
+        except Exception:
+            continue
+print(text)
+')
   fi
 
   echo "$text"
