@@ -8,7 +8,7 @@ description: >
   brandonwise/humanizer, stephenturner/skill-deslop, lguz/humanize-writing-skill,
   Simon Willison's llm-cliche-highlighter, Wikipedia's Signs of AI writing guide,
   awnist/slop-cop, tropes.fyi, and sneak's LLM_PROSE_TELLS.md.
-version: 1.7.1
+version: 1.7.2
 license: MIT
 compatibility: any-agent
 allowed-tools:
@@ -57,11 +57,11 @@ Trigger audit mode on "audit," "detect," "flag only," "just flag," "scan." Trigg
 1. **Audit**: run the regex scan FIRST (`references/regex-scan.md`). Apply every HARD, LIMIT, and SOFT pattern to the original text mechanically and list each pattern with its hit count and matched spans. This scan is the objective starting point; it runs before any judgment-based analysis, and it never runs on the user's instructions. Then continue the audit with the judgment-based patterns in `references/patterns.md` (tone, uniformity, structure, significance), citing the specific text.
 2. **Draft rewrite**: produce a clean version with all AI-isms removed, every HARD scan hit fixed. Use periods instead of em dashes. If the text is already clean, return it unchanged and say so. Editing for its own sake is over-editing.
 3. **Self-audit (MANDATORY)**: re-read your draft and re-run the regex scan on it. Every HARD pattern must show 0 hits and LIMIT patterns must be within their limit; any surviving hit gets fixed before delivery. Then hunt for judgment-level tells: recycled transitions, lingering inflation, copula avoidance, filler phrases, contrast denials (", not Y" and the regex-blind wordings "instead of Y", "rather than Y", "not merely Y", stacked in one passage), colon-and-enumeration in prose, "it's not X it's Y" constructions and their three-sentence variant, hard wraps (paragraph text split across lines with a bare newline; every prose paragraph is one logical line), unresolvable references (every ticket ID, option label, and pointer phrase must carry its name on first use; `references/patterns.md` § Unresolvable references), EM DASHES (scan every line for — or --; this is the most common failure mode), and anything else from `references/patterns.md`. List each one. Do NOT skip this step. Be thorough: look for original clichés that survived ("journey," "pen is mightier than the sword," "from the hook to the conclusion," "separates good from great"), rule-of-three in any form (including fragments like "They X. They Y. They Z."), and claims about the text's origin ("not AI-generated," "definitely human," "already human-sounding"). The rewrite's deliverable is quality, so commentary on who wrote the original has no place in it.
-4. **Final rewrite**: address every remaining tell from the self-audit. Before delivering, scan the final rewrite for em dashes (— or --) and re-run every HARD pattern; if any HARD hit or over-limit LIMIT hit survives, fix it and scan again. This is a hard gate: zero HARD hits in the final output.
+4. **Final rewrite, then the deterministic gate**: address every remaining tell from the self-audit. Then run the delivery gate defined in `references/regex-scan.md` § How to use, step 3: the bundled scanner must exit 0 on a file holding the final rewrite body, and the literal em dash search must return zero hits across the complete final response, with the issues list, the self-audit, and quoted original text included. Fix every reported hit and re-run both checks, up to three loops; if a hit survives the third loop, disclose the survivors in the delivery. This is a hard gate verified by tool exit codes and hit counts, and a clean claim without them is undeliverable.
 5. **Diff summary**: briefly list what changed and why.
 
 **Pre-delivery checklist.** Before returning ANY output, verify EVERY item. If any item fails, fix it before delivering:
-- [ ] Regex scan zero HARD hits: every HARD pattern in `references/regex-scan.md` shows 0 hits in the final text (run the scan on the final text, list pattern names with 0, and fix any survivor before delivering)
+- [ ] Deterministic gate passed: `sh tools/scan.sh` on a file holding the final rewrite body exited 0, and the literal em dash search over the complete final response (issues list, self-audit, and quoted original text included) returned zero hits; under `--degraded` the exit is 4 and the SKIPPED pattern list ships with the delivery; with no shell, per-pattern hit counts ship with the delivery
 - [ ] Regex scan LIMIT patterns within limit (stranded auxiliary: max 1; stacked questions: max 1)
 - [ ] Cold-copy check: the text resolves with nothing but itself; every ticket number and option label carries its title on first use, and every pointer phrase names its referent (first-use gloss; `references/patterns.md` § Unresolvable references)
 - [ ] ZERO em dashes (— or --) anywhere in the text (including quoted text from the original)
@@ -102,7 +102,7 @@ The self-audit and final rewrite are MANDATORY. Do not skip them. If the draft i
 1. **Read** the file the writer named.
 2. **Scan**: run `references/regex-scan.md` against the file; the hits are the edit list.
 3. **Patch in place**: minimal, targeted fixes to flagged spans only. Do NOT rewrite the entire file. Preserve already-human passages.
-4. **Verify**: re-run the scan against the edited file; every HARD hit must clear. Re-read and confirm patterns are resolved; report what changed with before/after.
+4. **Verify**: re-run the bundled scanner on the edited file and hold the delivery until it exits 0; loop the fix-and-rescan cycle up to three times per the gate in `references/regex-scan.md` § How to use, step 3, and include the per-pattern hit counts with the delivery when no shell is available. Re-read and confirm patterns are resolved; report what changed with before/after.
 
 ## Voice calibration
 

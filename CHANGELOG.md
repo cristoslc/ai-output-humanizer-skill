@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.2] - 2026-10-04
+
+### Added
+
+- Deterministic post-hoc delivery gate (TC-06 evidence): a convergence run once shipped a surviving HARD tell (an em dash quoted verbatim from the original text) while claiming a clean second-pass audit, and the prior gate language (re-run the scan, verify the checklist) allowed that claim without a tool behind it. The delivery gate in `regex-scan.md` § How to use, step 3, SKILL.md rewrite-mode step 4, patch-mode Verify, and the pre-delivery checklist is now exit-code driven: `sh tools/scan.sh` must exit 0 on a file holding the final rewrite body, and a literal em dash and double hyphen search must return zero hits over the complete final response (issues list, self-audit, and quoted original text included, since the em dash ban uniquely covers commentary and quotes while the body scan carries the remaining catalog patterns). Surviving hits drive a fix-and-rescan loop bounded at three rounds; a hit surviving the third loop is disclosed in the delivery as its own finding. `--degraded` (exit 4) ships with the SKIPPED pattern list, and a shell-less host ships per-pattern hit counts, so no claim path exists without the tool result. `references/examples.md` second-pass audit and patch Verification transcripts now model the engine, file, and exit-code wording.
+
 ## [1.6.0] - 2026-10-03
 
 ### Added
