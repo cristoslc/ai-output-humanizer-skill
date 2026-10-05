@@ -265,23 +265,31 @@ print(prompt)
     text=$(echo "$text" | sed '1s/^```json//;1s/^```//;$s/```$//')
   fi
 
-  # The judge may wrap the verdict JSON in a fence after analysis prose.
-  # If the whole text is not JSON, try the last fenced block; if no block
-  # parses, print the original text so the caller's fail-loud abort fires.
+  # The judge may wrap the verdict JSON in a fence after analysis prose, or
+  # drop the comma between two members across a newline. If the whole text is
+  # not JSON: try the last fenced block, then a conservative member-comma
+  # repair; when nothing parses, print the original text so the caller
+  # records an ERROR run (it no longer aborts the suite).
   if ! echo "$text" | python3 -c 'import sys, json; json.loads(sys.stdin.read())' 2>/dev/null; then
     text=$(echo "$text" | python3 -c '
 import sys, json, re
 text = sys.stdin.read().strip()
-try:
-    json.loads(text)
-except Exception:
+def ok(s):
+    try:
+        json.loads(s)
+        return True
+    except Exception:
+        return False
+if not ok(text):
     for block in reversed(re.findall(r"```(?:json)?\s*\n?(.*?)```", text, re.S)):
-        try:
-            json.loads(block.strip())
-            text = block.strip()
+        block = block.strip()
+        if ok(block):
+            text = block
             break
-        except Exception:
-            continue
+if not ok(text):
+    repaired = re.sub(r"(?<=[}\d\"])\s*\n(\s*\"[a-z_]{1,20}\":)", lambda m: ",\n" + m.group(1), text)
+    if ok(repaired):
+        text = repaired
 print(text)
 ')
   fi
@@ -323,12 +331,12 @@ for tc in "${RUN_CASES[@]}"; do
       echo "$output_text" > "${RESULTS_DIR}/${tc}/run-${run}.txt"
     fi
 
-    judge_result=$(judge_output "$tc" "$input_text" "$output_text") || {
-      echo "    ERROR: judge failed for $tc run $run; aborting suite (fail loud)" >&2
-      exit 1
-    }
-
-    if ! parsed=$(echo "$judge_result" | python3 -c '
+    if ! judge_result=$(judge_output "$tc" "$input_text" "$output_text"); then
+      echo "    judge failed for $tc run $run; recording ERROR run and continuing" >&2
+      result="error"
+      confidence="0.0"
+      reason="judge invocation failed"
+    elif ! parsed=$(echo "$judge_result" | python3 -c '
 import sys, json
 raw = sys.stdin.read().strip()
 try:
@@ -345,13 +353,15 @@ except Exception as e:
     sys.stderr.write(f"unparseable judge output ({e}): {raw[:200]!r}\n")
     sys.exit(1)
 '); then
-      echo "    ERROR: judge returned unparseable output for $tc run $run: $judge_result" >&2
-      echo "    aborting suite (fail loud)" >&2
-      exit 1
+      echo "    ERROR: judge returned an unparseable verdict for $tc run $run; recording ERROR run and continuing" >&2
+      result="error"
+      confidence="0.0"
+      reason=$(echo "$judge_result" | head -c 500)
+    else
+      result=$(echo "$parsed" | sed -n 1p)
+      confidence=$(echo "$parsed" | sed -n 2p)
+      reason=$(echo "$parsed" | tail -n +3)
     fi
-    result=$(echo "$parsed" | sed -n 1p)
-    confidence=$(echo "$parsed" | sed -n 2p)
-    reason=$(echo "$parsed" | tail -n +3)
 
     if [ "$result" = "pass" ]; then
       TC_PASS=$((TC_PASS + 1))
