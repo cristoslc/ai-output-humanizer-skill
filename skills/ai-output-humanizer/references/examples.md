@@ -61,6 +61,18 @@ so each line ends mid-sentence and the pieces have to join.
 **After:**
 The output wraps every paragraph at column 74 with a bare newline, so each line ends mid-sentence and the pieces have to join.
 
+## Over-length paragraphs
+
+This pair splits a six-sentence block at its topic seam. Nothing is cut; the break gives each half its own point.
+
+**Before:**
+The library caches every response in memory for five minutes. The cache is keyed on the request path and the Accept header. Two requests that differ only in a query parameter therefore share an entry. The team noticed this during a load test in March. The fix landed in the April release. Nobody wrote it down at the time.
+
+**After:**
+The library caches every response in memory for five minutes. The cache is keyed on the request path and the Accept header. Two requests that differ only in a query parameter therefore share an entry. The team noticed this during a load test in March.
+
+The fix landed in the April release. Nobody wrote it down at the time.
+
 ## Rewrite-mode response example
 
 **Input:**

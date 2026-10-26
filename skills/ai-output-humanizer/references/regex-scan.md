@@ -153,13 +153,16 @@ Flag any run of three or more consecutive sentences opening on the same non-func
 ### Echoing skeleton runs — LIMIT 0 (runs of 2+)
 Flag runs of two or more consecutive sentences sharing a 4+ word skeleton (like "is a tiny state machine"). Collapse to one sentence or rewrite each around its own point. These three procedures have no compact regex; apply them as explicit sentence-by-sentence checks.
 
+### Over-length paragraphs — LIMIT 1
+Count sentences and words in each prose paragraph. Over five sentences or over ninety words is over-length, and at most one such paragraph survives the gate. Fix by splitting at the topic seam, one idea per paragraph, or by cutting what a split would strand. Headings, list items, table rows, code fences, block quotes and front matter are structural and never count. No fence can count, so apply this as an explicit per-paragraph check and report the tallest surviving paragraph with the delivery.
+
 ## SOFT patterns
 
 ### AI vocabulary words — SOFT
 ```
-\b(?:delv(?:e|es|ed|ing)|tapestr(?:y|ies)|meticulous(?:ly)?|pivotal|intricate(?:ly)?|interplay|underscor(?:e|es|ed|ing)|garner(?:s|ed|ing)?|bolster(?:s|ed|ing)?|vibrant|bustling|multifaceted|seamless(?:ly)?|commendable|ever-evolving)\b
+\b(?:delv(?:e|es|ed|ing)|tapestr(?:y|ies)|meticulous(?:ly)?|pivotal|intricate(?:ly)?|interplay|underscor(?:e|es|ed|ing)|garner(?:s|ed|ing)?|bolster(?:s|ed|ing)?|vibrant|bustling|multifaceted|seamless(?:ly)?|commendable|ever-evolving|estate)\b
 ```
-One hit can be coincidence. Several in one piece escalates: fix the hits and rerun as HARD if the piece initially showed 3+.
+One hit can be coincidence. Several in one piece escalates: fix the hits and rerun as HARD if the piece initially showed 3+. "Estate" is the systems-as-collection sense LLM prose reaches for ("the Azure estate", "estate-wide"); the property sense in "real estate" is ordinary English, so judge the hit before cutting.
 
 ### Curly quotation marks — SOFT
 Corroborating signal in plain-text output; never block on it. See `patterns.md`.

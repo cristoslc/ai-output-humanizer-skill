@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Pattern "AI vocabulary words" gains `estate` as a flagged word, on the operator's instruction: LLM technical prose reaches for the systems-as-collection sense ("the Azure estate", "estate-wide"), and the word had started recurring in incident prose on this machine. One alternation change inside the shared fence, so all three engines pick it up with no code edit and the degraded grep subset is unaffected. The property sense in "real estate" also matches and stays a judgment call, recorded under the fence, since SOFT is corroborating rather than blocking. `node tests/regex-scan-selftest.mjs` passes 109/109 against the edited catalog (pattern cases, engine parity over the five fixtures, degraded triage, dispatcher behavior).
+- Pattern "Over-length paragraphs — LIMIT 1" (a fence-less LIMIT procedure, like stacked questions and repeated openers): a prose paragraph over five sentences or ninety words is over-length, at most one survives the gate, and the fix is a split at the topic seam or a cut, because the operator called the outputs wall-of-text. Wired into the catalog's LIMIT section, `references/patterns.md` § "Over-length paragraphs", `references/examples.md` § "Over-length paragraphs", the SKILL.md self-audit hunt list, the pre-delivery checklist, the final scan list, the structural-issues summary, and the P1 severity tier. Engines cannot count, so the pattern ships as an explicit per-paragraph check that reports the tallest survivor; `node tests/regex-scan-selftest.mjs` still passes because the change adds no fenced regex and no engine code.
+
 ## [1.6.0] - 2026-10-03
 
 ### Added
