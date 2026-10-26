@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Pattern "AI vocabulary words" gains `estate` as a flagged word, on the operator's instruction: LLM technical prose reaches for the systems-as-collection sense ("the Azure estate", "estate-wide"), and the word had started recurring in incident prose on this machine. One alternation change inside the shared fence, so all three engines pick it up with no code edit and the degraded grep subset is unaffected. The property sense in "real estate" also matches and stays a judgment call, recorded under the fence, since SOFT is corroborating rather than blocking. `node tests/regex-scan-selftest.mjs` passes 109/109 against the edited catalog (pattern cases, engine parity over the five fixtures, degraded triage, dispatcher behavior).
+
 ## [1.6.0] - 2026-10-03
 
 ### Added

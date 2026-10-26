@@ -157,9 +157,9 @@ Flag runs of two or more consecutive sentences sharing a 4+ word skeleton (like 
 
 ### AI vocabulary words — SOFT
 ```
-\b(?:delv(?:e|es|ed|ing)|tapestr(?:y|ies)|meticulous(?:ly)?|pivotal|intricate(?:ly)?|interplay|underscor(?:e|es|ed|ing)|garner(?:s|ed|ing)?|bolster(?:s|ed|ing)?|vibrant|bustling|multifaceted|seamless(?:ly)?|commendable|ever-evolving)\b
+\b(?:delv(?:e|es|ed|ing)|tapestr(?:y|ies)|meticulous(?:ly)?|pivotal|intricate(?:ly)?|interplay|underscor(?:e|es|ed|ing)|garner(?:s|ed|ing)?|bolster(?:s|ed|ing)?|vibrant|bustling|multifaceted|seamless(?:ly)?|commendable|ever-evolving|estate)\b
 ```
-One hit can be coincidence. Several in one piece escalates: fix the hits and rerun as HARD if the piece initially showed 3+.
+One hit can be coincidence. Several in one piece escalates: fix the hits and rerun as HARD if the piece initially showed 3+. "Estate" is the systems-as-collection sense LLM prose reaches for ("the Azure estate", "estate-wide"); the property sense in "real estate" is ordinary English, so judge the hit before cutting.
 
 ### Curly quotation marks — SOFT
 Corroborating signal in plain-text output; never block on it. See `patterns.md`.
