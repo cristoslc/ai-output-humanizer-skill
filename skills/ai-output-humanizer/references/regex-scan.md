@@ -153,6 +153,9 @@ Flag any run of three or more consecutive sentences opening on the same non-func
 ### Echoing skeleton runs — LIMIT 0 (runs of 2+)
 Flag runs of two or more consecutive sentences sharing a 4+ word skeleton (like "is a tiny state machine"). Collapse to one sentence or rewrite each around its own point. These three procedures have no compact regex; apply them as explicit sentence-by-sentence checks.
 
+### Over-length paragraphs — LIMIT 1
+Count sentences and words in each prose paragraph. Over five sentences or over ninety words is over-length, and at most one such paragraph survives the gate. Fix by splitting at the topic seam, one idea per paragraph, or by cutting what a split would strand. Headings, list items, table rows, code fences, block quotes and front matter are structural and never count. No fence can count, so apply this as an explicit per-paragraph check and report the tallest surviving paragraph with the delivery.
+
 ## SOFT patterns
 
 ### AI vocabulary words — SOFT
